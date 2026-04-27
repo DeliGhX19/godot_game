@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://mq2ibq7gd3ka"]
+
+[ext_resource type="Script" uid="uid://c2lbvllypluci" path="res://scripts/main/select_saves.gd" id="1_o4mbo"]
+[ext_resource type="PackedScene" uid="uid://cgpc5x1md4j4e" path="res://scenes/gui/saves.tscn" id="1_tyt2j"]
+
+[node name="SelectSaves" type="Node2D" unique_id=1366848116]
+script = ExtResource("1_o4mbo")
+
+[node name="Saves" parent="." unique_id=843789184 instance=ExtResource("1_tyt2j")]
+offset_left = 302.0
+offset_top = 275.0
+offset_right = 302.0
+offset_bottom = 275.0
+
+[connection signal="profile_selected" from="Saves" to="." method="_on_saves_profile_selected"]

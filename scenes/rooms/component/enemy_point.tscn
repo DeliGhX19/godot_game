@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bnj8fx3ehrtfw"]
+
+[ext_resource type="Script" uid="uid://ce8odh3n18i2i" path="res://scripts/rooms/components/enemy_point.gd" id="1_bjfvf"]
+
+[node name="EnemyPoint" type="Marker2D" unique_id=1364889017]
+script = ExtResource("1_bjfvf")

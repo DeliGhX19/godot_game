@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cbf5iwo285rcr"]
+
+[ext_resource type="Script" uid="uid://crnnkc7mja35k" path="res://scripts/rooms/components/opening.gd" id="1_a7q0j"]
+[ext_resource type="Texture2D" uid="uid://cg8mylsw8h4us" path="res://assets/rooms/opening _close.png" id="2_lv05l"]
+[ext_resource type="Texture2D" uid="uid://qh2aixus8h5o" path="res://assets/rooms/opening _open.png" id="3_qo0pt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3nn03"]
+size = Vector2(64, 128)
+
+[node name="Opening" type="StaticBody2D" unique_id=1336843735]
+script = ExtResource("1_a7q0j")
+texture_closed = ExtResource("2_lv05l")
+texture_open = ExtResource("3_qo0pt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=496820867]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=675163434]
+shape = SubResource("RectangleShape2D_3nn03")

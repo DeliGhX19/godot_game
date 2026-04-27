@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://nhryf7edc8rm"]
+
+[ext_resource type="Script" uid="uid://cfy0jbvw2d2ks" path="res://scripts/rooms/prefabs/room_02.gd" id="1_pfq0n"]
+[ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="1_vgneo"]
+[ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="2_pfq0n"]
+
+[node name="Room02" type="Node2D" unique_id=1167830038]
+script = ExtResource("1_pfq0n")
+
+[node name="Wall" parent="." unique_id=1772174923 instance=ExtResource("1_vgneo")]
+position = Vector2(32, 32)
+
+[node name="Wall2" parent="." unique_id=2142748893 instance=ExtResource("1_vgneo")]
+position = Vector2(32, 96)
+
+[node name="Wall3" parent="." unique_id=784866186 instance=ExtResource("1_vgneo")]
+position = Vector2(32, 160)
+
+[node name="Wall4" parent="." unique_id=533372106 instance=ExtResource("1_vgneo")]
+position = Vector2(32, 224)
+
+[node name="Wall5" parent="." unique_id=166974845 instance=ExtResource("1_vgneo")]
+position = Vector2(32, 288)
+
+[node name="Wall6" parent="." unique_id=2016975130 instance=ExtResource("1_vgneo")]
+position = Vector2(96, 288)
+
+[node name="Wall7" parent="." unique_id=1582613029 instance=ExtResource("1_vgneo")]
+position = Vector2(96, 32)
+
+[node name="Wall8" parent="." unique_id=894347283 instance=ExtResource("1_vgneo")]
+position = Vector2(160, 32)
+
+[node name="Wall9" parent="." unique_id=1743202652 instance=ExtResource("1_vgneo")]
+position = Vector2(224, 32)
+
+[node name="Wall10" parent="." unique_id=1390832210 instance=ExtResource("1_vgneo")]
+position = Vector2(288, 32)
+
+[node name="Wall11" parent="." unique_id=1601054457 instance=ExtResource("1_vgneo")]
+position = Vector2(352, 32)
+
+[node name="Wall12" parent="." unique_id=2085013609 instance=ExtResource("1_vgneo")]
+position = Vector2(352, 96)
+
+[node name="Wall13" parent="." unique_id=156869573 instance=ExtResource("1_vgneo")]
+position = Vector2(288, 288)
+
+[node name="Wall14" parent="." unique_id=34937662 instance=ExtResource("1_vgneo")]
+position = Vector2(352, 288)
+
+[node name="RightOpening" parent="." unique_id=1336843735 instance=ExtResource("2_pfq0n")]
+position = Vector2(352, 192)
+
+[node name="BottomOpening" parent="." unique_id=864592412 instance=ExtResource("2_pfq0n")]
+position = Vector2(192, 288)
+rotation = 1.5707964

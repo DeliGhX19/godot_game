@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bbp1urf4i27mp"]
+
+[ext_resource type="Script" uid="uid://beraao63b0y5j" path="res://scripts/rooms/components/target.gd" id="1_iodo4"]
+[ext_resource type="Texture2D" uid="uid://6hrx784phwqq" path="res://assets/rooms/target.png" id="1_pw27u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iodo4"]
+size = Vector2(64, 128)
+
+[node name="Target" type="Area2D" unique_id=1955001811]
+collision_mask = 2
+script = ExtResource("1_iodo4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1522042139]
+texture = ExtResource("1_pw27u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=536090532]
+shape = SubResource("RectangleShape2D_iodo4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

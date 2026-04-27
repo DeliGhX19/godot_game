@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bbjkmg1774rfn"]
+
+[ext_resource type="Script" uid="uid://di3wr67ytswl6" path="res://scripts/main/game_loop.gd" id="1_ea2ro"]
+[ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/Player.tscn" id="2_ou056"]
+[ext_resource type="PackedScene" uid="uid://uojbu5u1h3xm" path="res://scenes/rooms/map_generator.tscn" id="3_1naq0"]
+[ext_resource type="PackedScene" uid="uid://2i0lvh0tyyvj" path="res://scenes/enemies/enemy_generator.tscn" id="3_bfxai"]
+
+[node name="GameLoop" type="Node2D" unique_id=2043196160]
+script = ExtResource("1_ea2ro")
+
+[node name="MapGenerator" parent="." unique_id=853333634 instance=ExtResource("3_1naq0")]
+
+[node name="EnemyGenerator" parent="." unique_id=198148732 instance=ExtResource("3_bfxai")]
+
+[node name="Player" parent="." unique_id=750986949 instance=ExtResource("2_ou056")]
+
+[connection signal="next_level" from="MapGenerator" to="." method="_on_map_generator_next_level"]
+[connection signal="die" from="Player" to="." method="_on_player_die"]

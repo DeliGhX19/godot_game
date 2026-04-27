@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ipqfkts87qub"]
+
+[ext_resource type="Script" uid="uid://bcd7rfqb5qbds" path="res://scripts/rooms/prefabs/room_01.gd" id="1_5xdka"]
+[ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="1_lg8t1"]
+[ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="2_5xdka"]
+[ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="4_63uo7"]
+
+[node name="Room01" type="Node2D" unique_id=86536864]
+script = ExtResource("1_5xdka")
+
+[node name="Wall" parent="." unique_id=1772174923 instance=ExtResource("1_lg8t1")]
+position = Vector2(32, 32)
+
+[node name="Wall2" parent="." unique_id=13390261 instance=ExtResource("1_lg8t1")]
+position = Vector2(32, 96)
+
+[node name="Wall3" parent="." unique_id=836116174 instance=ExtResource("1_lg8t1")]
+position = Vector2(32, 288)
+
+[node name="Wall4" parent="." unique_id=418944851 instance=ExtResource("1_lg8t1")]
+position = Vector2(96, 288)
+
+[node name="Wall5" parent="." unique_id=1878618057 instance=ExtResource("1_lg8t1")]
+position = Vector2(160, 288)
+
+[node name="Wall6" parent="." unique_id=1251808198 instance=ExtResource("1_lg8t1")]
+position = Vector2(224, 288)
+
+[node name="Wall7" parent="." unique_id=345412665 instance=ExtResource("1_lg8t1")]
+position = Vector2(288, 288)
+
+[node name="Wall8" parent="." unique_id=1594300001 instance=ExtResource("1_lg8t1")]
+position = Vector2(96, 32)
+
+[node name="Wall9" parent="." unique_id=1314340037 instance=ExtResource("1_lg8t1")]
+position = Vector2(352, 288)
+
+[node name="Wall10" parent="." unique_id=1910819307 instance=ExtResource("1_lg8t1")]
+position = Vector2(288, 32)
+
+[node name="Wall11" parent="." unique_id=1388043941 instance=ExtResource("1_lg8t1")]
+position = Vector2(352, 32)
+
+[node name="Wall12" parent="." unique_id=2013125444 instance=ExtResource("1_lg8t1")]
+position = Vector2(352, 96)
+
+[node name="LeftOpening" parent="." unique_id=1336843735 instance=ExtResource("2_5xdka")]
+position = Vector2(32, 192)
+
+[node name="RightOpening" parent="." unique_id=670995658 instance=ExtResource("2_5xdka")]
+position = Vector2(352, 192)
+
+[node name="TopOpening" parent="." unique_id=795484129 instance=ExtResource("2_5xdka")]
+position = Vector2(192, 32)
+rotation = 1.5707964
+
+[node name="EnemyPoint" parent="." unique_id=1364889017 instance=ExtResource("4_63uo7")]
+position = Vector2(192, 192)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://41eqvjpmnntx"]
+
+[ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="1_nh0oq"]
+[ext_resource type="Script" uid="uid://bx106280ruc52" path="res://scripts/rooms/prefabs/rest_room.gd" id="1_te3an"]
+[ext_resource type="PackedScene" uid="uid://bbp1urf4i27mp" path="res://scenes/rooms/component/target.tscn" id="2_rugh4"]
+
+[node name="RestRoom" type="Node2D" unique_id=1252718209]
+script = ExtResource("1_te3an")
+
+[node name="Wall" parent="." unique_id=1772174923 instance=ExtResource("1_nh0oq")]
+position = Vector2(32, 224)
+
+[node name="Wall2" parent="." unique_id=2056241345 instance=ExtResource("1_nh0oq")]
+position = Vector2(96, 224)
+
+[node name="Wall3" parent="." unique_id=370133592 instance=ExtResource("1_nh0oq")]
+position = Vector2(160, 224)
+
+[node name="Wall4" parent="." unique_id=1842202761 instance=ExtResource("1_nh0oq")]
+position = Vector2(224, 224)
+
+[node name="Wall5" parent="." unique_id=210316742 instance=ExtResource("1_nh0oq")]
+position = Vector2(288, 224)
+
+[node name="Wall6" parent="." unique_id=1225440284 instance=ExtResource("1_nh0oq")]
+position = Vector2(352, 224)
+
+[node name="Target" parent="." unique_id=1955001811 instance=ExtResource("2_rugh4")]
+position = Vector2(352, 128)
+
+[connection signal="reach_target" from="Target" to="." method="_on_target_reach_target"]

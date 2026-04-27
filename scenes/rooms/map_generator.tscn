@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://uojbu5u1h3xm"]
+
+[ext_resource type="Script" uid="uid://lrus3mokk5mc" path="res://scripts/rooms/map_generator.gd" id="1_ns0q3"]
+[ext_resource type="PackedScene" uid="uid://cxytm4bf7rela" path="res://scenes/rooms/prefabs/start_room.tscn" id="2_tqwji"]
+[ext_resource type="PackedScene" uid="uid://bhfys31xphmlq" path="res://scenes/rooms/prefabs/end_room.tscn" id="3_5fwa4"]
+
+[node name="MapGenerator" type="Node2D" unique_id=853333634]
+script = ExtResource("1_ns0q3")
+
+[node name="StartRoom" parent="." unique_id=938933593 instance=ExtResource("2_tqwji")]
+
+[node name="EndRoom" parent="." unique_id=788581490 instance=ExtResource("3_5fwa4")]
+
+[connection signal="next_level" from="EndRoom" to="." method="_on_end_room_next_level"]
