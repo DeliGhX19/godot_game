@@ -18,7 +18,8 @@ func _physics_process(delta: float) -> void:
 	
 	# 检测是否死亡
 	if stats.hp <= 0:
-		die.emit()
+		#die.emit()
+		pass
 	
 	# 左右移动
 	var input_dir := Input.get_axis("move_left", "move_right")

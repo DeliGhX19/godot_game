@@ -2,13 +2,13 @@ extends Node2D
 
 var enemy_template_dir: String = "res://scenes/enemies/"
 var enemy_count: int = 1      # 预载敌人的种类数量
-var max_enemies: int = 10     # 本次关卡生成的最大敌人数量
+var max_enemies: int = 100     # 本次关卡生成的最大敌人数量
 
 var enemy_templates: Array[PackedScene] = []
 var enemy_nodes: Array[Node2D] = []
 
 
-# 生成关卡敌人
+# 生成关卡敌人6
 func generator_enemy(points: Array[Marker2D]) -> void:
 	clear_previous_enenmy()
 	load_enemy_templates()
