@@ -6,7 +6,7 @@ const TILE_SIZE = 64     # 图格大小（64*64）
 @onready var end_room_instance = $EndRoom
 
 var room_template_dir: String = "res://scenes/rooms/prefabs/"     # 房间模板路径
-var room_count: int = 6                                         # 房间模板数量
+var room_count: int = 6                                      # 房间模板数量
 var max_rooms: int = 15                                          # 最多生成房间数
 var min_rooms_before_end: int = 12                               # 生成结束房间前的最近房间数
 
