@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://bq1dqye3obher"]
+
+[ext_resource type="Texture2D" uid="uid://cvndoln3i4fb2" path="res://assets/magic/654.png" id="1_5cb2c"]
+[ext_resource type="Script" uid="uid://bslkosrib1n3o" path="res://scripts/player/stone_magic.gd" id="1_vcam5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcam5"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlgao"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(768, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sdgk"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(832, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eckcr"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(896, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivkxm"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(960, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_374vw"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(1024, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yudy4"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(576, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30m2j"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(640, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4iy2"]
+atlas = ExtResource("1_5cb2c")
+region = Rect2(704, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q3b3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcam5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlgao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sdgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eckcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivkxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_374vw")
+}],
+"loop": false,
+"name": &"die",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yudy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30m2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4iy2")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cb2c"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcam5"]
+size = Vector2(64, 64)
+
+[node name="StoneMagic" type="CharacterBody2D" unique_id=1514800462]
+collision_layer = 16
+script = ExtResource("1_vcam5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=389587510]
+sprite_frames = SubResource("SpriteFrames_q3b3b")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=606029447]
+shape = SubResource("RectangleShape2D_5cb2c")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=631298536]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=107673315]
+shape = SubResource("RectangleShape2D_vcam5")
+debug_color = Color(0.9301373, 2.8685927e-05, 0.65996796, 0.41960785)
+
+[node name="Timer" type="Timer" parent="." unique_id=22269540]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

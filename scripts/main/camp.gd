@@ -1,17 +1,12 @@
 extends Node2D
 
-@onready var player = $Player
+@onready var player: CharacterBody2D = $Player
 
 var profile: PlayerProfile
 
 
 func _ready() -> void:
-	player.profile = profile
-	player.stats = PlayerStats.new()
-	player.buffs = PlayerBuffs.new()
-	
-	player.stats.initialize(player.profile)
-	player.buffs.initialize()
+	player.initialize(profile)
 
 
 # 开始游戏

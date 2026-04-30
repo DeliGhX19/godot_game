@@ -1,0 +1,74 @@
+extends BasePlayerMagic
+
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var area_shape: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var timer: Timer = $Timer
+
+
+func initialize(belonging_player: CharacterBody2D) -> void:
+	player = belonging_player
+	
+	base_damage = 25
+	speed = 1200 +  300 * player.stats.magic_range_extra
+	flying_time = 15 
+	gravity = GameManager.gravity
+	bounce_factor = 0.0
+	max_pierce = 1 + player.stats.magic_pierce_extra
+
+func _physics_process(delta: float) -> void:
+	# 处理重力
+	velocity.y += gravity * delta
+	
+	# 处理撞墙
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		die()
+		return
+	
+	# 始终旋转
+	rotation += 100.0 * delta
+
+
+# 发射魔法
+func launch(target_position: Vector2) -> bool:
+	velocity = global_position.direction_to(target_position) * speed
+	
+	sprite.play("fly")
+	timer.wait_time = flying_time
+	timer.start()
+	
+	return true
+
+# 魔法销毁
+func die() -> void:
+	if is_dying: return
+	is_dying = true
+	
+	set_physics_process(false)
+	collision_shape.set_deferred("disabled", true)
+	area_shape.set_deferred("disabled", true)
+	
+	sprite.play("die")
+
+
+func _on_timer_timeout() -> void:
+	die()
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if is_dying: return
+	
+	player.stats.damages[PlayerStats.STONE_MAGIC].value = base_damage
+	player.stats.damages[PlayerStats.STONE_MAGIC].type = GameManager.TYPE_STONE
+	player.stats.enemies[PlayerStats.STONE_MAGIC].append(body)
+	body.buffs.buffs[EnemyBuffs.KNOCK_BACK] = 1
+	if player.buffs.buffs[PlayerBuffs.STONE_STUN] and randf() <= 0.2:
+		body.buffs.buffs[EnemyBuffs.STUN] = 1
+	
+	current_pierce += 1
+	if current_pierce >= max_pierce:
+		die()
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if sprite.animation == "die":
+		queue_free()

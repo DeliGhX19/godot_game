@@ -6,7 +6,6 @@ extends BaseEnemy
 
 var detection_range: float = 500.0        # 检测范围
 var attack_range: float = 100.0           # 攻击范围
-var base_damage: float = 15.0             # 基础伤害
 
 var is_attacking: bool = false            # 是否攻击
 
@@ -17,8 +16,9 @@ func initialize_stats() -> void:
 	move_speed = 80.0
 	jump_height = 0.0
 	crit_rate = 0.0
-	damage_reduction = 0.2
-	i_frame_duration = 0.1
+	base_damages = [15.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+	damage_reduction = [0.2, 0.0, 0.0, 0.0, 0.0, 0.0]
+	i_frame_duration = 0.0
 	
 	attack_shape.disabled = true
 
@@ -26,7 +26,7 @@ func initialize_stats() -> void:
 func handle_ai(delta: float) -> void:
 	# 重力
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += GameManager.gravity * delta
 	
 	# 如果正在攻击，避免移动
 	if is_attacking:
@@ -93,4 +93,3 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if not is_attack_blocked_by_wall(body):
 			stats.player = body.stats
-			stats.damages[0] = base_damage

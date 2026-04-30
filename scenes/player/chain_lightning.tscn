@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://xp1cscelvyim"]
+
+[ext_resource type="Script" uid="uid://6p4gp733hiws" path="res://scripts/player/chain_lightning.gd" id="1_nrbxs"]
+[ext_resource type="Texture2D" uid="uid://da118b368fq5k" path="res://assets/magic/196.png" id="2_fks2g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgl22"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a303o"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i43j6"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6pl1"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dlea"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l206q"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bap7v"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsr73"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63xug"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4cv8"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv5o6"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3um3b"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(704, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbimf"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(768, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8i2w"]
+atlas = ExtResource("2_fks2g")
+region = Rect2(832, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b1vkv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgl22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a303o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i43j6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6pl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dlea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l206q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bap7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsr73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63xug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4cv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv5o6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3um3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbimf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8i2w")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ctub3"]
+size = Vector2(16, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgl22"]
+size = Vector2(16, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pf5ak"]
+
+[node name="ChainLightning" type="CharacterBody2D" unique_id=2059542478]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_nrbxs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2105681696]
+sprite_frames = SubResource("SpriteFrames_b1vkv")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=369067485]
+shape = SubResource("RectangleShape2D_ctub3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=500158622]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1102812240]
+shape = SubResource("RectangleShape2D_lgl22")
+debug_color = Color(0.9288362, 0.04334411, 0.6475992, 0.41960785)
+
+[node name="SearchArea" type="Area2D" parent="." unique_id=1845517808]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea" unique_id=356207556]
+shape = SubResource("CircleShape2D_pf5ak")
+debug_color = Color(0.28012174, 0.63166565, 0, 0.41960785)
+
+[node name="Timer" type="Timer" parent="." unique_id=571644891]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

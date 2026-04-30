@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dmiyc3ljtylku"]
+
+[ext_resource type="Script" uid="uid://b7qi7vjhy4r01" path="res://scripts/gui/floating_damage.gd" id="1_unfld"]
+
+[node name="FloatingDamage" type="Label" unique_id=114484764]
+offset_right = 1.0
+offset_bottom = 23.0
+script = ExtResource("1_unfld")

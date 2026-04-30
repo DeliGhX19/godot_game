@@ -1,5 +1,19 @@
 class_name PlayerStats
 
+class DamagePacket:
+	var value: float = 0   # 伤害
+	var type: int = 0      # 类别（物理/火/木/石/冰/电）
+const PHYSIC_ATTACK = 0                   # 近战
+const FIRE_MAGIC = 1                      # 火魔法
+const FIRE_EXPLOSION = 2                  # 爆燃
+const WOOD_MAGIC = 3                      # 木魔法
+const STONE_MAGIC = 4                     # 石魔法
+const ICE_MAGIC = 5                       # 冰魔法
+const LIGHTNING_MAGIC = 6                 # 雷魔法
+const LIGHTNING_SPLASH = 7                # 雷魔法溅射
+const CHAIN_LIGHTNING = 8                 # 连锁雷
+const DAMAGE_SOURCE_COUNT = 9             # 所有伤害来源
+
 var max_hp: float                         # 生命上限
 var move_speed: float                     # 移动速度
 var jump_height: float                    # 跳跃高度
@@ -7,12 +21,18 @@ var crit_rate: float                      # 暴击率
 var damage_reduction: float               # 减伤系数
 
 var hp: float                             # 生命值
-var damages: Array[float]                 # 造成的伤害（物理/火/木/石/冰/电）
-var receiving_damages: Array[float]       # 收到的伤害（物理/火/木/石/冰/电）
-var enemies: Array[Array]                 # 攻击的敌人（对应物理/火/木/石/冰/电）
+var receiving_damages: Array[float]       # 收到的伤害
+var damages: Array[DamagePacket]          # 造成的伤害
+var enemies: Array[Array]                 # 攻击的敌人
 
-var i_frame_timer: float = 0.0         # 无敌帧计时器
-var i_frame_duration: float = 1.0      # 无敌时间
+var i_frame_timer: float = 0.0            # 无敌帧计时器
+var i_frame_duration: float = 1.0         # 无敌时间
+
+var magic_attack_speed: float             # 远程攻击速度
+var magic_pierce_extra: int               # 远程攻击增加的穿透次数
+var magic_range_extra: float              # 远程攻击增加的持续时间
+
+signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
 
 
 # 初始化（每次进入主游戏时调用）
@@ -24,9 +44,17 @@ func initialize(profile: PlayerProfile) ->void:
 	damage_reduction = profile.damage_reduction
 	
 	hp = max_hp
-	damages = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-	receiving_damages = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-	enemies = [[], [], [], [], [], []]
+	receiving_damages.resize(GameManager.TYPE_COUNT)
+	receiving_damages.fill(0.0)
+	damages.resize(DAMAGE_SOURCE_COUNT)
+	enemies.resize(DAMAGE_SOURCE_COUNT)
+	for i in range(DAMAGE_SOURCE_COUNT):
+		damages[i] = DamagePacket.new()
+		enemies[i] = []
+	
+	magic_attack_speed = 1.0
+	magic_pierce_extra = 0
+	magic_range_extra = 0
 
 # 重置（主游戏中每帧调用）
 func reset(profile: PlayerProfile) -> void:
@@ -36,10 +64,15 @@ func reset(profile: PlayerProfile) -> void:
 	crit_rate = profile.crit_rate
 	damage_reduction = profile.damage_reduction
 	
-	for i in range(6):
-		damages[i] = 0.0
+	for i in range(GameManager.TYPE_COUNT): 
 		receiving_damages[i] = 0.0
+	for i in range(DAMAGE_SOURCE_COUNT):
+		damages[i].value = 0.0
 		enemies[i].clear()
+		
+	magic_attack_speed = 1.0
+	magic_pierce_extra = 0
+	magic_range_extra = 0
 
 # 结算（主游戏中每帧调用）
 func settle(delta: float) -> void:
@@ -47,16 +80,27 @@ func settle(delta: float) -> void:
 	if i_frame_timer > 0: i_frame_timer -= delta
 	
 	# 玩家攻击敌人
-	for i in range(6):
+	for i in range(DAMAGE_SOURCE_COUNT):
+		var type = damages[i].type
 		var is_crit := randf() < crit_rate
 		for enemy in enemies[i]:
-			enemy.receiving_damages[i] += damages[i] * (1.5 if is_crit else 1.0)
+			enemy.stats.receiving_damages[type] += damages[i].value * (1.5 if is_crit else 1.0)
 	
 	# 结算玩家收到的伤害
 	if i_frame_timer <= 0:
 		var total_receiving := 0.0
-		for i in range(6): total_receiving += receiving_damages[i]
+		for i in range(GameManager.TYPE_COUNT): 
+			total_receiving += receiving_damages[i]
 		if total_receiving > 0:
 			var fixed_damage_reduction = damage_reduction / (0.5 + damage_reduction)
-			hp -= total_receiving * (1.0 - fixed_damage_reduction)
+			settle_hp(total_receiving * (1.0 - fixed_damage_reduction))
 			i_frame_timer = i_frame_duration
+
+
+# 伤害结算
+func settle_hp(damage: float) -> void:
+	hp -= damage
+	
+	var display_color = Color.RED if damage > 0 else Color.GREEN
+	var is_heavy_hit = (damage > 0) and (abs(damage) >= max_hp * 0.3) 
+	hp_changed.emit(abs(damage), display_color, is_heavy_hit)

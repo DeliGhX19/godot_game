@@ -1,18 +1,21 @@
 extends CharacterBody2D
 class_name BaseEnemy
 
+var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
+var explode_scene = load("res://scenes/player/fire_explosion.tscn")
+
 var max_hp: float
 var move_speed: float
 var jump_height: float
 var crit_rate: float
-var damage_reduction: float
+var base_damages: Array[float]
+var damage_reduction: Array[float]
 var i_frame_duration: float
 
 var stats: EnemyStats
 var buffs: EnemyBuffs
 
-# TODO: 调试用，后续改
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var knockback_timer: float
 
 
 func _ready() -> void:
@@ -24,20 +27,28 @@ func _ready() -> void:
 	
 	stats.initialize(data)
 	buffs.initialize()
+	
+	stats.hp_changed.connect(_on_hp_changed)
+	buffs.fire_explore.connect(_on_fire_explore)
+	buffs.knock_back.connect(_on_knock_back)
+	knockback_timer = 0.0
 
 func _physics_process(delta: float) -> void:
-	buffs.apply(stats)
+	buffs.apply(stats, delta)
 	stats.settle(delta)
-	
-	# 处理敌人AI
-	handle_ai(delta)
-	move_and_slide()
-	update_animation()
 	
 	# 检查是否死亡
 	if stats.hp <= 0:
 		on_death()
 		return
+	
+	# 处理敌人AI(眩晕或击退时不行动)
+	if knockback_timer > 0: knockback_timer -= delta
+	if knockback_timer <= 0 and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
+		handle_ai(delta)
+	if buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
+		move_and_slide()
+		update_animation()
 	
 	#TODO:处理血条
 	#
@@ -56,6 +67,7 @@ func get_data_dict() -> Dictionary:
 		"move_speed": move_speed,
 		"jump_height": jump_height,
 		"crit_rate": crit_rate,
+		"base_damages": base_damages,
 		"damage_reduction": damage_reduction,
 		"i_frame_duration": i_frame_duration
 	}
@@ -71,3 +83,22 @@ func update_animation() -> void:
 # 死亡
 func on_death() -> void:
 	push_error("on_death()未实现！")
+
+
+func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
+	var floating_number = floating_number_scene.instantiate()
+	add_child(floating_number)
+	
+	floating_number.global_position = global_position + Vector2(0, -40)
+	floating_number.display(damage, color, is_heavy_hit)
+
+func _on_fire_explore() -> void:
+	stats.i_frame_timer = 0.0
+	var explode_instance = explode_scene.instantiate()
+	get_parent().add_child(explode_instance)
+	explode_instance.global_position = global_position
+
+func _on_knock_back(force: float) -> void:
+	var dir = (global_position - GameManager.player.global_position).normalized()
+	velocity = dir * force
+	knockback_timer = 0.1
