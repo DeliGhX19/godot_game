@@ -255,7 +255,7 @@ size = Vector2(34, 20)
 size = Vector2(55.66667, 32)
 
 [node name="Player" type="CharacterBody2D" unique_id=750986949 groups=["player"]]
-scale = Vector2(3, 3)
+scale = Vector2(2.5, 2.5)
 collision_layer = 2
 script = ExtResource("1_gfjak")
 

@@ -51,9 +51,8 @@ func _physics_process(delta: float) -> void:
 	if knockback_timer > 0: knockback_timer -= delta
 	if not is_hurt and knockback_timer <= 0 and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
 		handle_ai(delta)
-	if not is_hurt and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
-		move_and_slide()
 	if buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
+		move_and_slide()
 		update_animation()
 	
 	#TODO:处理血条
@@ -89,6 +88,8 @@ func is_getting_attack() -> void:
 		for i in range(GameManager.TYPE_COUNT):
 			total_receiving += stats.receiving_damages[i]
 		is_hurt = total_receiving > 0
+		if knockback_timer <= 0:
+			velocity.x = 0
 
 # 更新动画
 func update_animation() -> void:
