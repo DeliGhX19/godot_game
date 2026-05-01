@@ -7,7 +7,7 @@ var enemy_templates: Array[PackedScene] = []
 var enemy_nodes: Array[Node2D] = []
 
 
-# 生成关卡敌人
+# 生成关卡敌人6
 func generator_enemy(points: Array[Marker2D]) -> void:
 	clear_previous_enenmy()
 	load_enemy_templates()

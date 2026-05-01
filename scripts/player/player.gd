@@ -71,6 +71,7 @@ func _physics_process(delta: float) -> void:
 	# 检测是否死亡
 	if stats.hp <= 0:
 		die.emit()
+		pass
 	
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
