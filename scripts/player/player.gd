@@ -31,9 +31,8 @@ var magic_scenes: Array = [fire_magic_scene, wood_magic_scene, stone_magic_scene
 # 闪避
 var facing_dir: float = 1.0
 var slide_speed: float = 520.0
-var slide_duration: float = 0.22
+var slide_duration: float = 0.8
 var is_sliding: bool = false
-var slide_timer: float = 0.0
 
 signal die
 
@@ -88,7 +87,7 @@ func _physics_process(delta: float) -> void:
 		# 闪避
 		if Input.is_action_just_pressed("slide"):
 			is_sliding = true
-			slide_timer = slide_duration
+			stats.slide_timer = slide_duration
 			sprite.play("slide")
 			set_slide_collision_enabled(true)
 	
@@ -97,9 +96,9 @@ func _physics_process(delta: float) -> void:
 	if input_dir != 0: facing_dir = sign(input_dir)
 	if is_sliding:
 		#滑行
-		slide_timer -= delta
+		stats.slide_timer -= delta
 		velocity.x = input_dir * slide_speed
-		if slide_timer <= 0.0:
+		if stats.slide_timer <= 0.0:
 			is_sliding = false
 			set_slide_collision_enabled(false)
 	else:
@@ -172,9 +171,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
 		is_attacking = false
 		set_attack_hitbox_enabled(false)
-	elif sprite.animation == "slide":
-		is_sliding = false
-		set_slide_collision_enabled(false)
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if not GameManager.is_target_blocked_by_wall(self, body):
