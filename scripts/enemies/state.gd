@@ -17,7 +17,6 @@ var i_frame_duration: float               # 无敌时间
 signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
 
 
-# 初始化（每次预载时调用）
 func initialize(data: Dictionary) ->void:
 	max_hp = data["max_hp"]
 	move_speed = data["move_speed"]

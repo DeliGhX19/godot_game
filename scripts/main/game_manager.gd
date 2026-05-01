@@ -14,3 +14,17 @@ static var gravity: float = ProjectSettings.get_setting("physics/2d/default_grav
 
 # 玩家
 static var player: CharacterBody2D
+
+
+# 工具方法
+static func is_target_blocked_by_wall(from_node: Node2D, to_node: Node2D, mask: int = 1, offset: Vector2 = Vector2(0, -20)) -> bool:
+	var space_state = from_node.get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(
+		from_node.global_position + offset,
+		to_node.global_position + offset
+	)
+	query.collision_mask = mask
+	query.exclude = [from_node.get_rid()]
+	
+	var result = space_state.intersect_ray(query)
+	return result.size() > 0

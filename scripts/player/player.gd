@@ -8,15 +8,32 @@ var lightning_magic_scene: PackedScene = preload("res://scenes/player/lightning_
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var attack_pivot: Node2D = $AttackPivot
+@onready var attack_hitbox: Area2D = $AttackPivot/AttackHitbox
+@onready var attack_collision: CollisionShape2D = $AttackPivot/AttackHitbox/CollisionShape2D
+@onready var standing_collision: CollisionShape2D = $StandingCollisionShape2D
+@onready var slide_collision: CollisionShape2D = $SlideCollisionShape2D
+@onready var initial_pivot_x = attack_pivot.position.x
 
 var profile: PlayerProfile
 var stats: PlayerStats
 var buffs: PlayerBuffs
 
+# 近战攻击
+var is_attacking: bool = false
+var attack_damage: float = 25.0
+
+# 远程攻击
 var current_magic_index: int = 0
-var shoot_cooldown_timer: float = 0.0
+var magic_cooldown_timer: float = 0.0
 var magic_scenes: Array = [fire_magic_scene, wood_magic_scene, stone_magic_scene, ice_magic_scene, lightning_magic_scene]
 
+# 闪避
+var facing_dir: float = 1.0
+var slide_speed: float = 520.0
+var slide_duration: float = 0.22
+var is_sliding: bool = false
+var slide_timer: float = 0.0
 
 signal die
 
@@ -31,6 +48,9 @@ func initialize(selected_profile: PlayerProfile):
 	
 	buffs = PlayerBuffs.new()
 	buffs.initialize()
+	
+	set_slide_collision_enabled(false)
+	set_attack_hitbox_enabled(false)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire_magic"):
@@ -52,20 +72,45 @@ func _physics_process(delta: float) -> void:
 	if stats.hp <= 0:
 		die.emit()
 	
-	# 远程攻击
-	if shoot_cooldown_timer > 0: shoot_cooldown_timer -= delta
-	if Input.is_action_pressed("projectile") and shoot_cooldown_timer <= 0:
-		if magic_attack():
-			shoot_cooldown_timer = 1.0 / stats.magic_attack_speed
+	# 行动
+	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
+	if not is_sliding and not is_attacking:
+		# 近战攻击
+		if Input.is_action_just_pressed("melee"):
+			is_attacking = true
+			attack_pivot.position.x = initial_pivot_x * facing_dir
+			attack_pivot.scale.x = facing_dir
+			set_attack_hitbox_enabled(true)
+		# 远程攻击
+		if Input.is_action_just_pressed("projectile") and magic_cooldown_timer <= 0:
+			if magic_attack(): magic_cooldown_timer = 1.0 / stats.magic_attack_speed
+		# 闪避
+		if Input.is_action_just_pressed("slide"):
+			is_sliding = true
+			slide_timer = slide_duration
+			sprite.play("slide")
+			set_slide_collision_enabled(true)
 	
-	# 左右移动
+	# 移动
 	var input_dir := Input.get_axis("move_left", "move_right")
-	velocity.x = input_dir * stats.move_speed
-	if not is_on_floor(): velocity.y += GameManager.gravity * delta
+	if input_dir != 0: facing_dir = sign(input_dir)
+	if is_sliding:
+		#滑行
+		slide_timer -= delta
+		velocity.x = input_dir * slide_speed
+		if slide_timer <= 0.0:
+			is_sliding = false
+			set_slide_collision_enabled(false)
+	else:
+		# 走动
+		velocity.x = input_dir * stats.move_speed
+		if not is_on_floor(): velocity.y += GameManager.gravity * delta
+	
 	# 跳跃
 	if Input.is_action_just_pressed("move_up") and is_on_floor():
 		velocity.y = -stats.jump_height
-	# 移动动画
+	
+	# 动画
 	move_and_slide()
 	update_animation(input_dir)
 	
@@ -78,6 +123,11 @@ func _physics_process(delta: float) -> void:
 	stats.reset(profile)
 
 
+# 设置近战攻击相关碰撞箱
+func set_attack_hitbox_enabled(enabled: bool) -> void:
+	attack_collision.set_deferred("disabled", not enabled)
+	attack_hitbox.monitoring = enabled
+
 # 远程攻击
 func magic_attack() -> bool:
 	var magic = magic_scenes[current_magic_index].instantiate()
@@ -87,10 +137,21 @@ func magic_attack() -> bool:
 	magic.global_position = global_position
 	return magic.launch(get_global_mouse_position())
 
+# 设置闪避相关碰撞箱
+func set_slide_collision_enabled(enabled: bool) -> void:
+	standing_collision.set_deferred("disabled", enabled)
+	slide_collision.set_deferred("disabled", not enabled)
+	set_collision_layer_value(2, not enabled)
+
 # 更新动画
 func update_animation(input_dir: float) -> void:
 	# 选择动画
-	if not is_on_floor(): sprite.play("jump")
+	if is_sliding: sprite.play("slide")
+	elif is_attacking: sprite.play("attack")
+	elif not is_on_floor(): 
+		sprite.play("jump")
+		sprite.pause()
+		sprite.frame = 0 if velocity.y < 0 else 1
 	elif input_dir != 0: sprite.play("run")
 	else: sprite.play("idle")
 	
@@ -105,3 +166,17 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	
 	floating_number.global_position = global_position + Vector2(0, -40)
 	floating_number.display(damage, color, is_heavy_hit)
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if sprite.animation == "attack":
+		is_attacking = false
+		set_attack_hitbox_enabled(false)
+	elif sprite.animation == "slide":
+		is_sliding = false
+		set_slide_collision_enabled(false)
+
+func _on_attack_hitbox_body_entered(body: Node2D) -> void:
+	if not GameManager.is_target_blocked_by_wall(self, body):
+		stats.damages[PlayerStats.PHYSIC_ATTACK].value = attack_damage
+		stats.damages[PlayerStats.PHYSIC_ATTACK].type = GameManager.TYPE_PHYSIC
+		stats.enemies[PlayerStats.PHYSIC_ATTACK].append(body)

@@ -1,8 +1,10 @@
 extends CharacterBody2D
 class_name BaseEnemy
 
-var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 var explode_scene = load("res://scenes/player/fire_explosion.tscn")
+var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
+
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var max_hp: float
 var move_speed: float
@@ -15,6 +17,7 @@ var i_frame_duration: float
 var stats: EnemyStats
 var buffs: EnemyBuffs
 
+var is_hurt : bool
 var knockback_timer: float
 
 
@@ -31,6 +34,7 @@ func _ready() -> void:
 	stats.hp_changed.connect(_on_hp_changed)
 	buffs.fire_explore.connect(_on_fire_explore)
 	buffs.knock_back.connect(_on_knock_back)
+	is_hurt = false
 	knockback_timer = 0.0
 
 func _physics_process(delta: float) -> void:
@@ -42,12 +46,14 @@ func _physics_process(delta: float) -> void:
 		on_death()
 		return
 	
-	# 处理敌人AI(眩晕或击退时不行动)
+	# 处理敌人AI(包括眩晕、击退、硬直)
+	is_getting_attack()
 	if knockback_timer > 0: knockback_timer -= delta
-	if knockback_timer <= 0 and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
+	if not is_hurt and knockback_timer <= 0 and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
 		handle_ai(delta)
-	if buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
+	if not is_hurt and buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
 		move_and_slide()
+	if buffs.buffs[EnemyBuffs.STUN] == 0 and buffs.buffs[EnemyBuffs.FREEZE] == 0:
 		update_animation()
 	
 	#TODO:处理血条
@@ -74,15 +80,27 @@ func get_data_dict() -> Dictionary:
 
 # 敌人AI
 func handle_ai(_delta: float) -> void:
-	push_error("handle_ai()未实现！")
+	push_error("handle_ai()未实现")
+
+# 硬直处理（不吃硬直的敌人重写该函数）
+func is_getting_attack() -> void:
+	if not is_hurt:
+		var total_receiving = 0
+		for i in range(GameManager.TYPE_COUNT):
+			total_receiving += stats.receiving_damages[i]
+		is_hurt = total_receiving > 0
 
 # 更新动画
 func update_animation() -> void:
-	push_error("update_animation()未实现！")
+	push_error("update_animation()未实现")
 
 # 死亡
 func on_death() -> void:
-	push_error("on_death()未实现！")
+	set_physics_process(false)
+	sprite.play("death")
+	if sprite.is_playing():
+		await sprite.animation_finished
+	queue_free()
 
 
 func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
