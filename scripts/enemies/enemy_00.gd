@@ -6,6 +6,8 @@ extends BaseEnemy
 var detection_range: float = 500.0        # 检测范围
 var attack_range: float = 100.0           # 攻击范围
 var is_attacking: bool = false            # 是否攻击
+var attack_start_frame: int = 11           # 攻击判定生效起始帧
+var attack_end_frame: int = 15             # 攻击判定生效结束帧
 
 
 # 初始化敌人数据
@@ -29,6 +31,11 @@ func handle_ai(delta: float) -> void:
 	# 如果正在攻击，避免移动
 	if is_attacking:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)
+		# 根据帧数控制攻击碰撞框
+		if sprite.animation == "attack" and sprite.frame >= attack_start_frame and sprite.frame <= attack_end_frame:
+			attack_shape.disabled = false
+		else:
+			attack_shape.disabled = true
 		return
 
 	var player = GameManager.player
@@ -50,9 +57,10 @@ func handle_ai(delta: float) -> void:
 func update_animation() -> void:
 	if is_hurt:
 		sprite.play("hurt")
+		attack_shape.disabled = true
 	elif is_attacking:
 		sprite.play("attack")
-		attack_shape.disabled = false
+		# 碰撞框由handle_ai根据帧数控制
 	elif abs(velocity.x) > 0:
 		sprite.play("run")
 	else:

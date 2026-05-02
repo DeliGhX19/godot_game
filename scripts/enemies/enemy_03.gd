@@ -1,11 +1,16 @@
 extends BaseEnemy
 
+@onready var main_collision: CollisionShape2D = $CollisionShape2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var sprite_base_x: float = sprite.position.x
+@onready var attack_area_base_x: float = attack_area.position.x
 
 var detection_range: float = 500.0        # 检测范围
 var attack_range: float = 100.0           # 攻击范围
 var is_attacking: bool = false            # 是否攻击
+var attack_start_frame: int = 4            # 攻击判定生效起始帧
+var attack_end_frame: int = 6              # 攻击判定生效结束帧
 
 
 # 初始化敌人数据
@@ -29,6 +34,14 @@ func handle_ai(delta: float) -> void:
 	# 如果正在攻击，避免移动
 	if is_attacking:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)
+		# 以碰撞体为中心翻转sprite和attack_area
+		var dir = sign(GameManager.player.global_position.x - global_position.x) if GameManager.player else 1.0
+		set_facing(dir > 0)
+		# 根据帧数控制攻击碰撞框
+		if sprite.animation == "attack" and sprite.frame >= attack_start_frame and sprite.frame <= attack_end_frame:
+			attack_shape.disabled = false
+		else:
+			attack_shape.disabled = true
 		return
 
 	var player = GameManager.player
@@ -41,18 +54,26 @@ func handle_ai(delta: float) -> void:
 		velocity.x = 0
 	elif dist <= detection_range:
 		velocity.x = dir * stats.move_speed
-		sprite.flip_h = dir < 0
-		attack_area.scale.x = -1 if dir < 0 else 1
+		set_facing(dir > 0)
 	else:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)
+
+# 以碰撞体为中心翻转sprite和attack_area
+func set_facing(mirror: bool) -> void:
+	var pivot_x = main_collision.position.x
+	sprite.flip_h = mirror
+	sprite.position.x = (2.0 * pivot_x - sprite_base_x) if mirror else sprite_base_x
+	attack_area.scale.x = -1 if mirror else 1
+	attack_area.position.x = (2.0 * pivot_x - attack_area_base_x) if mirror else attack_area_base_x
 
 # 更新攻击动画
 func update_animation() -> void:
 	if is_hurt:
 		sprite.play("hurt")
+		attack_shape.disabled = true
 	elif is_attacking:
 		sprite.play("attack")
-		attack_shape.disabled = false
+		# 碰撞框由handle_ai根据帧数控制
 	elif abs(velocity.x) > 0:
 		sprite.play("run")
 	else:
