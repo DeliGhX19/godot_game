@@ -91,18 +91,19 @@ func settle(delta: float) -> void:
 	if i_frame_timer > 0: i_frame_timer -= delta
 	
 	# 玩家攻击敌人
-	var total_damage_dealt := 0.0
+	var melee_damage_dealt := 0.0
 	for i in range(DAMAGE_SOURCE_COUNT):
 		var type = damages[i].type
 		var is_crit := randf() < crit_rate
 		for enemy in enemies[i]:
 			var damage_dealt = damages[i].value * (1.5 if is_crit else 1.0)
 			enemy.stats.receiving_damages[type] += damage_dealt
-			total_damage_dealt += damage_dealt
+			if i == PHYSIC_ATTACK:
+				melee_damage_dealt += damage_dealt
 	
-	# 吸血处理
-	if lifesteal > 0 and total_damage_dealt > 0:
-		settle_hp(-total_damage_dealt * lifesteal)
+	# 吸血处理（仅近战伤害）
+	if lifesteal > 0 and melee_damage_dealt > 0:
+		settle_hp(-melee_damage_dealt * lifesteal)
 	
 	# 结算玩家收到的伤害
 	if i_frame_timer <= 0:
