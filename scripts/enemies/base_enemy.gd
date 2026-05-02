@@ -98,9 +98,25 @@ func update_animation() -> void:
 # 死亡
 func on_death() -> void:
 	set_physics_process(false)
+	
+	# 触发杀意之迸效果（立即触发，不等动画）
+	if GameManager.player and GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_1] > 0:
+		var refresh_amount = 0.15 * GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_1]
+		GameManager.player.stats.melee_kill_refresh = refresh_amount
+		GameManager.player.stats.melee_kill_refresh_timer = 3.0
+	elif GameManager.player and GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_2] > 0:
+		var refresh_amount = 0.30 * GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_2]
+		GameManager.player.stats.melee_kill_refresh = refresh_amount
+		GameManager.player.stats.melee_kill_refresh_timer = 3.0
+	elif GameManager.player and GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_3] > 0:
+		var refresh_amount = 0.50 * GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_3]
+		GameManager.player.stats.melee_kill_refresh = refresh_amount
+		GameManager.player.stats.melee_kill_refresh_timer = 3.0
+	
 	sprite.play("death")
 	if sprite.is_playing():
 		await sprite.animation_finished
+	
 	queue_free()
 
 

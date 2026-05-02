@@ -34,10 +34,13 @@ var magic_range_extra: float              # 远程攻击增加的持续时间
 
 var melee_attack_speed: float = 1.0       # 近战攻击速度
 var lifesteal: float = 0.0               # 吸血比例
+var melee_kill_refresh: float = 0.0      # 杀意之迸：冷却减少比例
+var melee_kill_refresh_timer: float = 0.0 # 杀意持续计时器
 
 var slide_timer: float = 0.0              # 闪避计时器（便于Buff处理）
 
 signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
+signal enemy_killed
 
 
 # 初始化（每次进入主游戏时调用）
@@ -63,6 +66,8 @@ func initialize(profile: PlayerProfile) ->void:
 	
 	melee_attack_speed = 1.0
 	lifesteal = 0.0
+	melee_kill_refresh = 0.0
+	melee_kill_refresh_timer = 0.0
 
 # 重置（主游戏中每帧调用）
 func reset(profile: PlayerProfile) -> void:
@@ -89,6 +94,12 @@ func reset(profile: PlayerProfile) -> void:
 func settle(delta: float) -> void:
 	# 处理无敌帧
 	if i_frame_timer > 0: i_frame_timer -= delta
+	
+	# 处理杀意之迸计时器
+	if melee_kill_refresh_timer > 0:
+		melee_kill_refresh_timer -= delta
+		if melee_kill_refresh_timer <= 0:
+			melee_kill_refresh = 0.0
 	
 	# 玩家攻击敌人
 	var melee_damage_dealt := 0.0

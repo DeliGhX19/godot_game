@@ -60,8 +60,11 @@ const MELEE_SPD_LEVEL_3 = 105   # 闪电（+0.35攻击速度）
 const MELEE_LIFESTEAL_LEVEL_1 = 106  # 饮血（2%吸血）
 const MELEE_LIFESTEAL_LEVEL_2 = 107  # 嗜血（4%吸血）
 const MELEE_LIFESTEAL_LEVEL_3 = 108  # 浴血（6%吸血）
+const MELEE_KILL_REFRESH_1 = 109     # 杀意（击杀后-15%冷却，持续3秒）
+const MELEE_KILL_REFRESH_2 = 110     # 杀意（击杀后-30%冷却，持续3秒）
+const MELEE_KILL_REFRESH_3 = 111     # 杀意（击杀后-50%冷却，持续3秒）
 #总buff数
-const BUFFER_COUNT = 109
+const BUFFER_COUNT = 112
 var buffs: Array[int]
 
 var wood_convert_timer: float

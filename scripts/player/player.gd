@@ -76,11 +76,13 @@ func _physics_process(delta: float) -> void:
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
 	if melee_cooldown_timer > 0: melee_cooldown_timer -= delta
+	
 	if not is_sliding and not is_attacking:
 		# 近战攻击
 		if Input.is_action_just_pressed("melee") and melee_cooldown_timer <= 0:
 			is_attacking = true
-			melee_cooldown_timer = 1.0 / stats.melee_attack_speed
+			var cooldown = (1.0 / stats.melee_attack_speed) * (1.0 - stats.melee_kill_refresh)
+			melee_cooldown_timer = cooldown
 			attack_pivot.position.x = initial_pivot_x * facing_dir
 			attack_pivot.scale.x = facing_dir
 			set_attack_hitbox_enabled(true)
