@@ -32,6 +32,9 @@ var magic_attack_speed: float             # 远程攻击速度
 var magic_pierce_extra: int               # 远程攻击增加的穿透次数
 var magic_range_extra: float              # 远程攻击增加的持续时间
 
+var melee_attack_speed: float = 1.0       # 近战攻击速度
+var lifesteal: float = 0.0               # 吸血比例
+
 var slide_timer: float = 0.0              # 闪避计时器（便于Buff处理）
 
 signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
@@ -57,6 +60,9 @@ func initialize(profile: PlayerProfile) ->void:
 	magic_attack_speed = 3.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
+	
+	melee_attack_speed = 3.0
+	lifesteal = 0.0
 
 # 重置（主游戏中每帧调用）
 func reset(profile: PlayerProfile) -> void:
@@ -75,6 +81,9 @@ func reset(profile: PlayerProfile) -> void:
 	magic_attack_speed = 3.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
+	
+	melee_attack_speed = 3.0
+	lifesteal = 0.0
 
 # 结算（主游戏中每帧调用）
 func settle(delta: float) -> void:

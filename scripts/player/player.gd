@@ -22,6 +22,7 @@ var buffs: PlayerBuffs
 # 近战攻击
 var is_attacking: bool = false
 var attack_damage: float = 25.0
+var melee_cooldown_timer: float = 0.0
 
 # 远程攻击
 var current_magic_index: int = 0
@@ -31,7 +32,7 @@ var magic_scenes: Array = [fire_magic_scene, wood_magic_scene, stone_magic_scene
 # 闪避
 var facing_dir: float = 1.0
 var slide_speed: float = 520.0
-var slide_duration: float = 0.8
+var slide_duration: float = 0.22
 var is_sliding: bool = false
 
 signal die
@@ -74,10 +75,12 @@ func _physics_process(delta: float) -> void:
 	
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
+	if melee_cooldown_timer > 0: melee_cooldown_timer -= delta
 	if not is_sliding and not is_attacking:
 		# 近战攻击
-		if Input.is_action_just_pressed("melee"):
+		if Input.is_action_just_pressed("melee") and melee_cooldown_timer <= 0:
 			is_attacking = true
+			melee_cooldown_timer = 1.0 / stats.melee_attack_speed
 			attack_pivot.position.x = initial_pivot_x * facing_dir
 			attack_pivot.scale.x = facing_dir
 			set_attack_hitbox_enabled(true)
