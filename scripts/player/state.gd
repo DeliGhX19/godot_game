@@ -61,7 +61,7 @@ func initialize(profile: PlayerProfile) ->void:
 	magic_pierce_extra = 0
 	magic_range_extra = 0
 	
-	melee_attack_speed = 3.0
+	melee_attack_speed = 1.0
 	lifesteal = 0.0
 
 # 重置（主游戏中每帧调用）
@@ -82,7 +82,7 @@ func reset(profile: PlayerProfile) -> void:
 	magic_pierce_extra = 0
 	magic_range_extra = 0
 	
-	melee_attack_speed = 3.0
+	melee_attack_speed = 1.0
 	lifesteal = 0.0
 
 # 结算（主游戏中每帧调用）
@@ -91,11 +91,18 @@ func settle(delta: float) -> void:
 	if i_frame_timer > 0: i_frame_timer -= delta
 	
 	# 玩家攻击敌人
+	var total_damage_dealt := 0.0
 	for i in range(DAMAGE_SOURCE_COUNT):
 		var type = damages[i].type
 		var is_crit := randf() < crit_rate
 		for enemy in enemies[i]:
-			enemy.stats.receiving_damages[type] += damages[i].value * (1.5 if is_crit else 1.0)
+			var damage_dealt = damages[i].value * (1.5 if is_crit else 1.0)
+			enemy.stats.receiving_damages[type] += damage_dealt
+			total_damage_dealt += damage_dealt
+	
+	# 吸血处理
+	if lifesteal > 0 and total_damage_dealt > 0:
+		settle_hp(-total_damage_dealt * lifesteal)
 	
 	# 结算玩家收到的伤害
 	if i_frame_timer <= 0:
