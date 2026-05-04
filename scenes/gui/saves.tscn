@@ -1,11 +1,51 @@
 [gd_scene format=3 uid="uid://cgpc5x1md4j4e"]
 
 [ext_resource type="Script" uid="uid://8yngc87xn1bj" path="res://scripts/gui/saves.gd" id="1_smpvr"]
+[ext_resource type="Texture2D" uid="uid://5yfne47dy6ur" path="res://assets/title/tital.png" id="2_24pu5"]
+[ext_resource type="Texture2D" uid="uid://bm0wthscirevx" path="res://assets/title/botton3.png" id="3_4fiw0"]
+[ext_resource type="Script" uid="uid://cm5sit7400x58" path="res://scripts/gui/parallax_background.gd" id="3_yqwnb"]
+[ext_resource type="Texture2D" uid="uid://dnk3ght0bxpr1" path="res://assets/title/background.png" id="4_4fiw0"]
+[ext_resource type="Texture2D" uid="uid://ee2ywkmiu34m" path="res://assets/title/pressed_botton3.png" id="4_wl0ka"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl0ka"]
+texture = ExtResource("3_4fiw0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyy31"]
+texture = ExtResource("4_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwjlo"]
+texture = ExtResource("3_4fiw0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5myn"]
+texture = ExtResource("4_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vbh5e"]
+texture = ExtResource("3_4fiw0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sho1p"]
+texture = ExtResource("4_wl0ka")
 
 [node name="Saves" type="Control" unique_id=843789184]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_smpvr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1790050924]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1499287237]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1051996360]
+layout_mode = 0
+offset_left = 346.0
+offset_right = 2120.0
+offset_bottom = 887.0
+scale = Vector2(0.3411401, 0.33031222)
+texture = ExtResource("2_24pu5")
+stretch_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=218517382]
 layout_mode = 0
@@ -13,16 +53,38 @@ offset_right = 545.0
 offset_bottom = 101.0
 
 [node name="Save1" type="Button" parent="VBoxContainer" unique_id=661254508]
+custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.35566914, 0.14157787, 0.035616707, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_wl0ka")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fyy31")
 text = "Save1"
 
 [node name="Save2" type="Button" parent="VBoxContainer" unique_id=1253618482]
+custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.14117648, 0.03529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_vwjlo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_q5myn")
 text = "Save2"
 
 [node name="Save3" type="Button" parent="VBoxContainer" unique_id=1187335515]
+custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.35686275, 0.14117648, 0.03529412, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_vbh5e")
+theme_override_styles/hover = SubResource("StyleBoxTexture_sho1p")
 text = "Save3"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1287935237]
+script = ExtResource("3_yqwnb")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=374659205]
+motion_mirroring = Vector2(2172, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1838761678]
+position = Vector2(25, 325)
+texture = ExtResource("4_4fiw0")
 
 [connection signal="pressed" from="VBoxContainer/Save1" to="." method="_on_save_1_pressed"]
 [connection signal="pressed" from="VBoxContainer/Save2" to="." method="_on_save_2_pressed"]

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cljb2wd5mcf66"]
+
+[ext_resource type="Script" uid="uid://28m5bbbtaat3" path="res://scripts/gui/ui_root.gd" id="1_hsr8i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsr8i"]
+bg_color = Color(0.65266466, 0.11071689, 1.92523e-07, 1)
+
+[node name="UIRoot" type="CanvasLayer" unique_id=335704956]
+script = ExtResource("1_hsr8i")
+metadata/_edit_horizontal_guides_ = [-518.0]
+
+[node name="Control" type="Control" parent="." unique_id=1739106485]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=595605967]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 21.0
+offset_right = 280.0
+offset_bottom = 64.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hsr8i")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Control" unique_id=421906150]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 33.0
+offset_right = 169.0
+offset_bottom = 56.0

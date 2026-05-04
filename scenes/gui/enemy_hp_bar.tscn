@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://o41ml5o22byn"]
+
+[ext_resource type="Script" uid="uid://c1kewy1m3cplp" path="res://scripts/gui/enemy_hp_bar.gd" id="1_7sfyk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sfyk"]
+bg_color = Color(0.7524709, 0, 0.053764127, 1)
+
+[node name="EnemyHPBar" type="Node2D" unique_id=2101781348]
+script = ExtResource("1_7sfyk")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=453200338]
+custom_minimum_size = Vector2(0, 10)
+offset_left = -43.0
+offset_top = 64.0
+offset_right = 42.0
+offset_bottom = 91.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_7sfyk")
+show_percentage = false
