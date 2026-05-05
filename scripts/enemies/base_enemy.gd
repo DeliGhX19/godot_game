@@ -5,7 +5,7 @@ var fire_explode_scene = load("res://scenes/player/fire_explosion.tscn")
 var wood_treant_scene = load("res://scenes/player/wood_treant.tscn")
 var ice_explode_scene = load("res://scenes/player/ice_explosion.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
-
+var hp_bar_scene: PackedScene = preload("res://scenes/gui/enemy_hp_bar.tscn")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var max_hp: float
@@ -39,6 +39,9 @@ func _ready() -> void:
 	buffs.knock_back.connect(_on_knock_back)
 	is_hurt = false
 	knockback_timer = 0.0
+	var hp_bar = hp_bar_scene.instantiate()
+	add_child(hp_bar)
+	hp_bar.initialize(self)
 
 func _physics_process(delta: float) -> void:
 	buffs.apply(stats, delta)
