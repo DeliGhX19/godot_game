@@ -4,19 +4,17 @@ extends Node2D
 @onready var bonus_generator: Node2D = $BonusGenerator
 @onready var enemy_generator: Node2D = $EnemyGenerator
 @onready var player: CharacterBody2D = $Player
-var ui_scene: PackedScene = preload("res://scenes/gui/ui_root.tscn")
+@onready var ui: CanvasLayer = $UIRoot
 
 var profile: PlayerProfile
 
 
 func _ready() -> void:
 	player.initialize(profile)
+	ui.initialize(player)
+	
 	GameManager.player = player
 	GameManager.reward_manager = RewardManager.new()
-	
-	var ui = ui_scene.instantiate()
-	get_tree().root.add_child(ui)
-	ui.initialize(player)
 	
 	initialize_level()
 

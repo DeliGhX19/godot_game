@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://2i0lvh0tyyvj" path="res://scenes/enemies/enemy_generator.tscn" id="3_bfxai"]
 [ext_resource type="PackedScene" uid="uid://c2eh8t2jt8wah" path="res://scenes/rooms/reward/bonus_generator.tscn" id="3_leqcx"]
 [ext_resource type="PackedScene" uid="uid://bxnmw7bpgxdsh" path="res://scenes/gui/rewards.tscn" id="5_bfxai"]
+[ext_resource type="PackedScene" uid="uid://cljb2wd5mcf66" path="res://scenes/gui/ui_root.tscn" id="6_ovsis"]
 
 [node name="GameLoop" type="Node2D" unique_id=2043196160]
 script = ExtResource("1_ea2ro")
@@ -17,6 +18,8 @@ script = ExtResource("1_ea2ro")
 [node name="EnemyGenerator" parent="." unique_id=198148732 instance=ExtResource("3_bfxai")]
 
 [node name="Player" parent="." unique_id=750986949 instance=ExtResource("2_ou056")]
+
+[node name="UIRoot" parent="." unique_id=335704956 instance=ExtResource("6_ovsis")]
 
 [node name="Rewards" parent="." unique_id=1130218547 instance=ExtResource("5_bfxai")]
 
