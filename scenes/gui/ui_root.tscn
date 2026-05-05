@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cljb2wd5mcf66"]
 
 [ext_resource type="Script" uid="uid://28m5bbbtaat3" path="res://scripts/gui/ui_root.gd" id="1_hsr8i"]
+[ext_resource type="Texture2D" uid="uid://bv4pyvynj7jc7" path="res://assets/ui/hp_bar.png" id="2_dna4j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsr8i"]
 bg_color = Color(0.65266466, 0.11071689, 1.92523e-07, 1)
@@ -24,13 +25,23 @@ offset_left = 32.0
 offset_top = 21.0
 offset_right = 280.0
 offset_bottom = 64.0
+scale = Vector2(1.2967858, 0.96081716)
 theme_override_styles/fill = SubResource("StyleBoxFlat_hsr8i")
 value = 100.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="Control" unique_id=421906150]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 33.0
-offset_right = 169.0
-offset_bottom = 56.0
+offset_left = 166.0
+offset_top = 32.0
+offset_right = 207.0
+offset_bottom = 55.0
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1675639783]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 14.0
+offset_right = 1356.0
+offset_bottom = 225.0
+scale = Vector2(0.2841658, 0.2841658)
+texture = ExtResource("2_dna4j")

@@ -13,10 +13,19 @@ texture = ExtResource("3_4fiw0")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyy31"]
 texture = ExtResource("4_wl0ka")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_47rh6"]
+texture = ExtResource("4_wl0ka")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwjlo"]
 texture = ExtResource("3_4fiw0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5myn"]
+texture = ExtResource("4_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4pfte"]
+texture = ExtResource("4_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gaeow"]
 texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vbh5e"]
@@ -58,6 +67,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.35566914, 0.14157787, 0.035616707, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_wl0ka")
 theme_override_styles/hover = SubResource("StyleBoxTexture_fyy31")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_47rh6")
 text = "Save1"
 
 [node name="Save2" type="Button" parent="VBoxContainer" unique_id=1253618482]
@@ -66,6 +76,8 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.35686275, 0.14117648, 0.03529412, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_vwjlo")
 theme_override_styles/hover = SubResource("StyleBoxTexture_q5myn")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4pfte")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_gaeow")
 text = "Save2"
 
 [node name="Save3" type="Button" parent="VBoxContainer" unique_id=1187335515]

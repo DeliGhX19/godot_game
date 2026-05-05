@@ -190,8 +190,8 @@ position = Vector2(480, 96)
 [node name="Wall35" parent="." unique_id=1957114469 instance=ExtResource("5_rp2kc")]
 position = Vector2(416, 608)
 
+[node name="RightOpening" parent="." unique_id=1707523917 instance=ExtResource("4_p7uvd")]
+position = Vector2(736, 320)
+
 [node name="Wall38" parent="." unique_id=11604734 instance=ExtResource("5_rp2kc")]
 position = Vector2(352, 608)
-
-[node name="RightOpening" parent="Wall38" unique_id=1707523917 instance=ExtResource("4_p7uvd")]
-position = Vector2(384, -288)
