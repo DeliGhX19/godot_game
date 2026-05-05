@@ -35,8 +35,8 @@ func handle_ai(delta: float) -> void:
 	if is_attacking:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)
 		# 以碰撞体为中心翻转sprite和attack_area
-		var dir = sign(GameManager.player.global_position.x - global_position.x) if GameManager.player else 1.0
-		set_facing(dir > 0)
+		var pdir = sign(GameManager.player.global_position.x - global_position.x) if GameManager.player else 1.0
+		set_facing(pdir > 0)
 		# 根据帧数控制攻击碰撞框
 		if sprite.animation == "attack" and sprite.frame >= attack_start_frame and sprite.frame <= attack_end_frame:
 			attack_shape.disabled = false
