@@ -3,9 +3,12 @@ class_name EnemyBuffs
 const BURN = 0              # 火焰灼烧（基础：5dmg/s 3s）
 const KNOCK_BACK = 1        # 击退（基础：300）
 const STUN = 2              # 眩晕（基础：0.5s）
-const ICE = 3               # 减速（基础：-10%速度） 
-const FREEZE = 4            # 冻结（基础：2s）
-const BUFF_COUNT = 5
+const FREEZE = 3            # 冻结（基础：2s）
+const ICE = 4               # 减速（基础：-10%速度） 
+const WOOD_TREANT_TAG = 5   # 傀儡标记（0.5s标记 20%生成傀儡）
+const ICE_EXPLOSION = 6     # 冰爆
+const EXECUTE = 7           # 秒杀
+const BUFF_COUNT = 8
 var buffs: Array[int]
 
 var p_buffs = GameManager.player.buffs.buffs
@@ -13,8 +16,10 @@ var burn_timers: Array
 var stun_timer: float
 var ice_timers: Array[float]
 var freeze_timer: float
+var treant_timer: float
 
 signal fire_explore
+signal ice_explore
 signal knock_back(force: float)
 
 
@@ -79,12 +84,27 @@ func apply(stats: EnemyStats, delta:float) -> void:
 				# 减速
 				stats.move_speed *= max(0.1, 1.0 - ice_timers.size() * (0.1 + 0.02 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_3]))
 			FREEZE:
+				ice_timers.clear()
+				buffs[ICE] = 0
 				if freeze_timer <= 0:
 					freeze_timer = 2.0 + 0.5 * p_buffs[PlayerBuffs.ICE_FREEZE]
 				else:
 					freeze_timer -= delta
 					if freeze_timer <= 0: buffs[FREEZE] = 0
-
+			WOOD_TREANT_TAG:
+				if treant_timer <= 0:
+					treant_timer = 0.5
+				else:
+					treant_timer -= delta
+					if treant_timer <= 0: buffs[WOOD_TREANT_TAG] = 0
+			ICE_EXPLOSION:
+				if buffs[FREEZE] > 0:
+					ice_explore.emit()
+					freeze_timer = 0.0
+					buffs[FREEZE] = 0
+				buffs[ICE_EXPLOSION] = 0
+			EXECUTE:
+				stats.settle_hp(stats.hp)
 
 # 添加灼烧（上限3层）
 func add_burn() -> void:

@@ -6,13 +6,16 @@ class DamagePacket:
 const PHYSIC_ATTACK = 0                   # 近战
 const FIRE_MAGIC = 1                      # 火魔法
 const FIRE_EXPLOSION = 2                  # 爆燃
-const WOOD_MAGIC = 3                      # 木魔法
-const STONE_MAGIC = 4                     # 石魔法
-const ICE_MAGIC = 5                       # 冰魔法
-const LIGHTNING_MAGIC = 6                 # 雷魔法
-const LIGHTNING_SPLASH = 7                # 雷魔法溅射
-const CHAIN_LIGHTNING = 8                 # 连锁雷
-const DAMAGE_SOURCE_COUNT = 9             # 所有伤害来源
+const FIRE_ERUPTION = 3                   # 炎爆
+const WOOD_MAGIC = 4                      # 木魔法
+const STONE_MAGIC = 5                     # 石魔法
+const STONE_METEOR = 6                    # 陨星
+const ICE_MAGIC = 7                       # 冰魔法
+const ICE_EXPLOSION = 8                   # 冰爆
+const LIGHTNING_MAGIC = 9                 # 雷魔法
+const LIGHTNING_SPLASH = 10               # 雷魔法溅射
+const CHAIN_LIGHTNING = 11                # 连锁雷
+const DAMAGE_SOURCE_COUNT = 12            # 所有伤害来源
 
 var max_hp: float                         # 生命上限
 var move_speed: float                     # 移动速度

@@ -77,6 +77,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			player.stats.damages[PlayerStats.WOOD_MAGIC].value = base_damage
 			player.stats.damages[PlayerStats.WOOD_MAGIC].type = GameManager.TYPE_WOOD
 			player.stats.enemies[PlayerStats.WOOD_MAGIC].append(body)
+			if player.buffs.buffs[PlayerBuffs.WOOD_TREANT] > 0:
+				body.buffs.buffs[EnemyBuffs.WOOD_TREANT_TAG] = 1
 	# 触碰玩家
 	elif body.get_collision_layer_value(2):
 		player.buffs.buffs[PlayerBuffs.WOOD_HEAL] = 1

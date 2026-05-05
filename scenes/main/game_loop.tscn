@@ -4,15 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/player.tscn" id="2_ou056"]
 [ext_resource type="PackedScene" uid="uid://uojbu5u1h3xm" path="res://scenes/rooms/map_generator.tscn" id="3_1naq0"]
 [ext_resource type="PackedScene" uid="uid://2i0lvh0tyyvj" path="res://scenes/enemies/enemy_generator.tscn" id="3_bfxai"]
+[ext_resource type="PackedScene" uid="uid://c2eh8t2jt8wah" path="res://scenes/rooms/reward/bonus_generator.tscn" id="3_leqcx"]
+[ext_resource type="PackedScene" uid="uid://bxnmw7bpgxdsh" path="res://scenes/gui/rewards.tscn" id="5_bfxai"]
 
 [node name="GameLoop" type="Node2D" unique_id=2043196160]
 script = ExtResource("1_ea2ro")
 
 [node name="MapGenerator" parent="." unique_id=853333634 instance=ExtResource("3_1naq0")]
 
+[node name="BonusGenerator" parent="." unique_id=649976066 instance=ExtResource("3_leqcx")]
+
 [node name="EnemyGenerator" parent="." unique_id=198148732 instance=ExtResource("3_bfxai")]
 
 [node name="Player" parent="." unique_id=750986949 instance=ExtResource("2_ou056")]
+
+[node name="Rewards" parent="." unique_id=1130218547 instance=ExtResource("5_bfxai")]
 
 [connection signal="next_level" from="MapGenerator" to="." method="_on_map_generator_next_level"]
 [connection signal="die" from="Player" to="." method="_on_player_die"]

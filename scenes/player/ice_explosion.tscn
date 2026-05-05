@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://4vu3wvuikqcq"]
+
+[ext_resource type="Script" uid="uid://tfdohbe5r8oa" path="res://scripts/player/ice_explosion.gd" id="1_j6yac"]
+[ext_resource type="Texture2D" uid="uid://b1bdctn3w0ckx" path="res://assets/magic/293.png" id="1_xicob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6yac"]
+atlas = ExtResource("1_xicob")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tric1"]
+atlas = ExtResource("1_xicob")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6atwc"]
+atlas = ExtResource("1_xicob")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf4jc"]
+atlas = ExtResource("1_xicob")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xiaio"]
+atlas = ExtResource("1_xicob")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prdh8"]
+atlas = ExtResource("1_xicob")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iejrg"]
+atlas = ExtResource("1_xicob")
+region = Rect2(384, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shllo"]
+atlas = ExtResource("1_xicob")
+region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsw8j"]
+atlas = ExtResource("1_xicob")
+region = Rect2(512, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5a4lb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6yac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tric1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6atwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wf4jc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiaio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prdh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iejrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shllo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsw8j")
+}],
+"loop": false,
+"name": &"explore",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlygo"]
+size = Vector2(56, 48)
+
+[node name="IceExplosion" type="Area2D" unique_id=1180259482]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_j6yac")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=738303609]
+sprite_frames = SubResource("SpriteFrames_5a4lb")
+animation = &"explore"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899046370]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_xlygo")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

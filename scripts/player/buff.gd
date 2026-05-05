@@ -29,32 +29,39 @@ const FIRE_DOT_LEVEL_1 = 22     # 星火（+5伤害）
 const FIRE_DOT_LEVEL_2 = 23     # 业火（+5伤害 +1s持续）
 const FIRE_DOT_LEVEL_3 = 24     # 焚天（+10伤害 +2s持续）
 const FIRE_EXPLODE = 25         # 爆燃（层数>3引爆 *1.1伤害）
+const FIRE_ERUPTION = 26        # 炎爆（范围施加3层灼烧）
 # 木元素专属构筑
-const WOOD_HEAL = 26            # 恢复
-const WOOD_HEAL_LEVEL_1 = 27    # 回春（+0.1%生命上限恢复）
-const WOOD_HEAL_LEVEL_2 = 28    # 蕴木（+0.2%生命上限恢复）
-const WOOD_HEAL_LEVEL_3 = 29    # 万物（+0.5%生命上限恢复）
-const WOOD_CONVERT = 30         # 转换（溢出治疗转增益）
+const WOOD_HEAL = 27            # 恢复
+const WOOD_HEAL_LEVEL_1 = 28    # 回春（+0.1%生命上限恢复）
+const WOOD_HEAL_LEVEL_2 = 29    # 蕴木（+0.2%生命上限恢复）
+const WOOD_HEAL_LEVEL_3 = 30    # 万物（+0.5%生命上限恢复）
+const WOOD_CONVERT = 31         # 转换（溢出治疗转增益）
+const WOOD_TREANT = 32          # 傀儡（濒死敌人变异为生命树）
+const WOOD_TREANT_AURA = 33     # 沐泽（靠近生命树获得的持续增益）
 # 石元素专属构筑
-const STONE_KB_LEVEL_1 = 31     # 沉沙（+60击退）
-const STONE_KB_LEVEL_2 = 32     # 碎岩（+100击退）
-const STONE_KB_LEVEL_3 = 33     # 镇渊（+150击退）
-const STONE_STUN = 34           # 眩晕（+0.2s眩晕）
+const STONE_KB_LEVEL_1 = 34     # 沉沙（+60击退）
+const STONE_KB_LEVEL_2 = 35     # 碎岩（+100击退）
+const STONE_KB_LEVEL_3 = 36     # 镇渊（+150击退）
+const STONE_STUN = 37           # 眩晕（+0.2s眩晕）
+const STONE_METEOR = 38         # 陨星（范围内随机目标，范围眩晕）
 # 冰元素专属构筑
-const ICE_SLOW_LEVEL_1 = 35     # 流霜（+1s持续）
-const ICE_SLOW_LEVEL_2 = 36     # 凝冰（+1.5s持续）
-const ICE_SLOW_LEVEL_3 = 37     # 绝寒（+2s持续 +2%减速增益）
-const ICE_FREEZE = 38           # 冻结（层数>5引爆 +0.5s持续）
+const ICE_SLOW_LEVEL_1 = 39     # 流霜（+1s持续）
+const ICE_SLOW_LEVEL_2 = 40     # 凝冰（+1.5s持续）
+const ICE_SLOW_LEVEL_3 = 41     # 绝寒（+2s持续 +2%减速增益）
+const ICE_FREEZE = 42           # 冻结（层数>5引爆 +0.5s持续）
+const ICE_EXPLORE = 43          # 冰爆（范围冻结）
 # 雷元素专属构筑
-const LIGHTNING_LEVEL_1 = 39    # 惊雷（*1.1伤害）
-const LIGHTNING_LEVEL_2 = 40    # 奔雷（+0.1雷击判定半径 *1.1伤害）
-const LIGHTNING_LEVEL_3 = 41    # 闪雷（+0.2雷击判定半径 *1.2伤害）
-const LIGHTNING_CHAIN = 42      # 连锁（穿透敌人生成 +1生成数）
-#总buff数
-const BUFFER_COUNT = 43
+const LIGHTNING_LEVEL_1 = 44    # 惊雷（*1.1伤害）
+const LIGHTNING_LEVEL_2 = 45    # 奔雷（+0.1雷击判定半径 *1.1伤害）
+const LIGHTNING_LEVEL_3 = 46    # 闪雷（+0.2雷击判定半径 *1.2伤害）
+const LIGHTNING_CHAIN = 47      # 连锁（穿透敌人生成 +1生成数）
+const LIGHTNING_DISASTER = 48   # 毁灭（秒杀非boss敌人）
+# 总buff数
+const BUFFER_COUNT = 49
 var buffs: Array[int]
 
 var wood_convert_timer: float
+var wood_treant_aura_timer: float
 
 
 func initialize() -> void:
@@ -136,14 +143,25 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				if wood_convert_timer > 0:
 					wood_convert_timer -= delta
 					for j in range(PlayerStats.DAMAGE_SOURCE_COUNT): 
-						stats.damages[j].vaule *= (1.0 + 0.1 * buffs[WOOD_CONVERT])
+						stats.damages[j].value *= (1.0 + 0.1 * buffs[WOOD_CONVERT])
 					stats.move_speed *= (1.0 + 0.05 * buffs[WOOD_CONVERT])
 					stats.jump_height *= (1.0 + 0.05 * buffs[WOOD_CONVERT])
 					stats.damage_reduction += 0.005 * buffs[WOOD_CONVERT]
+			WOOD_TREANT_AURA:
+				for j in range(PlayerStats.DAMAGE_SOURCE_COUNT): 
+					stats.damages[j].value *= 1.2
+				stats.move_speed *= 1.1
+				stats.jump_height *= 1.1
+				stats.damage_reduction += 0.1
+				if wood_treant_aura_timer <= 0:
+					wood_treant_aura_timer = 5.0
+					var missing_hp = stats.max_hp - stats.hp
+					var actual_heal = min(0.01 * stats.max_hp, missing_hp)
+					stats.settle_hp(-actual_heal)
+				else: wood_treant_aura_timer -= delta
 			LIGHTNING_LEVEL_1:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.1
 			LIGHTNING_LEVEL_2:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.1
 			LIGHTNING_LEVEL_3:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.2
-			

@@ -33,6 +33,13 @@ func get_all_enemy_points() -> Array[Marker2D]:
 		all_points.append_array(room_pts)
 	return all_points
 
+# 返回所有奖励生成点
+func get_all_bonus_points() -> Array[Marker2D]:
+	var all_points: Array[Marker2D] = []
+	for room_node in placed_nodes:
+		var room_pts = room_node.get_bonus_points()
+		all_points.append_array(room_pts)
+	return all_points
 
 # 清理关卡
 func clear_previous_level() -> void:

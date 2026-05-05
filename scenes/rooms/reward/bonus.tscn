@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bpajk6qe3g4h3"]
+
+[ext_resource type="Script" uid="uid://cjo2f6y7dxxgd" path="res://scripts/rooms/reward/bonus.gd" id="1_cptys"]
+[ext_resource type="Texture2D" uid="uid://crnmfddba3xg5" path="res://assets/magic/449.png" id="2_g2mvi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp51o"]
+atlas = ExtResource("2_g2mvi")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwvmj"]
+atlas = ExtResource("2_g2mvi")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo461"]
+atlas = ExtResource("2_g2mvi")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qsf3l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp51o")
+}],
+"loop": true,
+"name": &"advanced",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwvmj")
+}],
+"loop": true,
+"name": &"basic",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xo461")
+}],
+"loop": true,
+"name": &"ultimate",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jf3h"]
+size = Vector2(64, 64)
+
+[node name="Bonus" type="Area2D" unique_id=1258391481]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cptys")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1862747298]
+sprite_frames = SubResource("SpriteFrames_qsf3l")
+animation = &"advanced"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=361739456]
+shape = SubResource("RectangleShape2D_4jf3h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -7,6 +7,8 @@ var chain_lightning_scene = preload("res://scenes/player/chain_lightning.tscn")
 @onready var die_area_shape: CollisionShape2D = $DieArea2D/CollisionShape2D
 @onready var timer: Timer = $Timer
 
+var is_disaster: bool = false          # 是否秒杀
+
 
 func initialize(belonging_player: CharacterBody2D) -> void:
 	player = belonging_player
@@ -17,6 +19,9 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	gravity = 0
 	bounce_factor = 0.0
 	max_pierce = 3 + player.stats.magic_pierce_extra
+	
+	if player.buffs.buffs[PlayerBuffs.LIGHTNING_DISASTER] > 0:
+		if randf() <= 0.15: is_disaster = true
 	
 	die_area_shape.disabled = true
 
@@ -46,9 +51,13 @@ func die() -> void:
 	collision_shape.set_deferred("disabled", true)
 	fly_area_shape.set_deferred("disabled", true)
 	
-	scale *= 1.0 + 0.1 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_2] + 0.2 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_3]
-	die_area_shape.set_deferred("disabled", false)
-	sprite.play("die")
+	if is_disaster:
+		rotation = 0
+		sprite.play("kill")
+	else:
+		scale *= 1.0 + 0.1 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_2] + 0.2 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_3]
+		die_area_shape.set_deferred("disabled", false)
+		sprite.play("die")
 
 # 生成连锁雷
 func generate_chain_lightning(body: Node2D):
@@ -65,6 +74,11 @@ func _on_timer_timeout() -> void:
 func _on_fly_area_2d_body_entered(body: Node2D) -> void:
 	if is_dying: return
 	
+	if is_disaster:
+		body.buffs.buffs[EnemyBuffs.EXECUTE] = 1
+		die()
+		return
+	
 	player.stats.damages[PlayerStats.LIGHTNING_MAGIC].value = base_damage
 	player.stats.damages[PlayerStats.LIGHTNING_MAGIC].type = GameManager.TYPE_LIGHTNING
 	player.stats.enemies[PlayerStats.LIGHTNING_MAGIC].append(body)
@@ -80,5 +94,5 @@ func _on_die_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.enemies[PlayerStats.LIGHTNING_SPLASH].append(body)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if sprite.animation == "die":
+	if sprite.animation == "die" or sprite.animation == "kill":
 		queue_free()

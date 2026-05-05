@@ -31,3 +31,11 @@ func get_enemy_points() -> Array[Marker2D]:
 		if child.has_method("is_enemy_point"):
 			result.append(child)
 	return result
+
+# 获取奖励生成点
+func get_bonus_points() -> Array[Marker2D]:
+	var result: Array[Marker2D] = []
+	for child in find_children("*", "Marker2D"):
+		if child.has_method("is_bonus_point"):
+			result.append(child)
+	return result

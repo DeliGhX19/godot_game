@@ -59,6 +59,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.damages[PlayerStats.ICE_MAGIC].type = GameManager.TYPE_ICE
 	player.stats.enemies[PlayerStats.ICE_MAGIC].append(body)
 	if randf() <= 0.5: body.buffs.add_ice()
+	if player.buffs.buffs[PlayerBuffs.ICE_EXPLORE] > 0 and randf() <= 0.25:
+		body.buffs.buffs[EnemyBuffs.ICE_EXPLOSION] = 1
 	
 	current_pierce += 1
 	if current_pierce >= max_pierce:

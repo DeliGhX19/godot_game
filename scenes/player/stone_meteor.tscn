@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://c6n2534eu75ue"]
+
+[ext_resource type="Script" uid="uid://bkai5v4xymwv5" path="res://scripts/player/stone_meteor.gd" id="1_ncpui"]
+[ext_resource type="Texture2D" uid="uid://crnmfddba3xg5" path="res://assets/magic/449.png" id="1_sy6sk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncpui"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6myc"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6mjw"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rqqk"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_antuc"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yslj7"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oj2b"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(512, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kju05"]
+atlas = ExtResource("1_sy6sk")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4cpok"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncpui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6myc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6mjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rqqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_antuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yslj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oj2b")
+}],
+"loop": false,
+"name": &"die",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kju05")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0fl8"]
+size = Vector2(64, 64)
+
+[node name="StoneMeteor" type="Area2D" unique_id=1261495921]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_ncpui")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=402686035]
+sprite_frames = SubResource("SpriteFrames_4cpok")
+animation = &"die"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=981458449]
+shape = SubResource("RectangleShape2D_q0fl8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

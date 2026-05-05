@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://bvrlv4oyxews8"]
+
+[ext_resource type="Script" uid="uid://bdnuhxtsydkiu" path="res://scripts/player/wood_treant.gd" id="1_qcf5p"]
+[ext_resource type="Texture2D" uid="uid://dkelnp1uvwg0g" path="res://assets/magic/464.png" id="2_2fa7s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suj71"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m85kf"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcnfm"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs8bc"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3ibp"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gy3g5"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3eco"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f3gr"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hs83"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pamc2"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ligwi"]
+atlas = ExtResource("2_2fa7s")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2fghv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_suj71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m85kf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcnfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vs8bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3ibp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gy3g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3eco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f3gr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hs83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pamc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ligwi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 25.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qcf5p"]
+
+[node name="WoodTreant" type="Area2D" unique_id=971516998]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_qcf5p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=136588895]
+sprite_frames = SubResource("SpriteFrames_2fghv")
+animation = &"idle"
+frame = 5
+frame_progress = 0.49118602
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2059426640]
+shape = SubResource("CircleShape2D_qcf5p")
+
+[node name="Timer" type="Timer" parent="." unique_id=1879570239]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

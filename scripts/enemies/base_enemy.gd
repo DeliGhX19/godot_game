@@ -1,7 +1,9 @@
 extends CharacterBody2D
 class_name BaseEnemy
 
-var explode_scene = load("res://scenes/player/fire_explosion.tscn")
+var fire_explode_scene = load("res://scenes/player/fire_explosion.tscn")
+var wood_treant_scene = load("res://scenes/player/wood_treant.tscn")
+var ice_explode_scene = load("res://scenes/player/ice_explosion.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -33,6 +35,7 @@ func _ready() -> void:
 	
 	stats.hp_changed.connect(_on_hp_changed)
 	buffs.fire_explore.connect(_on_fire_explore)
+	buffs.ice_explore.connect(_on_ice_explore)
 	buffs.knock_back.connect(_on_knock_back)
 	is_hurt = false
 	knockback_timer = 0.0
@@ -101,6 +104,10 @@ func on_death() -> void:
 	sprite.play("death")
 	if sprite.is_playing():
 		await sprite.animation_finished
+	if buffs.buffs[EnemyBuffs.WOOD_TREANT_TAG] > 0 and randf() <= 0.2:
+		var wood_treant = wood_treant_scene.instantiate()
+		get_parent().add_child(wood_treant)
+		wood_treant.global_position = global_position
 	queue_free()
 
 
@@ -112,10 +119,15 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	floating_number.display(damage, color, is_heavy_hit)
 
 func _on_fire_explore() -> void:
-	stats.i_frame_timer = 0.0
-	var explode_instance = explode_scene.instantiate()
-	get_parent().add_child(explode_instance)
-	explode_instance.global_position = global_position
+	var fire_explode_instance = fire_explode_scene.instantiate()
+	get_parent().add_child(fire_explode_instance)
+	fire_explode_instance.global_position = global_position
+
+func _on_ice_explore() -> void:
+	var ice_explode_instance = ice_explode_scene.instantiate()
+	ice_explode_instance.initialize(self)
+	get_parent().add_child(ice_explode_instance)
+	ice_explode_instance.global_position = global_position
 
 func _on_knock_back(force: float) -> void:
 	var dir = (global_position - GameManager.player.global_position).normalized()

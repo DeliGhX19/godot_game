@@ -12,8 +12,9 @@ const TYPE_COUNT = 6                      # 所有伤害
 # 全局数据
 static var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-# 玩家
+# 单局数据
 static var player: CharacterBody2D
+static var reward_manager: RewardManager
 
 
 # 工具方法

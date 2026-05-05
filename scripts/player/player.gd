@@ -3,6 +3,7 @@ extends CharacterBody2D
 var fire_magic_scene: PackedScene = preload("res://scenes/player/fire_magic.tscn")
 var wood_magic_scene: PackedScene = preload("res://scenes/player/wood_magic.tscn")
 var stone_magic_scene: PackedScene = preload("res://scenes/player/stone_magic.tscn")
+var stone_meteor_scene: PackedScene = preload("res://scenes/player/stone_meteor.tscn")
 var ice_magic_scene: PackedScene = preload("res://scenes/player/ice_magic.tscn")
 var lightning_magic_scene: PackedScene = preload("res://scenes/player/lightning_magic.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
@@ -40,7 +41,6 @@ signal die
 
 func initialize(selected_profile: PlayerProfile):
 	profile = selected_profile
-	GameManager.player = self
 	
 	stats = PlayerStats.new()
 	stats.initialize(profile)
@@ -131,9 +131,15 @@ func set_attack_hitbox_enabled(enabled: bool) -> void:
 
 # 远程攻击
 func magic_attack() -> bool:
+	if current_magic_index == 2 and buffs.buffs[PlayerBuffs.STONE_METEOR] > 0:
+		if randf() <= 0.15:
+			var stone_meteor = stone_meteor_scene.instantiate()
+			get_parent().add_child(stone_meteor)
+			if stone_meteor.initialize(self): return true
+			else: stone_meteor.queue_free()
+	
 	var magic = magic_scenes[current_magic_index].instantiate()
 	get_parent().add_child(magic)
-	
 	magic.initialize(self)
 	magic.global_position = global_position
 	return magic.launch(get_global_mouse_position())

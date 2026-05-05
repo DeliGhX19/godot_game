@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ctgkxg60rtvg2"]
+
+[ext_resource type="Script" uid="uid://ctti0bpcquimj" path="res://scripts/rooms/components/bonus_point.gd" id="1_cptys"]
+
+[node name="BonusPoint" type="Marker2D" unique_id=2037082318]
+script = ExtResource("1_cptys")

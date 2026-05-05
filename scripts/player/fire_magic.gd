@@ -3,7 +3,10 @@ extends BasePlayerMagic
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var area_shape: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var eruption_area_shape: CollisionShape2D = $EruptionArea2D/CollisionShape2D
 @onready var timer: Timer = $Timer
+
+var is_eruption: bool = false        # 是否触发炎爆
 
 
 func initialize(belonging_player: CharacterBody2D) -> void:
@@ -15,6 +18,10 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	gravity = 0
 	bounce_factor = 1.0
 	max_pierce = 1 + player.stats.magic_pierce_extra
+	
+	if player.buffs.buffs[PlayerBuffs.FIRE_ERUPTION] > 0:
+		if randf() <= 0.15: is_eruption = true
+	eruption_area_shape.set_deferred("disabled", true)
 
 func _physics_process(delta: float) -> void:
 	# 处理反弹
@@ -43,8 +50,13 @@ func die() -> void:
 	set_physics_process(false)
 	collision_shape.set_deferred("disabled", true)
 	area_shape.set_deferred("disabled", true)
+	eruption_area_shape.set_deferred("disabled", not is_eruption)
 	
-	sprite.play("die")
+	if is_eruption:
+		rotation = 0
+		scale *= 1.5 
+		sprite.play("eruption")
+	else: sprite.play("die")
 
 
 func _on_timer_timeout() -> void:
@@ -52,6 +64,10 @@ func _on_timer_timeout() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if is_dying: return
+	
+	if is_eruption:
+		die()
+		return
 	
 	player.stats.damages[PlayerStats.FIRE_MAGIC].value = base_damage
 	player.stats.damages[PlayerStats.FIRE_MAGIC].type = GameManager.TYPE_FIRE
@@ -62,6 +78,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if current_pierce >= max_pierce:
 		die()
 
+func _on_eruption_area_2d_body_entered(body: Node2D) -> void:
+	player.stats.damages[PlayerStats.FIRE_ERUPTION].value = base_damage * 3
+	player.stats.damages[PlayerStats.FIRE_ERUPTION].type = GameManager.TYPE_FIRE
+	player.stats.enemies[PlayerStats.FIRE_ERUPTION].append(body)
+	for i in range(3): body.buffs.add_burn()
+
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if sprite.animation == "die":
+	if sprite.animation == "die" or sprite.animation == "eruption":
 		queue_free()

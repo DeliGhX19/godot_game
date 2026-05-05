@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c2eh8t2jt8wah"]
+
+[ext_resource type="Script" uid="uid://be75rsuuy2a37" path="res://scripts/rooms/reward/bonus_generator.gd" id="1_24jmp"]
+
+[node name="BonusGenerator" type="Node2D" unique_id=649976066]
+script = ExtResource("1_24jmp")
