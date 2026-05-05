@@ -35,13 +35,13 @@ region = Rect2(120, 40, 120, 40)
 atlas = ExtResource("2_4kuee")
 region = Rect2(240, 40, 120, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p1lr0"]
-atlas = ExtResource("2_4kuee")
-region = Rect2(360, 40, 120, 40)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ro0t8"]
 atlas = ExtResource("2_4kuee")
 region = Rect2(480, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1lr0"]
+atlas = ExtResource("2_4kuee")
+region = Rect2(360, 40, 120, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nn5r"]
 atlas = ExtResource("2_4kuee")
@@ -157,10 +157,10 @@ animations = [{
 "texture": SubResource("AtlasTexture_v5i4m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p1lr0")
+"texture": SubResource("AtlasTexture_ro0t8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ro0t8")
+"texture": SubResource("AtlasTexture_p1lr0")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8nn5r")
@@ -179,7 +179,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -246,7 +246,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kswpp"]
-size = Vector2(23.333334, 37.333336)
+size = Vector2(16, 34.53334)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slide_body"]
 size = Vector2(34, 20)
@@ -261,10 +261,11 @@ script = ExtResource("1_gfjak")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=180501444]
 sprite_frames = SubResource("SpriteFrames_pi3ps")
-animation = &"jump"
+animation = &"idle"
 
 [node name="StandingCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1268378624]
-position = Vector2(-3.6666667, 0.66666794)
+position = Vector2(-5.599998, 2.066666)
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_kswpp")
 
 [node name="SlideCollisionShape2D" type="CollisionShape2D" parent="." unique_id=699781997]

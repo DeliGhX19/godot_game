@@ -6,8 +6,8 @@ extends BaseEnemy
 var detection_range: float = 500.0        # 检测范围
 var attack_range: float = 100.0           # 攻击范围
 var is_attacking: bool = false            # 是否攻击
-var attack_start_frame: int = 6           # 攻击判定生效起始帧
-var attack_end_frame: int = 7             # 攻击判定生效结束帧
+var attack_start_frame: int = 5            # 攻击判定生效起始帧
+var attack_end_frame: int = 7              # 攻击判定生效结束帧
 
 
 # 初始化敌人数据
@@ -48,7 +48,7 @@ func handle_ai(delta: float) -> void:
 		velocity.x = 0
 	elif dist <= detection_range:
 		velocity.x = dir * stats.move_speed
-		sprite.flip_h = dir < 0
+		sprite.flip_h = dir < 0  # 动画默认向左，player在右边时需要翻转
 		attack_area.scale.x = -1 if dir < 0 else 1
 	else:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)

@@ -56,8 +56,21 @@ const LIGHTNING_LEVEL_2 = 45    # 奔雷（+0.1雷击判定半径 *1.1伤害）
 const LIGHTNING_LEVEL_3 = 46    # 闪雷（+0.2雷击判定半径 *1.2伤害）
 const LIGHTNING_CHAIN = 47      # 连锁（穿透敌人生成 +1生成数）
 const LIGHTNING_DISASTER = 48   # 毁灭（秒杀非boss敌人）
+# 近战攻击通用构筑
+const MELEE_DMG_LEVEL_1 = 100   # 破甲（*1.1近战伤害）
+const MELEE_DMG_LEVEL_2 = 101   # 碎玉（*1.25近战伤害）
+const MELEE_DMG_LEVEL_3 = 102   # 裂石（*1.5近战伤害）
+const MELEE_SPD_LEVEL_1 = 103   # 疾风（+0.1攻击速度）
+const MELEE_SPD_LEVEL_2 = 104   # 掠影（+0.2攻击速度）
+const MELEE_SPD_LEVEL_3 = 105   # 闪电（+0.35攻击速度）
+const MELEE_LIFESTEAL_LEVEL_1 = 106  # 饮血（2%吸血）
+const MELEE_LIFESTEAL_LEVEL_2 = 107  # 嗜血（4%吸血）
+const MELEE_LIFESTEAL_LEVEL_3 = 108  # 浴血（6%吸血）
+const MELEE_KILL_REFRESH_1 = 109     # 杀意（击杀后-15%冷却，持续3秒）
+const MELEE_KILL_REFRESH_2 = 110     # 杀意（击杀后-30%冷却，持续3秒）
+const MELEE_KILL_REFRESH_3 = 111     # 杀意（击杀后-50%冷却，持续3秒）
 # 总buff数
-const BUFFER_COUNT = 49
+const BUFFER_COUNT = 112
 var buffs: Array[int]
 
 var wood_convert_timer: float
@@ -165,3 +178,22 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.1
 			LIGHTNING_LEVEL_3:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.2
+			MELEE_DMG_LEVEL_1:
+				stats.damages[PlayerStats.PHYSIC_ATTACK].value *= pow(1.1, buffs[i])
+			MELEE_DMG_LEVEL_2:
+				stats.damages[PlayerStats.PHYSIC_ATTACK].value *= pow(1.25, buffs[i])
+			MELEE_DMG_LEVEL_3:
+				stats.damages[PlayerStats.PHYSIC_ATTACK].value *= pow(1.5, buffs[i])
+			MELEE_SPD_LEVEL_1:
+				stats.melee_attack_speed += 0.1 * buffs[i]
+			MELEE_SPD_LEVEL_2:
+				stats.melee_attack_speed += 0.2 * buffs[i]
+			MELEE_SPD_LEVEL_3:
+				stats.melee_attack_speed += 0.35 * buffs[i]
+			MELEE_LIFESTEAL_LEVEL_1:
+				stats.lifesteal += 0.02 * buffs[i]
+			MELEE_LIFESTEAL_LEVEL_2:
+				stats.lifesteal += 0.04 * buffs[i]
+			MELEE_LIFESTEAL_LEVEL_3:
+				stats.lifesteal += 0.06 * buffs[i]
+			

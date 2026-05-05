@@ -35,7 +35,15 @@ var magic_attack_speed: float             # 远程攻击速度
 var magic_pierce_extra: int               # 远程攻击增加的穿透次数
 var magic_range_extra: float              # 远程攻击增加的持续时间
 
+var melee_attack_speed: float = 1.0       # 近战攻击速度
+var lifesteal: float = 0.0                # 吸血比例
+var melee_kill_refresh: float = 0.0       # 杀意之迸：冷却减少比例
+var melee_kill_refresh_timer: float = 0.0 # 杀意持续计时器
+
+var slide_timer: float = 0.0              # 闪避计时器（便于Buff处理）
+
 signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
+signal enemy_killed
 
 
 # 初始化（每次进入主游戏时调用）
@@ -55,9 +63,14 @@ func initialize(profile: PlayerProfile) ->void:
 		damages[i] = DamagePacket.new()
 		enemies[i] = []
 	
-	magic_attack_speed = 1.0
+	magic_attack_speed = 3.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
+	
+	melee_attack_speed = 1.0
+	lifesteal = 0.0
+	melee_kill_refresh = 0.0
+	melee_kill_refresh_timer = 0.0
 
 # 重置（主游戏中每帧调用）
 func reset(profile: PlayerProfile) -> void:
@@ -73,21 +86,38 @@ func reset(profile: PlayerProfile) -> void:
 		damages[i].value = 0.0
 		enemies[i].clear()
 		
-	magic_attack_speed = 1.0
+	magic_attack_speed = 3.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
+	
+	melee_attack_speed = 1.0
+	lifesteal = 0.0
 
 # 结算（主游戏中每帧调用）
 func settle(delta: float) -> void:
 	# 处理无敌帧
 	if i_frame_timer > 0: i_frame_timer -= delta
 	
+	# 处理杀意之迸计时器
+	if melee_kill_refresh_timer > 0:
+		melee_kill_refresh_timer -= delta
+		if melee_kill_refresh_timer <= 0:
+			melee_kill_refresh = 0.0
+	
 	# 玩家攻击敌人
+	var melee_damage_dealt := 0.0
 	for i in range(DAMAGE_SOURCE_COUNT):
 		var type = damages[i].type
 		var is_crit := randf() < crit_rate
 		for enemy in enemies[i]:
-			enemy.stats.receiving_damages[type] += damages[i].value * (1.5 if is_crit else 1.0)
+			var damage_dealt = damages[i].value * (1.5 if is_crit else 1.0)
+			enemy.stats.receiving_damages[type] += damage_dealt
+			if i == PHYSIC_ATTACK:
+				melee_damage_dealt += damage_dealt
+	
+	# 吸血处理（仅近战伤害）
+	if lifesteal > 0 and melee_damage_dealt > 0:
+		settle_hp(-melee_damage_dealt * lifesteal)
 	
 	# 结算玩家收到的伤害
 	if i_frame_timer <= 0:

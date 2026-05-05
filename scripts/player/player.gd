@@ -23,6 +23,7 @@ var buffs: PlayerBuffs
 # 近战攻击
 var is_attacking: bool = false
 var attack_damage: float = 25.0
+var melee_cooldown_timer: float = 0.0
 
 # 远程攻击
 var current_magic_index: int = 0
@@ -34,7 +35,6 @@ var facing_dir: float = 1.0
 var slide_speed: float = 520.0
 var slide_duration: float = 0.22
 var is_sliding: bool = false
-var slide_timer: float = 0.0
 
 signal die
 
@@ -75,10 +75,14 @@ func _physics_process(delta: float) -> void:
 	
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
+	if melee_cooldown_timer > 0: melee_cooldown_timer -= delta
+	
 	if not is_sliding and not is_attacking:
 		# 近战攻击
-		if Input.is_action_just_pressed("melee"):
+		if Input.is_action_just_pressed("melee") and melee_cooldown_timer <= 0:
 			is_attacking = true
+			var cooldown = (1.0 / stats.melee_attack_speed) * (1.0 - stats.melee_kill_refresh)
+			melee_cooldown_timer = cooldown
 			attack_pivot.position.x = initial_pivot_x * facing_dir
 			attack_pivot.scale.x = facing_dir
 			set_attack_hitbox_enabled(true)
@@ -88,7 +92,7 @@ func _physics_process(delta: float) -> void:
 		# 闪避
 		if Input.is_action_just_pressed("slide"):
 			is_sliding = true
-			slide_timer = slide_duration
+			stats.slide_timer = slide_duration
 			sprite.play("slide")
 			set_slide_collision_enabled(true)
 	
@@ -97,9 +101,9 @@ func _physics_process(delta: float) -> void:
 	if input_dir != 0: facing_dir = sign(input_dir)
 	if is_sliding:
 		#滑行
-		slide_timer -= delta
+		stats.slide_timer -= delta
 		velocity.x = input_dir * slide_speed
-		if slide_timer <= 0.0:
+		if stats.slide_timer <= 0.0:
 			is_sliding = false
 			set_slide_collision_enabled(false)
 	else:
@@ -178,9 +182,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
 		is_attacking = false
 		set_attack_hitbox_enabled(false)
-	elif sprite.animation == "slide":
-		is_sliding = false
-		set_slide_collision_enabled(false)
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if not GameManager.is_target_blocked_by_wall(self, body):
