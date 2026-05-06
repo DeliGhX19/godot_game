@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var player: CharacterBody2D = $Player
+@onready var meta_upgrades: CanvasLayer = $MetaUpgrades
+@onready var skeleton_shopkeeper: Area2D = $SkeletonShopkeeper
 
 var profile: PlayerProfile
 
@@ -8,6 +10,13 @@ var profile: PlayerProfile
 func _ready() -> void:
 	profile.rebuild_stats_from_meta()
 	player.initialize(profile)
+	meta_upgrades.initialize(profile)
+
+
+func _on_skeleton_shopkeeper_interact_requested() -> void:
+	if meta_upgrades.is_open():
+		return
+	meta_upgrades.open(profile)
 
 
 # 开始游戏

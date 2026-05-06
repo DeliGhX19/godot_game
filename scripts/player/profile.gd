@@ -1,19 +1,9 @@
 class_name PlayerProfile
 
 const SAVE_PATH := "res://saves/"
+const META_UPGRADES_SCRIPT := preload("res://scripts/meta/meta_upgrades.gd")
 
-const BASE_MAX_HP := 100.0
-const BASE_MOVE_SPEED := 400.0
-const BASE_JUMP_HEIGHT := 800.0
-const BASE_CRIT_RATE := 0.0
-const BASE_DAMAGE_REDUCTION := 0.0
-
-const HP_UPGRADE_STEP := 10.0
-const MOVE_SPEED_UPGRADE_STEP := 8.0
-const JUMP_UPGRADE_STEP := 20.0
-const CRIT_UPGRADE_STEP := 0.01
-const DR_UPGRADE_STEP := 0.005
-
+var meta_upgrades = META_UPGRADES_SCRIPT.new()
 var meta_currency: int = 0
 
 var hp_upgrade_level: int = 0
@@ -22,24 +12,89 @@ var jump_upgrade_level: int = 0
 var crit_upgrade_level: int = 0
 var dr_upgrade_level: int = 0
 
-var max_hp: float = BASE_MAX_HP
-var move_speed: float = BASE_MOVE_SPEED
-var jump_height: float = BASE_JUMP_HEIGHT
-var crit_rate: float = BASE_CRIT_RATE
-var damage_reduction: float = BASE_DAMAGE_REDUCTION
+var max_hp: float = 100.0
+var move_speed: float = 400.0
+var jump_height: float = 800.0
+var crit_rate: float = 0.0
+var damage_reduction: float = 0.0
 var save_slot: int = 0
 
 
 func _init() -> void:
+	max_hp = meta_upgrades.get_base(meta_upgrades.UPGRADE_HP)
+	move_speed = meta_upgrades.get_base(meta_upgrades.UPGRADE_MOVE_SPEED)
+	jump_height = meta_upgrades.get_base(meta_upgrades.UPGRADE_JUMP)
+	crit_rate = meta_upgrades.get_base(meta_upgrades.UPGRADE_CRIT)
+	damage_reduction = meta_upgrades.get_base(meta_upgrades.UPGRADE_DR)
 	rebuild_stats_from_meta()
 
 
 func rebuild_stats_from_meta() -> void:
-	max_hp = BASE_MAX_HP + hp_upgrade_level * HP_UPGRADE_STEP
-	move_speed = BASE_MOVE_SPEED + move_speed_upgrade_level * MOVE_SPEED_UPGRADE_STEP
-	jump_height = BASE_JUMP_HEIGHT + jump_upgrade_level * JUMP_UPGRADE_STEP
-	crit_rate = BASE_CRIT_RATE + crit_upgrade_level * CRIT_UPGRADE_STEP
-	damage_reduction = BASE_DAMAGE_REDUCTION + dr_upgrade_level * DR_UPGRADE_STEP
+	max_hp = meta_upgrades.get_value_at_level(meta_upgrades.UPGRADE_HP, hp_upgrade_level)
+	move_speed = meta_upgrades.get_value_at_level(meta_upgrades.UPGRADE_MOVE_SPEED, move_speed_upgrade_level)
+	jump_height = meta_upgrades.get_value_at_level(meta_upgrades.UPGRADE_JUMP, jump_upgrade_level)
+	crit_rate = meta_upgrades.get_value_at_level(meta_upgrades.UPGRADE_CRIT, crit_upgrade_level)
+	damage_reduction = meta_upgrades.get_value_at_level(meta_upgrades.UPGRADE_DR, dr_upgrade_level)
+
+
+func get_upgrade_level(upgrade_id: String) -> int:
+	match upgrade_id:
+		meta_upgrades.UPGRADE_HP:
+			return hp_upgrade_level
+		meta_upgrades.UPGRADE_MOVE_SPEED:
+			return move_speed_upgrade_level
+		meta_upgrades.UPGRADE_JUMP:
+			return jump_upgrade_level
+		meta_upgrades.UPGRADE_CRIT:
+			return crit_upgrade_level
+		meta_upgrades.UPGRADE_DR:
+			return dr_upgrade_level
+		_:
+			return 0
+
+
+func set_upgrade_level(upgrade_id: String, value: int) -> void:
+	match upgrade_id:
+		meta_upgrades.UPGRADE_HP:
+			hp_upgrade_level = value
+		meta_upgrades.UPGRADE_MOVE_SPEED:
+			move_speed_upgrade_level = value
+		meta_upgrades.UPGRADE_JUMP:
+			jump_upgrade_level = value
+		meta_upgrades.UPGRADE_CRIT:
+			crit_upgrade_level = value
+		meta_upgrades.UPGRADE_DR:
+			dr_upgrade_level = value
+
+
+func get_upgrade_max_level(upgrade_id: String) -> int:
+	return meta_upgrades.get_max_level(upgrade_id)
+
+
+func get_upgrade_cost(upgrade_id: String) -> int:
+	return meta_upgrades.get_cost(upgrade_id, get_upgrade_level(upgrade_id))
+
+
+func can_purchase_upgrade(upgrade_id: String) -> bool:
+	var level := get_upgrade_level(upgrade_id)
+	if level >= get_upgrade_max_level(upgrade_id):
+		return false
+	return meta_currency >= get_upgrade_cost(upgrade_id)
+
+
+func purchase_upgrade(upgrade_id: String) -> bool:
+	if not can_purchase_upgrade(upgrade_id):
+		return false
+
+	meta_currency -= get_upgrade_cost(upgrade_id)
+	set_upgrade_level(upgrade_id, get_upgrade_level(upgrade_id) + 1)
+	rebuild_stats_from_meta()
+	save()
+	return true
+
+
+func get_upgrade_display_text(upgrade_id: String) -> String:
+	return meta_upgrades.get_display_text(upgrade_id, get_upgrade_level(upgrade_id))
 
 
 func get_meta_data_dict() -> Dictionary:
