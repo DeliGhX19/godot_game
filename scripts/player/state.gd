@@ -56,6 +56,7 @@ signal enemy_killed
 
 
 func initialize(profile: PlayerProfile) -> void:
+	profile.rebuild_stats_from_meta()
 	max_hp = profile.max_hp
 	move_speed = profile.move_speed
 	jump_height = profile.jump_height
@@ -91,6 +92,7 @@ func initialize(profile: PlayerProfile) -> void:
 
 
 func reset(profile: PlayerProfile) -> void:
+	profile.rebuild_stats_from_meta()
 	max_hp = profile.max_hp
 	move_speed = profile.move_speed
 	jump_height = profile.jump_height

@@ -19,6 +19,7 @@ func initialize_stats() -> void:
 	base_damages = [15.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	damage_reduction = [0.2, 0.0, 0.0, 0.0, 0.0, 0.0]
 	i_frame_duration = 0.0
+	meta_currency_reward = 1
 	
 	attack_shape.disabled = true
 

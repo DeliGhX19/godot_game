@@ -21,6 +21,7 @@ var buffs: EnemyBuffs
 
 var is_hurt : bool
 var knockback_timer: float
+var meta_currency_reward: int = 1
 
 
 func _ready() -> void:
@@ -104,6 +105,8 @@ func update_animation() -> void:
 # 死亡
 func on_death() -> void:
 	set_physics_process(false)
+	if GameManager.player and GameManager.player.profile:
+		GameManager.player.profile.meta_currency += meta_currency_reward
 	
 	# 触发杀意之迸效果（立即触发，不等动画）
 	if GameManager.player and GameManager.player.buffs.buffs[PlayerBuffs.MELEE_KILL_REFRESH_1] > 0:
