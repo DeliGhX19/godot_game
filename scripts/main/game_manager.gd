@@ -25,7 +25,12 @@ static func is_target_blocked_by_wall(from_node: Node2D, to_node: Node2D, mask: 
 		to_node.global_position + offset
 	)
 	query.collision_mask = mask
-	query.exclude = [from_node.get_rid()]
+	query.exclude = []
+	if from_node.has_method("get_rid"):
+		query.exclude.append(from_node.get_rid())
+	var parent = from_node.get_parent()
+	if parent != null and parent.has_method("get_rid"):
+		query.exclude.append(parent.get_rid())
 	
 	var result = space_state.intersect_ray(query)
 	return result.size() > 0

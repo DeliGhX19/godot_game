@@ -1,78 +1,85 @@
 class_name PlayerBuffs
 
-# 通用构筑
-const HP_LEVEL_1 = 0      # 纳气（*1.1生命上限）
-const HP_LEVEL_2 = 1      # 固本（*1.3生命上限）
-const HP_LEVEL_3 = 2      # 培元（*1.5生命上限）
-const SPEED_LEVEL_1 = 3   # 微步（+20移动速度）
-const SPEED_LEVEL_2 = 4   # 行风（+25移动速度 +15跳跃高度）
-const SPEED_LEVEL_3 = 5   # 登云（+30移动速度 +25跳跃高度）
-const DR_LEVEL_1 = 6      # 铜皮（+0.0125减伤）
-const DR_LEVEL_2 = 7      # 铁骨（+0.025减伤）
-const DR_LEVEL_3 = 8      # 金身（+0.05减伤）
-const CRIT_LEVEL_1 = 9    # 入神（+0.025暴击率）
-const CRIT_LEVEL_2 = 10   # 会心（+0.05暴击率）
-const CRIT_LEVEL_3 = 11   # 惊天（+0.075暴击率）
-# 远程攻击通用构筑
-const MAGIC_DMG_LEVEL_1 = 12    # 聚星（*1.15远程伤害）
-const MAGIC_DMG_LEVEL_2 = 13    # 辉阳（*1.30远程伤害）
-const MAGIC_DMG_LEVEL_3 = 14    # 曜日（*1.50远程伤害）
-const MAGIC_SPD_LEVEL_1 = 15    # 惊鸿（+0.15施法速度）
-const MAGIC_SPD_LEVEL_2 = 16    # 游龙（+0.3施法速度）
-const MAGIC_SPD_LEVEL_3 = 17    # 瞬影（+0.5施法速度）
-const MAGIC_RANGE_LEVEL_1 = 18  # 燕返（+0.2s子弹时间）
-const MAGIC_RANGE_LEVEL_2 = 19  # 追月（+0.35s子弹时间）
-const MAGIC_RANGE_LEVEL_3 = 20  # 落日（+0.5s飞弹时间）
-const MAGIC_PIERCE = 21         # 洞石（+1穿透次数）
-# 火元素专属构筑
-const FIRE_DOT_LEVEL_1 = 22     # 星火（+5伤害）
-const FIRE_DOT_LEVEL_2 = 23     # 业火（+5伤害 +1s持续）
-const FIRE_DOT_LEVEL_3 = 24     # 焚天（+10伤害 +2s持续）
-const FIRE_EXPLODE = 25         # 爆燃（层数>3引爆 *1.1伤害）
-const FIRE_ERUPTION = 26        # 炎爆（范围施加3层灼烧）
-# 木元素专属构筑
-const WOOD_HEAL = 27            # 恢复
-const WOOD_HEAL_LEVEL_1 = 28    # 回春（+0.1%生命上限恢复）
-const WOOD_HEAL_LEVEL_2 = 29    # 蕴木（+0.2%生命上限恢复）
-const WOOD_HEAL_LEVEL_3 = 30    # 万物（+0.5%生命上限恢复）
-const WOOD_CONVERT = 31         # 转换（溢出治疗转增益）
-const WOOD_TREANT = 32          # 傀儡（濒死敌人变异为生命树）
-const WOOD_TREANT_AURA = 33     # 沐泽（靠近生命树获得的持续增益）
-# 石元素专属构筑
-const STONE_KB_LEVEL_1 = 34     # 沉沙（+60击退）
-const STONE_KB_LEVEL_2 = 35     # 碎岩（+100击退）
-const STONE_KB_LEVEL_3 = 36     # 镇渊（+150击退）
-const STONE_STUN = 37           # 眩晕（+0.2s眩晕）
-const STONE_METEOR = 38         # 陨星（范围内随机目标，范围眩晕）
-# 冰元素专属构筑
-const ICE_SLOW_LEVEL_1 = 39     # 流霜（+1s持续）
-const ICE_SLOW_LEVEL_2 = 40     # 凝冰（+1.5s持续）
-const ICE_SLOW_LEVEL_3 = 41     # 绝寒（+2s持续 +2%减速增益）
-const ICE_FREEZE = 42           # 冻结（层数>5引爆 +0.5s持续）
-const ICE_EXPLORE = 43          # 冰爆（范围冻结）
-# 雷元素专属构筑
-const LIGHTNING_LEVEL_1 = 44    # 惊雷（*1.1伤害）
-const LIGHTNING_LEVEL_2 = 45    # 奔雷（+0.1雷击判定半径 *1.1伤害）
-const LIGHTNING_LEVEL_3 = 46    # 闪雷（+0.2雷击判定半径 *1.2伤害）
-const LIGHTNING_CHAIN = 47      # 连锁（穿透敌人生成 +1生成数）
-const LIGHTNING_DISASTER = 48   # 毁灭（秒杀非boss敌人）
-# 近战攻击通用构筑
-const MELEE_DMG_LEVEL_1 = 100   # 破甲（*1.1近战伤害）
-const MELEE_DMG_LEVEL_2 = 101   # 碎玉（*1.25近战伤害）
-const MELEE_DMG_LEVEL_3 = 102   # 裂石（*1.5近战伤害）
-const MELEE_SPD_LEVEL_1 = 103   # 疾风（+0.1攻击速度）
-const MELEE_SPD_LEVEL_2 = 104   # 掠影（+0.2攻击速度）
-const MELEE_SPD_LEVEL_3 = 105   # 闪电（+0.35攻击速度）
-const MELEE_LIFESTEAL_LEVEL_1 = 106  # 饮血（2%吸血）
-const MELEE_LIFESTEAL_LEVEL_2 = 107  # 嗜血（4%吸血）
-const MELEE_LIFESTEAL_LEVEL_3 = 108  # 浴血（6%吸血）
-const MELEE_KILL_REFRESH_1 = 109     # 杀意（击杀后-15%冷却，持续3秒）
-const MELEE_KILL_REFRESH_2 = 110     # 杀意（击杀后-30%冷却，持续3秒）
-const MELEE_KILL_REFRESH_3 = 111     # 杀意（击杀后-50%冷却，持续3秒）
-# 总buff数
-const BUFFER_COUNT = 112
-var buffs: Array[int]
+const HP_LEVEL_1 = 0
+const HP_LEVEL_2 = 1
+const HP_LEVEL_3 = 2
+const SPEED_LEVEL_1 = 3
+const SPEED_LEVEL_2 = 4
+const SPEED_LEVEL_3 = 5
+const DR_LEVEL_1 = 6
+const DR_LEVEL_2 = 7
+const DR_LEVEL_3 = 8
+const CRIT_LEVEL_1 = 9
+const CRIT_LEVEL_2 = 10
+const CRIT_LEVEL_3 = 11
 
+const MAGIC_DMG_LEVEL_1 = 12
+const MAGIC_DMG_LEVEL_2 = 13
+const MAGIC_DMG_LEVEL_3 = 14
+const MAGIC_SPD_LEVEL_1 = 15
+const MAGIC_SPD_LEVEL_2 = 16
+const MAGIC_SPD_LEVEL_3 = 17
+const MAGIC_RANGE_LEVEL_1 = 18
+const MAGIC_RANGE_LEVEL_2 = 19
+const MAGIC_RANGE_LEVEL_3 = 20
+const MAGIC_PIERCE = 21
+
+const FIRE_DOT_LEVEL_1 = 22
+const FIRE_DOT_LEVEL_2 = 23
+const FIRE_DOT_LEVEL_3 = 24
+const FIRE_EXPLODE = 25
+const FIRE_ERUPTION = 26
+
+const WOOD_HEAL = 27
+const WOOD_HEAL_LEVEL_1 = 28
+const WOOD_HEAL_LEVEL_2 = 29
+const WOOD_HEAL_LEVEL_3 = 30
+const WOOD_CONVERT = 31
+const WOOD_TREANT = 32
+const WOOD_TREANT_AURA = 33
+
+const STONE_KB_LEVEL_1 = 34
+const STONE_KB_LEVEL_2 = 35
+const STONE_KB_LEVEL_3 = 36
+const STONE_STUN = 37
+const STONE_METEOR = 38
+
+const ICE_SLOW_LEVEL_1 = 39
+const ICE_SLOW_LEVEL_2 = 40
+const ICE_SLOW_LEVEL_3 = 41
+const ICE_FREEZE = 42
+const ICE_EXPLORE = 43
+
+const LIGHTNING_LEVEL_1 = 44
+const LIGHTNING_LEVEL_2 = 45
+const LIGHTNING_LEVEL_3 = 46
+const LIGHTNING_CHAIN = 47
+const LIGHTNING_DISASTER = 48
+
+const MELEE_DMG_LEVEL_1 = 100
+const MELEE_DMG_LEVEL_2 = 101
+const MELEE_DMG_LEVEL_3 = 102
+const MELEE_SPD_LEVEL_1 = 103
+const MELEE_SPD_LEVEL_2 = 104
+const MELEE_SPD_LEVEL_3 = 105
+const MELEE_LIFESTEAL_LEVEL_1 = 106
+const MELEE_LIFESTEAL_LEVEL_2 = 107
+const MELEE_LIFESTEAL_LEVEL_3 = 108
+const MELEE_KILL_REFRESH_1 = 109
+const MELEE_KILL_REFRESH_2 = 110
+const MELEE_KILL_REFRESH_3 = 111
+
+const FLYING_SWORD = 112
+const FLYING_SWORD_DAMAGE_1 = 113
+const FLYING_SWORD_DAMAGE_2 = 114
+const FLYING_SWORD_DAMAGE_3 = 115
+const FLYING_SWORD_SPEED_1 = 116
+const FLYING_SWORD_SPEED_2 = 117
+const FLYING_SWORD_SPEED_3 = 118
+
+const BUFFER_COUNT = 119
+
+var buffs: Array[int]
 var wood_convert_timer: float
 var wood_treant_aura_timer: float
 
@@ -80,15 +87,15 @@ var wood_treant_aura_timer: float
 func initialize() -> void:
 	buffs.resize(BUFFER_COUNT)
 	buffs.fill(0)
-	
-	wood_convert_timer = 0
+	wood_convert_timer = 0.0
+	wood_treant_aura_timer = 0.0
 
 
-# 应用buff（主游戏每帧调用）
 func apply(stats: PlayerStats, delta: float) -> void:
-	# 处理buff
 	for i in range(BUFFER_COUNT):
-		if buffs[i] == 0: continue
+		if buffs[i] == 0:
+			continue
+
 		match i:
 			HP_LEVEL_1:
 				stats.max_hp *= pow(1.1, buffs[i])
@@ -117,13 +124,13 @@ func apply(stats: PlayerStats, delta: float) -> void:
 			CRIT_LEVEL_3:
 				stats.crit_rate += 0.075 * buffs[i]
 			MAGIC_DMG_LEVEL_1:
-				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT): 
+				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT):
 					stats.damages[j].value *= pow(1.15, buffs[i])
 			MAGIC_DMG_LEVEL_2:
-				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT): 
+				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT):
 					stats.damages[j].value *= pow(1.30, buffs[i])
 			MAGIC_DMG_LEVEL_3:
-				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT): 
+				for j in range(PlayerStats.FIRE_MAGIC, PlayerStats.DAMAGE_SOURCE_COUNT):
 					stats.damages[j].value *= pow(1.50, buffs[i])
 			MAGIC_SPD_LEVEL_1:
 				stats.magic_attack_speed += 0.15 * buffs[i]
@@ -138,30 +145,28 @@ func apply(stats: PlayerStats, delta: float) -> void:
 			MAGIC_RANGE_LEVEL_3:
 				stats.magic_range_extra += 0.5 * buffs[i]
 			MAGIC_PIERCE:
-				stats.magic_pierce_extra += 1 * buffs[i]
+				stats.magic_pierce_extra += buffs[i]
 			FIRE_EXPLODE:
 				stats.damages[PlayerStats.FIRE_EXPLOSION].value *= pow(1.1, buffs[FIRE_EXPLODE])
 			WOOD_HEAL:
-				# 恢复血量
 				var heal_ratio = 0.005 + 0.001 * buffs[WOOD_HEAL_LEVEL_1] + 0.002 * buffs[WOOD_HEAL_LEVEL_2] + 0.005 * buffs[WOOD_HEAL_LEVEL_3]
 				var heal_amount = heal_ratio * stats.max_hp
 				var missing_hp = stats.max_hp - stats.hp
 				var actual_heal = min(heal_amount, missing_hp)
 				stats.settle_hp(-actual_heal)
-				# 处理增益
 				if stats.hp >= stats.max_hp and buffs[WOOD_CONVERT] > 0:
 					wood_convert_timer = 3.0
 				buffs[WOOD_HEAL] = 0
 			WOOD_CONVERT:
 				if wood_convert_timer > 0:
 					wood_convert_timer -= delta
-					for j in range(PlayerStats.DAMAGE_SOURCE_COUNT): 
-						stats.damages[j].value *= (1.0 + 0.1 * buffs[WOOD_CONVERT])
-					stats.move_speed *= (1.0 + 0.05 * buffs[WOOD_CONVERT])
-					stats.jump_height *= (1.0 + 0.05 * buffs[WOOD_CONVERT])
+					for j in range(PlayerStats.DAMAGE_SOURCE_COUNT):
+						stats.damages[j].value *= 1.0 + 0.1 * buffs[WOOD_CONVERT]
+					stats.move_speed *= 1.0 + 0.05 * buffs[WOOD_CONVERT]
+					stats.jump_height *= 1.0 + 0.05 * buffs[WOOD_CONVERT]
 					stats.damage_reduction += 0.005 * buffs[WOOD_CONVERT]
 			WOOD_TREANT_AURA:
-				for j in range(PlayerStats.DAMAGE_SOURCE_COUNT): 
+				for j in range(PlayerStats.DAMAGE_SOURCE_COUNT):
 					stats.damages[j].value *= 1.2
 				stats.move_speed *= 1.1
 				stats.jump_height *= 1.1
@@ -171,7 +176,8 @@ func apply(stats: PlayerStats, delta: float) -> void:
 					var missing_hp = stats.max_hp - stats.hp
 					var actual_heal = min(0.01 * stats.max_hp, missing_hp)
 					stats.settle_hp(-actual_heal)
-				else: wood_treant_aura_timer -= delta
+				else:
+					wood_treant_aura_timer -= delta
 			LIGHTNING_LEVEL_1:
 				stats.damages[PlayerStats.LIGHTNING_SPLASH].value *= 1.1
 			LIGHTNING_LEVEL_2:
@@ -196,4 +202,21 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				stats.lifesteal += 0.04 * buffs[i]
 			MELEE_LIFESTEAL_LEVEL_3:
 				stats.lifesteal += 0.06 * buffs[i]
-			
+			FLYING_SWORD:
+				stats.flying_sword_count = max(stats.flying_sword_count, buffs[i])
+				stats.flying_sword_damage += 12.0 * buffs[i]
+			FLYING_SWORD_DAMAGE_1:
+				stats.flying_sword_damage *= pow(1.15, buffs[i])
+			FLYING_SWORD_DAMAGE_2:
+				stats.flying_sword_damage *= pow(1.3, buffs[i])
+			FLYING_SWORD_DAMAGE_3:
+				stats.flying_sword_damage *= pow(1.5, buffs[i])
+			FLYING_SWORD_SPEED_1:
+				stats.flying_sword_move_speed += 60.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.05 * buffs[i])
+			FLYING_SWORD_SPEED_2:
+				stats.flying_sword_move_speed += 100.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.08 * buffs[i])
+			FLYING_SWORD_SPEED_3:
+				stats.flying_sword_move_speed += 150.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.12 * buffs[i])
