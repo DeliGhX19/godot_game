@@ -1,14 +1,15 @@
 extends Node2D
 
 var enemy_template_dir: String = "res://scenes/enemies/"
-var enemy_count: int = 8
-var max_enemies: int = 10
+var enemy_count: int = 5
+var max_enemies: int = 15
 var enemy_templates: Array[PackedScene] = []
-var enemy_nodes: Array[Node2D] = []
 
 
 # 生成关卡敌人
-func generator_enemy(points: Array[Marker2D]) -> void:
+func generate(points: Array[Marker2D]) -> void:
+	max_enemies += GameManager.level % 5
+
 	clear_previous_enenmy()
 	load_enemy_templates()
 	
@@ -22,14 +23,14 @@ func generator_enemy(points: Array[Marker2D]) -> void:
 		# 在敌人生成点放置敌人
 		add_child(enemy_instance)
 		enemy_instance.global_position = point.global_position
-		enemy_nodes.append(enemy_instance)
+		GameManager.enemies.append(enemy_instance)
 
 # 清理关卡敌人
 func clear_previous_enenmy() -> void:
-	for enemy in enemy_nodes:
+	for enemy in GameManager.enemies:
 		if is_instance_valid(enemy):
 			enemy.queue_free()
-	enemy_nodes.clear()
+	GameManager.enemies.clear()
 
 # 预加载所有敌人模板
 func load_enemy_templates() -> void:

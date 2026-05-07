@@ -17,6 +17,15 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	max_pierce = 1 + player.stats.magic_pierce_extra
 
 func _physics_process(delta: float) -> void:
+	# 处理风向
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WIND] > 0:
+		var wind_dir = Vector2(cos(GameManager.wind_angle), sin(GameManager.wind_angle))
+		velocity += wind_dir * 800 * delta
+	
+	# 处理重力
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_GRAVITY] > 0:
+		velocity.y += GameManager.gravity * 0.3 * delta
+	
 	# 处理撞墙
 	var collision = move_and_collide(velocity * delta)
 	if collision:
@@ -58,7 +67,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.damages[PlayerStats.ICE_MAGIC].value = base_damage
 	player.stats.damages[PlayerStats.ICE_MAGIC].type = GameManager.TYPE_ICE
 	player.stats.enemies[PlayerStats.ICE_MAGIC].append(body)
-	if randf() <= 0.5: body.buffs.add_ice()
+	
+	var rand_val = 0.0
+	rand_val = -1. if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] else 0.5
+	rand_val = 0.75 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] else 0.5
+	if randf() <= rand_val: body.buffs.add_ice()
+	
 	if player.buffs.buffs[PlayerBuffs.ICE_EXPLORE] > 0 and randf() <= 0.25:
 		body.buffs.buffs[EnemyBuffs.ICE_EXPLOSION] = 1
 	

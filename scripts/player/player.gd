@@ -136,6 +136,10 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity.y += GameManager.gravity * delta
 	
+	# 风力影响
+	if input_dir != 0 and buffs.buffs[PlayerBuffs.ENVIRONMENT_WIND] > 0:
+		velocity.x += cos(GameManager.wind_angle) * 5000 * delta
+	
 	# 跳跃
 	if Input.is_action_just_pressed("move_up") and is_on_floor() and not is_turning:
 		velocity.y = -stats.jump_height
@@ -239,7 +243,7 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	var floating_number = floating_number_scene.instantiate()
 	add_child(floating_number)
 	
-	floating_number.global_position = global_position + Vector2(0, -40)
+	floating_number.global_position = global_position + Vector2(randf_range(-40, 40), randf_range(-40, -20))
 	floating_number.display(damage, color, is_heavy_hit)
 
 
@@ -260,3 +264,4 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 		stats.damages[PlayerStats.PHYSIC_ATTACK].value = attack_damage
 		stats.damages[PlayerStats.PHYSIC_ATTACK].type = GameManager.TYPE_PHYSIC
 		stats.enemies[PlayerStats.PHYSIC_ATTACK].append(body)
+		

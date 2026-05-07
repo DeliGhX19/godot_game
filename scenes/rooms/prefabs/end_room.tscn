@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="1_sxseh"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="2_c6k0j"]
 [ext_resource type="PackedScene" uid="uid://bbp1urf4i27mp" path="res://scenes/rooms/component/target.tscn" id="3_g8v1m"]
+[ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="5_g8v1m"]
 
 [node name="EndRoom" type="Node2D" unique_id=788581490]
 script = ExtResource("1_c6k0j")
@@ -69,5 +70,8 @@ rotation = 1.5707964
 
 [node name="Target" parent="." unique_id=1955001811 instance=ExtResource("3_g8v1m")]
 position = Vector2(480, 256)
+
+[node name="Bonfire" parent="." unique_id=1729126183 instance=ExtResource("5_g8v1m")]
+position = Vector2(360, 288)
 
 [connection signal="reach_target" from="Target" to="." method="_on_target_reach_target"]

@@ -7,6 +7,7 @@ var ice_explode_scene = load("res://scenes/player/ice_explosion.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 var hp_bar_scene: PackedScene = preload("res://scenes/gui/enemy_hp_bar.tscn")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var buff_ui_scene: PackedScene = preload("res://scenes/gui/enemy_buff_ui.tscn")
 
 var max_hp: float
 var move_speed: float
@@ -15,6 +16,7 @@ var crit_rate: float
 var base_damages: Array[float]
 var damage_reduction: Array[float]
 var i_frame_duration: float
+var buff_ui
 
 var stats: EnemyStats
 var buffs: EnemyBuffs
@@ -43,6 +45,11 @@ func _ready() -> void:
 	var hp_bar = hp_bar_scene.instantiate()
 	add_child(hp_bar)
 	hp_bar.initialize(self)
+	buff_ui = buff_ui_scene.instantiate()
+	add_child(buff_ui)
+
+	buff_ui.position = Vector2(-20, -80)
+	buff_ui.initialize(self)
 
 func _physics_process(delta: float) -> void:
 	buffs.apply(stats, delta)
@@ -62,9 +69,6 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		update_animation()
 	
-	#TODO:处理血条
-	#
-	
 	stats.reset(get_data_dict())
 
 
@@ -74,13 +78,23 @@ func initialize_stats() -> void:
 
 # 获取数据字典
 func get_data_dict() -> Dictionary:
+	var incr = GameManager.level - 1
+	var hp_multi = 1.0 + 0.25 * incr + 0.1 * incr * incr
+	var damage_multi = 1.0 + 0.15 * incr + 0.2 * incr * incr
+	var other_factor: int = incr / 5.0
+	
+	var damages = base_damages.duplicate()
+	var dr = damage_reduction.duplicate()
+	for i in damages.size(): damages[i] *= damage_multi
+	for i in dr.size(): dr[i] += min(0.05 * other_factor, 0.5)
+	
 	return {
-		"max_hp": max_hp,
-		"move_speed": move_speed,
-		"jump_height": jump_height,
-		"crit_rate": crit_rate,
-		"base_damages": base_damages,
-		"damage_reduction": damage_reduction,
+		"max_hp": max_hp * hp_multi,
+		"move_speed": move_speed * min(1.0 + 0.25 * other_factor, 3.0),
+		"jump_height": jump_height * min(1.0 + 0.2 * other_factor, 2.0),
+		"crit_rate": crit_rate + min(0.1 * other_factor, 0.5),
+		"base_damages": damages,
+		"damage_reduction": dr,
 		"i_frame_duration": i_frame_duration
 	}
 
@@ -136,7 +150,7 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	var floating_number = floating_number_scene.instantiate()
 	add_child(floating_number)
 	
-	floating_number.global_position = global_position + Vector2(0, -40)
+	floating_number.global_position = global_position + Vector2(randf_range(-40, 40), randf_range(-40, -20))
 	floating_number.display(damage, color, is_heavy_hit)
 
 func _on_fire_explore() -> void:

@@ -357,6 +357,16 @@ size = Vector2(34, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
 size = Vector2(55.66667, 32)
 
+[sub_resource type="Gradient" id="Gradient_c3xxp"]
+offsets = PackedFloat32Array(0, 0.636)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_npwbq"]
+gradient = SubResource("Gradient_c3xxp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
 [node name="Player" type="CharacterBody2D" unique_id=750986949 groups=["player"]]
 scale = Vector2(2.5, 2.5)
 collision_layer = 2
@@ -393,6 +403,14 @@ disabled = true
 debug_color = Color(0.16078432, 0.8666667, 0.69411767, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=494430324]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2134035007 groups=["light"]]
+visible = false
+position = Vector2(4.7683716e-06, -5.722046e-06)
+scale = Vector2(3.1999998, 3.1999998)
+color = Color(1, 0.8, 0.53333336, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_npwbq")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="AttackPivot/AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1yq20sbb64gg"
-path="res://.godot/imported/Astro -run-sword 140x100.png-224eaa9773878a43c3ddc34113cc45fd.ctex"
+uid="uid://cy8dlbpstmyou"
+path="res://.godot/imported/ice_buff.png-b72b41ca250cbffb1bb6e3f2958b70a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/Astro -run-sword 140x100.png"
-dest_files=["res://.godot/imported/Astro -run-sword 140x100.png-224eaa9773878a43c3ddc34113cc45fd.ctex"]
+source_file="res://assets/ui/ice_buff.png"
+dest_files=["res://.godot/imported/ice_buff.png-b72b41ca250cbffb1bb6e3f2958b70a2.ctex"]
 
 [params]
 

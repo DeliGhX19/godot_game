@@ -17,6 +17,11 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	max_pierce = 1 + player.stats.magic_pierce_extra
 
 func _physics_process(delta: float) -> void:
+	# 处理风向
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WIND] > 0:
+		var wind_dir = Vector2(cos(GameManager.wind_angle), sin(GameManager.wind_angle))
+		velocity += wind_dir * 1200 * delta
+	
 	# 处理重力
 	velocity.y += gravity * delta
 	

@@ -26,5 +26,5 @@ func _on_body_exited(body: Node2D) -> void:
 	player = null
 
 func _on_timer_timeout() -> void:
-	if player: player.buffs.buffs[PlayerBuffs.WOOD_TREANT_AURA] -= 1
+	if player != null: player.buffs.buffs[PlayerBuffs.WOOD_TREANT_AURA] -= 1
 	queue_free()

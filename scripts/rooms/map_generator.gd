@@ -5,8 +5,8 @@ const TILE_SIZE = 64     # 图格大小（64*64）
 @onready var start_room_instance = $StartRoom
 @onready var end_room_instance = $EndRoom
 
-var room_template_dir: String = "res://scenes/rooms/prefabs/"    # 房间模板路径
-var room_count: int = 13                                      # 房间模板数量
+var room_template_dir: String = "res://scenes/rooms/prefabs/"     # 房间模板路径
+var room_count: int = 13                                         # 房间模板数量
 var max_rooms: int = 15                                          # 最多生成房间数
 var min_rooms_before_end: int = 12                               # 生成结束房间前的最近房间数
 
@@ -19,6 +19,16 @@ signal next_level
 
 # 生成关卡
 func generate_level() -> void:
+	# 前5层
+	if GameManager.level <= 5:
+		var adder = [0, 4, 3, 2, 2]
+		max_rooms += adder[GameManager.level - 1]
+		min_rooms_before_end += adder[GameManager.level - 1]
+	# 后每隔5层
+	elif GameManager.level % 5 == 0:
+		max_rooms += 2
+		min_rooms_before_end += 2
+	
 	clear_previous_level()
 	load_templates()
 	while true:

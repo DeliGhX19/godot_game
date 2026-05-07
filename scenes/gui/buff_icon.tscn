@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://6x0t86gfupfg"]
+
+[node name="BuffIcon" type="TextureRect" unique_id=172375999]
+custom_minimum_size = Vector2(16, 16)
+stretch_mode = 3

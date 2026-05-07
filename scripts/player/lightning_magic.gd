@@ -56,6 +56,7 @@ func die() -> void:
 		sprite.play("kill")
 	else:
 		scale *= 1.0 + 0.1 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_2] + 0.2 * player.buffs.buffs[PlayerBuffs.LIGHTNING_LEVEL_3]
+		if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WATER]: scale *= 1.2
 		die_area_shape.set_deferred("disabled", false)
 		sprite.play("die")
 
