@@ -389,6 +389,16 @@ size = Vector2(16, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dw1o"]
 size = Vector2(64, 64)
 
+[sub_resource type="Gradient" id="Gradient_x0iwh"]
+offsets = PackedFloat32Array(0, 0.652)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qbddg"]
+gradient = SubResource("Gradient_x0iwh")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
 [node name="LightningMagic" type="CharacterBody2D" unique_id=2049543287]
 collision_layer = 16
 collision_mask = 0
@@ -396,9 +406,7 @@ script = ExtResource("1_b67yj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2013650082]
 sprite_frames = SubResource("SpriteFrames_vuijq")
-animation = &"kill"
-frame = 22
-frame_progress = 1.0
+animation = &"fly"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=977158277]
 shape = SubResource("RectangleShape2D_smitt")
@@ -420,6 +428,13 @@ shape = SubResource("RectangleShape2D_7dw1o")
 debug_color = Color(0.41039103, 0.60674465, 0, 0.41960785)
 
 [node name="Timer" type="Timer" parent="." unique_id=264297998]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1340373853 groups=["light"]]
+position = Vector2(3.999998, -3.999998)
+scale = Vector2(3.125, 3.125)
+color = Color(0.75686276, 0.74509805, 0.5372549, 1)
+energy = 0.8
+texture = SubResource("GradientTexture2D_qbddg")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="FlyArea2D" to="." method="_on_fly_area_2d_body_entered"]

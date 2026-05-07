@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cyymfgdlhwo8y"]
+
+[ext_resource type="Script" uid="uid://ct45ob0xak3qx" path="res://scripts/rooms/components/bonfire.gd" id="1_lk37l"]
+[ext_resource type="Texture2D" uid="uid://dra8d1vxh28f2" path="res://assets/rooms/bonfire.png" id="1_lt2oq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lk37l"]
+atlas = ExtResource("1_lt2oq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ksisb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lk37l")
+}],
+"loop": true,
+"name": &"lit",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"unlit",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_sxa7j"]
+offsets = PackedFloat32Array(0, 0.772)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u27mq"]
+gradient = SubResource("Gradient_sxa7j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksisb"]
+radius = 384.0833
+
+[node name="Bonfire" type="Node2D" unique_id=1729126183 groups=["bonfire"]]
+script = ExtResource("1_lk37l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1658264004]
+sprite_frames = SubResource("SpriteFrames_ksisb")
+animation = &"lit"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1394000668 groups=["light"]]
+visible = false
+position = Vector2(-1.5258789e-05, 2.3841858e-06)
+scale = Vector2(10, 10)
+energy = 1.2
+texture = SubResource("GradientTexture2D_u27mq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=67882613]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=711470492]
+shape = SubResource("CircleShape2D_ksisb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -291,15 +291,22 @@ size = Vector2(49, 7)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mqiti"]
 size = Vector2(48, 64)
 
+[sub_resource type="Gradient" id="Gradient_7ttq5"]
+offsets = PackedFloat32Array(0, 0.7)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rtq6n"]
+gradient = SubResource("Gradient_7ttq5")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="FireMagic" type="CharacterBody2D" unique_id=1098588261]
 collision_layer = 16
 script = ExtResource("1_7vnc4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1462346033]
 sprite_frames = SubResource("SpriteFrames_d0ei1")
-animation = &"eruption"
-frame = 9
-frame_progress = 0.34131327
+animation = &"fly"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532339698]
 light_mask = 0
@@ -326,6 +333,13 @@ debug_color = Color(0.10396824, 0.6483987, 1.92523e-07, 0.41960785)
 [node name="Timer" type="Timer" parent="." unique_id=1044211655]
 wait_time = 0.8
 one_shot = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=873908351 groups=["light"]]
+visible = false
+position = Vector2(-5.722046e-06, 5.722046e-06)
+scale = Vector2(4, 4)
+color = Color(0.99607843, 0.8039216, 0.5058824, 1)
+texture = SubResource("GradientTexture2D_rtq6n")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

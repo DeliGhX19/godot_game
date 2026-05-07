@@ -3,10 +3,11 @@ extends Node2D
 @onready var map_generator: Node2D = $MapGenerator
 @onready var bonus_generator: Node2D = $BonusGenerator
 @onready var enemy_generator: Node2D = $EnemyGenerator
+@onready var environment_generator: CanvasLayer = $EnvironmentGenerator
 @onready var player: CharacterBody2D = $Player
 @onready var ui: CanvasLayer = $UIRoot
 
-var profile: PlayerProfile
+var profile: PlayerProfile         # 玩家存档
 
 
 func _ready() -> void:
@@ -15,24 +16,24 @@ func _ready() -> void:
 	
 	GameManager.player = player
 	GameManager.reward_manager = RewardManager.new()
+	GameManager.level = 0
 	
 	initialize_level()
 
 
 # 初始化关卡
 func initialize_level() -> void:
+	GameManager.level += 1
+	
 	map_generator.generate_level()
-	bonus_generator.generator_bonus(map_generator.get_all_bonus_points())
-	enemy_generator.generator_enemy(map_generator.get_all_enemy_points())
+	enemy_generator.generate(map_generator.get_all_enemy_points())
+	environment_generator.generate()
+	bonus_generator.generate(map_generator.get_all_bonus_points())
+	
 	player.position = Vector2(128, 128)
 
 # 游戏结束
 func game_over() -> void:
-	# 先清理所有 UI（CanvasLayer）
-	for child in get_tree().root.get_children():
-		if child is CanvasLayer:
-			child.queue_free()
-	
 	var camp_scene = load("res://scenes/main/camp.tscn")
 	var camp_instance = camp_scene.instantiate()
 	camp_instance.profile = profile

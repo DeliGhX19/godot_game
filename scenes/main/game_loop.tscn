@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di3wr67ytswl6" path="res://scripts/main/game_loop.gd" id="1_ea2ro"]
 [ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/Player.tscn" id="2_ou056"]
+[ext_resource type="PackedScene" uid="uid://dde7hsn7lkt2e" path="res://scenes/rooms/environment_generator.tscn" id="2_t1p7j"]
 [ext_resource type="PackedScene" uid="uid://uojbu5u1h3xm" path="res://scenes/rooms/map_generator.tscn" id="3_1naq0"]
 [ext_resource type="PackedScene" uid="uid://2i0lvh0tyyvj" path="res://scenes/enemies/enemy_generator.tscn" id="3_bfxai"]
 [ext_resource type="PackedScene" uid="uid://c2eh8t2jt8wah" path="res://scenes/rooms/reward/bonus_generator.tscn" id="3_leqcx"]
@@ -10,6 +11,12 @@
 
 [node name="GameLoop" type="Node2D" unique_id=2043196160]
 script = ExtResource("1_ea2ro")
+
+[node name="EnvironmentGenerator" parent="." unique_id=681677856 instance=ExtResource("2_t1p7j")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1567781654 groups=["light"]]
+visible = false
+color = Color(0.004031793, 0.007512217, 0.014469239, 1)
 
 [node name="MapGenerator" parent="." unique_id=853333634 instance=ExtResource("3_1naq0")]
 

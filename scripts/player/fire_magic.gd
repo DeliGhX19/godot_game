@@ -5,6 +5,7 @@ extends BasePlayerMagic
 @onready var area_shape: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var eruption_area_shape: CollisionShape2D = $EruptionArea2D/CollisionShape2D
 @onready var timer: Timer = $Timer
+@onready var light: PointLight2D = $PointLight2D
 
 var is_eruption: bool = false        # 是否触发炎爆
 
@@ -22,8 +23,20 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	if player.buffs.buffs[PlayerBuffs.FIRE_ERUPTION] > 0:
 		if randf() <= 0.15: is_eruption = true
 	eruption_area_shape.set_deferred("disabled", true)
+	
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_DARK] > 0:
+		light.visible = true
 
 func _physics_process(delta: float) -> void:
+	# 处理风向
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WIND] > 0:
+		var wind_dir = Vector2(cos(GameManager.wind_angle), sin(GameManager.wind_angle))
+		velocity += wind_dir * 1200 * delta
+	
+	# 处理重力
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_GRAVITY] > 0:
+		velocity.y += GameManager.gravity * 0.5 * delta
+	
 	# 处理反弹
 	var collision = move_and_collide(velocity * delta)
 	if collision: velocity = velocity.bounce(collision.get_normal()) * bounce_factor
@@ -72,7 +85,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.damages[PlayerStats.FIRE_MAGIC].value = base_damage
 	player.stats.damages[PlayerStats.FIRE_MAGIC].type = GameManager.TYPE_FIRE
 	player.stats.enemies[PlayerStats.FIRE_MAGIC].append(body)
-	if randf() <= 0.25: body.buffs.add_burn()
+	
+	var rand_val = 0.0
+	rand_val = 0.4 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] > 0 else 0.25
+	rand_val = -1. if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WATER] > 0 else 0.25
+	rand_val = 0.1 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] > 0 else 0.25
+	if randf() <= rand_val: body.buffs.add_burn()
 	
 	current_pierce += 1
 	if current_pierce >= max_pierce:

@@ -63,7 +63,7 @@ func initialize(profile: PlayerProfile) ->void:
 		damages[i] = DamagePacket.new()
 		enemies[i] = []
 	
-	magic_attack_speed = 3.0
+	magic_attack_speed = 1.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
 	
@@ -86,7 +86,7 @@ func reset(profile: PlayerProfile) -> void:
 		damages[i].value = 0.0
 		enemies[i].clear()
 		
-	magic_attack_speed = 3.0
+	magic_attack_speed = 1.0
 	magic_pierce_extra = 0
 	magic_range_extra = 0
 	

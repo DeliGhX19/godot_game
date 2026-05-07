@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dde7hsn7lkt2e"]
+
+[ext_resource type="Script" uid="uid://hsov43ph3yvp" path="res://scripts/rooms/environment_generator.gd" id="1_ithw0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ithw0"]
+
+[node name="EnvironmentGenerator" type="CanvasLayer" unique_id=681677856]
+script = ExtResource("1_ithw0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=949364747]
+material = SubResource("ShaderMaterial_ithw0")
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=2135585524]
+color = Color(0.101960786, 0.13333334, 0.1882353, 1)
