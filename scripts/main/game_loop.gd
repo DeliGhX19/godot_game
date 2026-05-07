@@ -11,13 +11,14 @@ var profile: PlayerProfile         # 玩家存档
 
 
 func _ready() -> void:
+	profile.rebuild_stats_from_meta()
 	player.initialize(profile)
 	ui.initialize(player)
-	
+
 	GameManager.player = player
 	GameManager.reward_manager = RewardManager.new()
 	GameManager.level = 0
-	
+
 	initialize_level()
 
 
@@ -36,8 +37,9 @@ func initialize_level() -> void:
 func game_over() -> void:
 	var camp_scene = load("res://scenes/main/camp.tscn")
 	var camp_instance = camp_scene.instantiate()
+	profile.rebuild_stats_from_meta()
 	camp_instance.profile = profile
-	
+
 	get_tree().root.add_child(camp_instance)
 	queue_free()
 
@@ -45,12 +47,11 @@ func game_over() -> void:
 func _on_map_generator_next_level() -> void:
 	call_deferred("initialize_level")
 
+
 func _on_player_die() -> void:
 	call_deferred("game_over")
 
 
-
-# debug(按下J选择奖励)
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_J:

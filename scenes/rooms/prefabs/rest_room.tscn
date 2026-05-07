@@ -28,4 +28,16 @@ position = Vector2(352, 224)
 [node name="Target" parent="." unique_id=1955001811 instance=ExtResource("2_rugh4")]
 position = Vector2(352, 128)
 
+[node name="Wall7" parent="." unique_id=777185632 instance=ExtResource("1_nh0oq")]
+position = Vector2(-33, 224)
+
+[node name="Wall8" parent="." unique_id=1749317015 instance=ExtResource("1_nh0oq")]
+position = Vector2(-97, 224)
+
+[node name="Wall9" parent="." unique_id=755915788 instance=ExtResource("1_nh0oq")]
+position = Vector2(-225, 224)
+
+[node name="Wall10" parent="." unique_id=312251581 instance=ExtResource("1_nh0oq")]
+position = Vector2(-161, 224)
+
 [connection signal="reach_target" from="Target" to="." method="_on_target_reach_target"]

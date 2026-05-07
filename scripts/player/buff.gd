@@ -80,6 +80,14 @@ const MELEE_LIFESTEAL_LEVEL_3 = 108  # 浴血（6%吸血）
 const MELEE_KILL_REFRESH_1 = 109     # 杀意（击杀后-15%冷却，持续3秒）
 const MELEE_KILL_REFRESH_2 = 110     # 杀意（击杀后-30%冷却，持续3秒）
 const MELEE_KILL_REFRESH_3 = 111     # 杀意（击杀后-50%冷却，持续3秒）
+# 飞剑相关构筑
+const FLYING_SWORD = 112
+const FLYING_SWORD_DAMAGE_1 = 113
+const FLYING_SWORD_DAMAGE_2 = 114
+const FLYING_SWORD_DAMAGE_3 = 115
+const FLYING_SWORD_SPEED_1 = 116
+const FLYING_SWORD_SPEED_2 = 117
+const FLYING_SWORD_SPEED_3 = 118
 # 总buff数
 const BUFFER_COUNT = 112
 var buffs: Array[int]
@@ -267,6 +275,24 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				stats.lifesteal += 0.04 * buffs[i]
 			MELEE_LIFESTEAL_LEVEL_3:
 				stats.lifesteal += 0.06 * buffs[i]
+						FLYING_SWORD:
+				stats.flying_sword_count = max(stats.flying_sword_count, buffs[i])
+				stats.flying_sword_damage += 12.0 * buffs[i]
+			FLYING_SWORD_DAMAGE_1:
+				stats.flying_sword_damage *= pow(1.15, buffs[i])
+			FLYING_SWORD_DAMAGE_2:
+				stats.flying_sword_damage *= pow(1.3, buffs[i])
+			FLYING_SWORD_DAMAGE_3:
+				stats.flying_sword_damage *= pow(1.5, buffs[i])
+			FLYING_SWORD_SPEED_1:
+				stats.flying_sword_move_speed += 60.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.05 * buffs[i])
+			FLYING_SWORD_SPEED_2:
+				stats.flying_sword_move_speed += 100.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.08 * buffs[i])
+			FLYING_SWORD_SPEED_3:
+				stats.flying_sword_move_speed += 150.0 * buffs[i]
+				stats.flying_sword_attack_cooldown = max(0.2, stats.flying_sword_attack_cooldown - 0.12 * buffs[i])
 
 # 添加生命加成buff
 func add_hp_buff(level: int, stats: PlayerStats) -> void:

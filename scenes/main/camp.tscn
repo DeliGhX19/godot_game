@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://vgswlcpy7pnv" path="res://scripts/main/camp.gd" id="1_u81st"]
 [ext_resource type="PackedScene" uid="uid://41eqvjpmnntx" path="res://scenes/rooms/prefabs/rest_room.tscn" id="2_plbmw"]
-[ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/player.tscn" id="3_a8b4v"]
+[ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/Player.tscn" id="3_a8b4v"]
+[ext_resource type="PackedScene" path="res://scenes/gui/meta_upgrades.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dcsh74udgl8bb" path="res://scenes/camp/skeleton_shopkeeper.tscn" id="5"]
 
 [node name="Camp" type="Node2D" unique_id=270764938]
 script = ExtResource("1_u81st")
@@ -13,4 +15,10 @@ position = Vector2(128, 256)
 [node name="Player" parent="." unique_id=750986949 instance=ExtResource("3_a8b4v")]
 position = Vector2(224.00006, 384)
 
+[node name="SkeletonShopkeeper" parent="." unique_id=929459185 instance=ExtResource("5")]
+position = Vector2(-6, 375)
+
+[node name="MetaUpgrades" parent="." unique_id=1571989774 instance=ExtResource("4")]
+
 [connection signal="start_game" from="RestRoom" to="." method="_on_rest_room_start_game"]
+[connection signal="interact_requested" from="SkeletonShopkeeper" to="." method="_on_skeleton_shopkeeper_interact_requested"]

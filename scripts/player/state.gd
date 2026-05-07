@@ -4,18 +4,19 @@ class DamagePacket:
 	var value: float = 0   # 伤害
 	var type: int = 0      # 类别（物理/火/木/石/冰/电）
 const PHYSIC_ATTACK = 0                   # 近战
-const FIRE_MAGIC = 1                      # 火魔法
-const FIRE_EXPLOSION = 2                  # 爆燃
-const FIRE_ERUPTION = 3                   # 炎爆
-const WOOD_MAGIC = 4                      # 木魔法
-const STONE_MAGIC = 5                     # 石魔法
-const STONE_METEOR = 6                    # 陨星
-const ICE_MAGIC = 7                       # 冰魔法
-const ICE_EXPLOSION = 8                   # 冰爆
-const LIGHTNING_MAGIC = 9                 # 雷魔法
-const LIGHTNING_SPLASH = 10               # 雷魔法溅射
-const CHAIN_LIGHTNING = 11                # 连锁雷
-const DAMAGE_SOURCE_COUNT = 12            # 所有伤害来源
+const FLYING_SWORD = 1                    # 飞剑
+const FIRE_MAGIC = 2                      # 火魔法
+const FIRE_EXPLOSION = 3                  # 爆燃
+const FIRE_ERUPTION = 4                   # 炎爆
+const WOOD_MAGIC = 5                      # 木魔法
+const STONE_MAGIC = 6                     # 石魔法
+const STONE_METEOR = 7                    # 陨星
+const ICE_MAGIC = 8                       # 冰魔法
+const ICE_EXPLOSION = 9                   # 冰爆
+const LIGHTNING_MAGIC = 10                # 雷魔法
+const LIGHTNING_SPLASH = 11               # 雷魔法溅射
+const CHAIN_LIGHTNING = 12                # 连锁雷
+const DAMAGE_SOURCE_COUNT = 13            # 所有伤害来源
 
 var max_hp: float                         # 生命上限
 var move_speed: float                     # 移动速度
@@ -40,6 +41,15 @@ var lifesteal: float = 0.0                # 吸血比例
 var melee_kill_refresh: float = 0.0       # 杀意之迸：冷却减少比例
 var melee_kill_refresh_timer: float = 0.0 # 杀意持续计时器
 
+var flying_sword_count: int = 0
+var flying_sword_damage: float = 0.0
+var flying_sword_detect_radius: float = 220.0
+var flying_sword_attack_radius: float = 40.0
+var flying_sword_orbit_radius: float = 48.0
+var flying_sword_orbit_speed: float = 2.0
+var flying_sword_move_speed: float = 520.0
+var flying_sword_attack_cooldown: float = 0.6
+
 var slide_timer: float = 0.0              # 闪避计时器（便于Buff处理）
 
 signal hp_changed(damage: float, color: Color, is_heavy_hit: bool)
@@ -48,6 +58,7 @@ signal enemy_killed
 
 # 初始化（每次进入主游戏时调用）
 func initialize(profile: PlayerProfile) ->void:
+	profile.rebuild_stats_from_meta()
 	max_hp = profile.max_hp
 	move_speed = profile.move_speed
 	jump_height = profile.jump_height
@@ -72,8 +83,18 @@ func initialize(profile: PlayerProfile) ->void:
 	melee_kill_refresh = 0.0
 	melee_kill_refresh_timer = 0.0
 
+	flying_sword_count = 0
+	flying_sword_damage = 0.0
+	flying_sword_detect_radius = 220.0
+	flying_sword_attack_radius = 40.0
+	flying_sword_orbit_radius = 48.0
+	flying_sword_orbit_speed = 2.0
+	flying_sword_move_speed = 520.0
+	flying_sword_attack_cooldown = 0.6
+
 # 重置（主游戏中每帧调用）
 func reset(profile: PlayerProfile) -> void:
+	profile.rebuild_stats_from_meta()
 	max_hp = profile.max_hp
 	move_speed = profile.move_speed
 	jump_height = profile.jump_height
@@ -92,6 +113,15 @@ func reset(profile: PlayerProfile) -> void:
 	
 	melee_attack_speed = 1.0
 	lifesteal = 0.0
+
+	flying_sword_count = 0
+	flying_sword_damage = 0.0
+	flying_sword_detect_radius = 220.0
+	flying_sword_attack_radius = 40.0
+	flying_sword_orbit_radius = 48.0
+	flying_sword_orbit_speed = 2.0
+	flying_sword_move_speed = 520.0
+	flying_sword_attack_cooldown = 0.6
 
 # 结算（主游戏中每帧调用）
 func settle(delta: float) -> void:

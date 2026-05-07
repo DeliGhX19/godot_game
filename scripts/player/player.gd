@@ -6,6 +6,7 @@ var stone_magic_scene: PackedScene = preload("res://scenes/player/stone_magic.ts
 var stone_meteor_scene: PackedScene = preload("res://scenes/player/stone_meteor.tscn")
 var ice_magic_scene: PackedScene = preload("res://scenes/player/ice_magic.tscn")
 var lightning_magic_scene: PackedScene = preload("res://scenes/player/lightning_magic.tscn")
+var flying_sword_controller_scene: PackedScene = preload("res://scenes/player/flying_sword_controller.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -19,6 +20,7 @@ var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_dama
 var profile: PlayerProfile
 var stats: PlayerStats
 var buffs: PlayerBuffs
+var flying_sword_controller: Node2D = null
 
 # 近战攻击
 var is_attacking: bool = false
@@ -48,9 +50,11 @@ func initialize(selected_profile: PlayerProfile):
 	
 	buffs = PlayerBuffs.new()
 	buffs.initialize()
+	buffs.buffs[PlayerBuffs.FLYING_SWORD] = 1
 	
 	set_slide_collision_enabled(false)
 	set_attack_hitbox_enabled(false)
+	ensure_flying_sword_controller()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire_magic"):
@@ -67,6 +71,8 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	buffs.apply(stats, delta)
 	stats.settle(delta)
+	ensure_flying_sword_controller()
+	flying_sword_controller.sync_from_player_stats()
 	
 	# 检测是否死亡
 	if stats.hp <= 0:
@@ -130,6 +136,15 @@ func _physics_process(delta: float) -> void:
 		modulate.a = 1.0
 	
 	stats.reset(profile)
+
+
+func ensure_flying_sword_controller() -> void:
+	if flying_sword_controller != null and is_instance_valid(flying_sword_controller):
+		return
+
+	flying_sword_controller = flying_sword_controller_scene.instantiate()
+	add_child(flying_sword_controller)
+	flying_sword_controller.initialize(self)
 
 
 # 设置近战攻击相关碰撞箱

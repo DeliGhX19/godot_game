@@ -15,10 +15,13 @@ func select_slot(slot: int) -> void:
 	
 	# 存在存档就载入，否侧创建
 	var profile = PlayerProfile.new()
+	profile.save_slot = slot
 	if FileAccess.file_exists(path):
 		profile.load_from_file(path)
 	else:
 		profile.save_to_file(path)
+
+	profile.rebuild_stats_from_meta()
 		
 	profile_selected.emit(profile)
 
