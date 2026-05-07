@@ -89,7 +89,7 @@ const FLYING_SWORD_SPEED_1 = 116
 const FLYING_SWORD_SPEED_2 = 117
 const FLYING_SWORD_SPEED_3 = 118
 # 总buff数
-const BUFFER_COUNT = 112
+const BUFFER_COUNT = 119
 var buffs: Array[int]
 
 var wood_convert_timer: float
@@ -275,7 +275,7 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				stats.lifesteal += 0.04 * buffs[i]
 			MELEE_LIFESTEAL_LEVEL_3:
 				stats.lifesteal += 0.06 * buffs[i]
-						FLYING_SWORD:
+			FLYING_SWORD:
 				stats.flying_sword_count = max(stats.flying_sword_count, buffs[i])
 				stats.flying_sword_damage += 12.0 * buffs[i]
 			FLYING_SWORD_DAMAGE_1:
