@@ -36,25 +36,6 @@ process_mode = 3
 script = ExtResource("1_ajji1")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2139450722]
-<<<<<<< HEAD
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4911343, 0.48264545, 0.4486478, 0.40784314)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=891310002]
-anchors_preset = -1
-anchor_left = 0.296
-anchor_top = 0.312
-anchor_right = 0.697
-anchor_bottom = 0.683
-offset_left = 8.007996
-offset_top = 0.82398987
-offset_right = 5.055969
-offset_bottom = -2.584015
-=======
 offset_right = 1152.0
 offset_bottom = 648.0
 scale = Vector2(1, 0.99589604)
@@ -66,7 +47,6 @@ offset_top = 120.0
 offset_right = 680.0
 offset_bottom = 376.0
 scale = Vector2(1.5892078, 1.5892078)
->>>>>>> origin/wxy
 
 [node name="Reward1" type="Button" parent="HBoxContainer" unique_id=931607712]
 layout_mode = 2
