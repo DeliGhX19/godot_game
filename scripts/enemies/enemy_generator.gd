@@ -1,7 +1,7 @@
 extends Node2D
 
 var enemy_template_dir: String = "res://scenes/enemies/"
-var enemy_count: int = 5
+var enemy_count: int = 8
 var max_enemies: int = 10
 var enemy_templates: Array[PackedScene] = []
 var enemy_nodes: Array[Node2D] = []

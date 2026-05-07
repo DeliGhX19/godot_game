@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://byxqwxpk8rvy7" path="res://assets/player/jump/_Jump.png" id="4_tpg5x"]
 [ext_resource type="Texture2D" uid="uid://xb8iq7dna4e5" path="res://assets/player/run/_Run.png" id="5_tpg5x"]
 [ext_resource type="Texture2D" uid="uid://doqqd7f553twk" path="res://assets/player/slide/_SlideFull.png" id="6_slide0"]
+[ext_resource type="Texture2D" uid="uid://bi8borwtmlwq4" path="res://assets/player/death/_Death.png" id="7_death0"]
+[ext_resource type="Texture2D" uid="uid://dv1q3aag7qyq4" path="res://assets/player/turn_around/_TurnAround.png" id="8_turn0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1hh02"]
 atlas = ExtResource("2_524rm")
@@ -22,6 +24,46 @@ region = Rect2(240, 40, 120, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsmrd"]
 atlas = ExtResource("2_524rm")
 region = Rect2(360, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_0"]
+atlas = ExtResource("7_death0")
+region = Rect2(0, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_1"]
+atlas = ExtResource("7_death0")
+region = Rect2(120, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_2"]
+atlas = ExtResource("7_death0")
+region = Rect2(240, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_3"]
+atlas = ExtResource("7_death0")
+region = Rect2(360, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_4"]
+atlas = ExtResource("7_death0")
+region = Rect2(480, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_5"]
+atlas = ExtResource("7_death0")
+region = Rect2(600, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_6"]
+atlas = ExtResource("7_death0")
+region = Rect2(720, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_7"]
+atlas = ExtResource("7_death0")
+region = Rect2(840, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_8"]
+atlas = ExtResource("7_death0")
+region = Rect2(960, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_9"]
+atlas = ExtResource("7_death0")
+region = Rect2(1080, 40, 120, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pi3ps"]
 atlas = ExtResource("2_4kuee")
@@ -127,6 +169,18 @@ region = Rect2(240, 40, 120, 40)
 atlas = ExtResource("6_slide0")
 region = Rect2(360, 40, 120, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_turn_0"]
+atlas = ExtResource("8_turn0")
+region = Rect2(0, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_turn_1"]
+atlas = ExtResource("8_turn0")
+region = Rect2(120, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_turn_2"]
+atlas = ExtResource("8_turn0")
+region = Rect2(240, 40, 120, 40)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_pi3ps"]
 animations = [{
 "frames": [{
@@ -144,6 +198,41 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_9")
+}],
+"loop": false,
+"name": &"death",
 "speed": 10.0
 }, {
 "frames": [{
@@ -243,6 +332,20 @@ animations = [{
 "loop": false,
 "name": &"slide",
 "speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_turn_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_turn_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_turn_2")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 25.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kswpp"]
@@ -261,7 +364,9 @@ script = ExtResource("1_gfjak")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=180501444]
 sprite_frames = SubResource("SpriteFrames_pi3ps")
-animation = &"idle"
+animation = &"turn"
+frame = 2
+frame_progress = 1.0
 
 [node name="StandingCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1268378624]
 position = Vector2(-5.599998, 2.066666)
