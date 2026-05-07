@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://msjoyctjusm1" path="res://assets/rooms/back2.png" id="3_357yw"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="3_iu0jq"]
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="5_iu0jq"]
+[ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="8_357yw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yrchd"]
 texture = ExtResource("2_yrchd")
@@ -166,3 +167,6 @@ position = Vector2(320, 128)
 
 [node name="EnemyPoint2" parent="." unique_id=1183989452 instance=ExtResource("5_iu0jq")]
 position = Vector2(320, 320)
+
+[node name="BonusPoint" parent="." unique_id=2037082318 instance=ExtResource("8_357yw")]
+position = Vector2(321, 304)

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://boqbjdhoeta6g"]
+
+[ext_resource type="Script" uid="uid://cipg25cbackkb" path="res://scenes/gui/enemy_buff_ui.gd" id="1_vtqij"]
+
+[node name="EnemyBuffUi" type="Control" unique_id=1139812355]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vtqij")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2086094475]
+layout_mode = 0
+offset_bottom = 40.0
+
+[node name="BurnRow" type="HBoxContainer" parent="VBoxContainer" unique_id=975345888]
+layout_mode = 2
+
+[node name="IceRow" type="HBoxContainer" parent="VBoxContainer" unique_id=333548878]
+layout_mode = 2
