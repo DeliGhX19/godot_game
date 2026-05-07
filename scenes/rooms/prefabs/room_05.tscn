@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://msjoyctjusm1" path="res://assets/rooms/back2.png" id="3_i0ooe"]
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="4_i0ooe"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="5_dqu1e"]
+[ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="8_i0ooe"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/SpikeTrap.tscn" id="9_dqu1e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dqu1e"]
 texture = ExtResource("2_1v5ju")
@@ -327,3 +329,9 @@ position = Vector2(1312, 704)
 [node name="BottomOpening" parent="." unique_id=1909906997 instance=ExtResource("5_dqu1e")]
 position = Vector2(448, 800)
 rotation = 1.5707964
+
+[node name="BonusPoint" parent="." unique_id=2037082318 instance=ExtResource("8_i0ooe")]
+position = Vector2(1218, 118)
+
+[node name="SpikeTrap" parent="." unique_id=1069710761 instance=ExtResource("9_dqu1e")]
+position = Vector2(664, 288)

@@ -15,7 +15,7 @@ func initialize(p):
 	player.stats.hp_changed.connect(_on_hp_changed)
 
 
-func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool):
+func _on_hp_changed():
 	update_hp_display()
 
 

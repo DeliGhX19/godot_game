@@ -188,3 +188,4 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 		stats.damages[PlayerStats.PHYSIC_ATTACK].value = attack_damage
 		stats.damages[PlayerStats.PHYSIC_ATTACK].type = GameManager.TYPE_PHYSIC
 		stats.enemies[PlayerStats.PHYSIC_ATTACK].append(body)
+		

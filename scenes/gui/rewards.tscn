@@ -1,6 +1,35 @@
 [gd_scene format=3 uid="uid://bxnmw7bpgxdsh"]
 
 [ext_resource type="Script" uid="uid://b0rxkppjadkol" path="res://scripts/gui/rewards.gd" id="1_ajji1"]
+[ext_resource type="Texture2D" uid="uid://bs1gsaf8byue2" path="res://assets/ui/reward.png" id="2_7cenh"]
+[ext_resource type="Texture2D" uid="uid://dfqnpe6jkm52x" path="res://assets/ui/pressed_reward.png" id="3_asl3t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_asl3t"]
+texture = ExtResource("2_7cenh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocv48"]
+texture = ExtResource("3_asl3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nnfyn"]
+texture = ExtResource("3_asl3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8424g"]
+texture = ExtResource("2_7cenh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_okxuj"]
+texture = ExtResource("3_asl3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_edfn3"]
+texture = ExtResource("3_asl3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_im5md"]
+texture = ExtResource("2_7cenh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wof7k"]
+texture = ExtResource("3_asl3t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txqng"]
+texture = ExtResource("3_asl3t")
 
 [node name="Rewards" type="CanvasLayer" unique_id=1130218547 groups=["rewards_gui"]]
 process_mode = 3
@@ -9,61 +38,95 @@ script = ExtResource("1_ajji1")
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2139450722]
 offset_right = 1152.0
 offset_bottom = 648.0
+scale = Vector2(1, 0.99589604)
 color = Color(0.4911343, 0.48264545, 0.4486478, 0.40784314)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=891310002]
-offset_left = 320.0
-offset_top = 208.0
-offset_right = 816.0
-offset_bottom = 464.0
+offset_left = 183.99998
+offset_top = 120.0
+offset_right = 680.0
+offset_bottom = 376.0
+scale = Vector2(1.5892078, 1.5892078)
 
 [node name="Reward1" type="Button" parent="HBoxContainer" unique_id=931607712]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_asl3t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ocv48")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nnfyn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward1" unique_id=1528405771]
 layout_mode = 0
-offset_right = 160.0
-offset_bottom = 256.0
+offset_left = 30.20374
+offset_top = 15.101862
+offset_right = 140.12051
+offset_bottom = 246.76564
 
 [node name="NameLabel" type="Label" parent="HBoxContainer/Reward1/VBoxContainer" unique_id=1968595064]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
 
 [node name="DescLabel" type="Label" parent="HBoxContainer/Reward1/VBoxContainer" unique_id=252049703]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
 
 [node name="Reward2" type="Button" parent="HBoxContainer" unique_id=971911709]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxTexture_8424g")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_okxuj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_edfn3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward2" unique_id=1554569764]
 layout_mode = 0
-offset_right = 162.0
-offset_bottom = 256.0
+offset_left = 30.324245
+offset_top = 15.101864
+offset_right = 141.07124
+offset_bottom = 236.59589
 
-[node name="NameLabel" type="Label" parent="HBoxContainer/Reward2/VBoxContainer" unique_id=433672325]
+[node name="NameLabel" type="Label" parent="HBoxContainer/Reward2/VBoxContainer" unique_id=1718412769]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
 
-[node name="DescLabel" type="Label" parent="HBoxContainer/Reward2/VBoxContainer" unique_id=549810146]
+[node name="DescLabel" type="Label" parent="HBoxContainer/Reward2/VBoxContainer" unique_id=1136292433]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
 
 [node name="Reward3" type="Button" parent="HBoxContainer" unique_id=2078312637]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_im5md")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wof7k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_txqng")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward3" unique_id=1172386798]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward3" unique_id=1631070599]
 layout_mode = 0
-offset_right = 163.0
-offset_bottom = 256.0
+offset_left = 29.444748
+offset_top = 15.101864
+offset_right = 140.19174
+offset_bottom = 236.59589
 
-[node name="NameLabel" type="Label" parent="HBoxContainer/Reward3/VBoxContainer" unique_id=320925067]
+[node name="NameLabel" type="Label" parent="HBoxContainer/Reward3/VBoxContainer" unique_id=1825468628]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
 
-[node name="DescLabel" type="Label" parent="HBoxContainer/Reward3/VBoxContainer" unique_id=1016138598]
+[node name="DescLabel" type="Label" parent="HBoxContainer/Reward3/VBoxContainer" unique_id=1761964441]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
 
 [connection signal="pressed" from="HBoxContainer/Reward1" to="." method="_on_reward_1_pressed"]
 [connection signal="pressed" from="HBoxContainer/Reward2" to="." method="_on_reward_2_pressed"]

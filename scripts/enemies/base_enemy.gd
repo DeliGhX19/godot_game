@@ -7,6 +7,7 @@ var ice_explode_scene = load("res://scenes/player/ice_explosion.tscn")
 var floating_number_scene: PackedScene = preload("res://scenes/gui/floating_damage.tscn")
 var hp_bar_scene: PackedScene = preload("res://scenes/gui/enemy_hp_bar.tscn")
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var buff_ui_scene: PackedScene = preload("res://scenes/gui/enemy_buff_ui.tscn")
 
 var max_hp: float
 var move_speed: float
@@ -15,6 +16,7 @@ var crit_rate: float
 var base_damages: Array[float]
 var damage_reduction: Array[float]
 var i_frame_duration: float
+var buff_ui
 
 var stats: EnemyStats
 var buffs: EnemyBuffs
@@ -42,6 +44,11 @@ func _ready() -> void:
 	var hp_bar = hp_bar_scene.instantiate()
 	add_child(hp_bar)
 	hp_bar.initialize(self)
+	buff_ui = buff_ui_scene.instantiate()
+	add_child(buff_ui)
+
+	buff_ui.position = Vector2(-20, -80)
+	buff_ui.initialize(self)
 
 func _physics_process(delta: float) -> void:
 	buffs.apply(stats, delta)
