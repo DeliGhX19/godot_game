@@ -1,18 +1,21 @@
 extends BaseEnemy
 
+const SPLIT_SCENE: PackedScene = preload("res://scenes/enemies/enemy_08.tscn")
+
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 
 var detection_range: float = 500.0
 var attack_range: float = 100.0
 var is_attacking: bool = false
-var attack_start_frame: int = 7
-var attack_end_frame: int = 10
+var attack_start_frame: int = 4
+var attack_end_frame: int = 6
+var can_split_on_death: bool = true
+var is_split_child: bool = false
 
-var teleport_cooldown: float = 3.0
-var teleport_cooldown_timer: float = 0.0
-var teleport_offset_x: float = 72.0
-var teleport_min_distance: float = 140.0
+const SPLIT_CHILD_HP_MULTIPLIER := 0.65
+const SPLIT_CHILD_SCALE := 0.8
+const SPLIT_POP_DURATION := 0.18
 
 
 func initialize_stats() -> void:
@@ -25,7 +28,14 @@ func initialize_stats() -> void:
 	i_frame_duration = 0.0
 	meta_currency_reward = 1
 
+	if is_split_child:
+		max_hp *= SPLIT_CHILD_HP_MULTIPLIER
+		meta_currency_reward = 0
+
 	attack_shape.disabled = true
+
+	if is_split_child:
+		scale = Vector2.ONE * SPLIT_CHILD_SCALE
 
 
 func handle_ai(delta: float) -> void:
@@ -33,8 +43,6 @@ func handle_ai(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y += GameManager.gravity * delta
-	if teleport_cooldown_timer > 0.0:
-		teleport_cooldown_timer -= delta
 
 	if is_attacking:
 		var current_dist = global_position.distance_to(player.global_position)
@@ -52,35 +60,15 @@ func handle_ai(delta: float) -> void:
 	var dist = global_position.distance_to(player.global_position)
 	var dir = sign(player.global_position.x - global_position.x)
 
-	if dist <= detection_range and dist >= teleport_min_distance and teleport_cooldown_timer <= 0.0:
-		_teleport_behind_player(player)
-		dist = global_position.distance_to(player.global_position)
-		dir = sign(player.global_position.x - global_position.x)
-
 	if dist <= attack_range:
 		is_attacking = true
 		velocity.x = 0
 	elif dist <= detection_range:
 		velocity.x = dir * stats.move_speed
-		sprite.flip_h = dir < 0
-		attack_area.scale.x = -1 if dir < 0 else 1
+		sprite.flip_h = dir > 0
+		attack_area.scale.x = -1 if dir > 0 else 1
 	else:
 		velocity.x = move_toward(velocity.x, 0, stats.move_speed * delta)
-
-
-func _teleport_behind_player(player: CharacterBody2D) -> void:
-	var player_dir: float = player.facing_dir if player.facing_dir != 0 else 1.0
-	var target_position: Vector2 = player.global_position - Vector2(player_dir * teleport_offset_x, 0.0)
-	if target_position.distance_to(player.global_position) < attack_range * 0.5:
-		target_position = player.global_position - Vector2(player_dir * attack_range, 0.0)
-
-	global_position = target_position
-	velocity = Vector2.ZERO
-	teleport_cooldown_timer = teleport_cooldown
-
-	var dir = sign(player.global_position.x - global_position.x)
-	sprite.flip_h = dir < 0
-	attack_area.scale.x = -1 if dir < 0 else 1
 
 
 func update_animation() -> void:
@@ -93,6 +81,36 @@ func update_animation() -> void:
 		sprite.play("run")
 	else:
 		sprite.play("idle")
+
+
+func on_death() -> void:
+	if can_split_on_death:
+		_spawn_split_children()
+		can_split_on_death = false
+
+	super.on_death()
+
+
+func _spawn_split_children() -> void:
+	var parent_node = get_parent()
+	if parent_node == null:
+		return
+
+	for offset_x in [-40.0, 40.0]:
+		var child = SPLIT_SCENE.instantiate()
+		child.can_split_on_death = false
+		child.is_split_child = true
+		parent_node.add_child(child)
+		child.global_position = global_position + Vector2(offset_x, -12.0)
+		child.velocity = Vector2(sign(offset_x) * 85.0, -60.0)
+		child.modulate.a = 0.55
+
+		var target_scale := Vector2.ONE * SPLIT_CHILD_SCALE
+		child.scale = target_scale * 0.72
+		var tween = child.create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(child, "scale", target_scale, SPLIT_POP_DURATION)
+		tween.tween_property(child, "modulate:a", 1.0, SPLIT_POP_DURATION)
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

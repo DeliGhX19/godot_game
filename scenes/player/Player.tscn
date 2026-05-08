@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://186w07u4mcfy" path="res://scripts/player/player.gd" id="1_gfjak"]
 [ext_resource type="Texture2D" uid="uid://j68stsl30oh5" path="res://assets/player/idle/_Idle.png" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://dm2ewqygwrbuj" path="res://assets/player/attack/_Attack.png" id="2_524rm"]
+[ext_resource type="Texture2D" uid="uid://7hvl3qd50g5d" path="res://assets/player/hurt/_Hit.png" id="4_pn6s4"]
 [ext_resource type="Texture2D" uid="uid://byxqwxpk8rvy7" path="res://assets/player/jump/_Jump.png" id="4_tpg5x"]
 [ext_resource type="Texture2D" uid="uid://xb8iq7dna4e5" path="res://assets/player/run/_Run.png" id="5_tpg5x"]
 [ext_resource type="Texture2D" uid="uid://doqqd7f553twk" path="res://assets/player/slide/_SlideFull.png" id="6_slide0"]
@@ -64,6 +65,10 @@ region = Rect2(960, 40, 120, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_death_9"]
 atlas = ExtResource("7_death0")
 region = Rect2(1080, 40, 120, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20koh"]
+atlas = ExtResource("4_pn6s4")
+region = Rect2(0, 40, 120, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pi3ps"]
 atlas = ExtResource("2_4kuee")
@@ -237,6 +242,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_20koh")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pi3ps")
 }, {
 "duration": 1.0,
@@ -374,8 +387,7 @@ script = ExtResource("1_gfjak")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=180501444]
 sprite_frames = SubResource("SpriteFrames_pi3ps")
-animation = &"turn"
-frame = 2
+animation = &"hurt"
 frame_progress = 1.0
 
 [node name="StandingCollisionShape2D" type="CollisionShape2D" parent="." unique_id=1268378624]

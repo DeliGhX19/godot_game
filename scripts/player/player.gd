@@ -38,6 +38,7 @@ var slide_speed: float = 520.0
 var slide_duration: float = 0.22
 var is_sliding: bool = false
 var is_dead: bool = false
+var is_hurt: bool = false
 var is_turning: bool = false
 var turn_target_dir: float = 1.0
 
@@ -198,6 +199,8 @@ func update_animation(input_dir: float) -> void:
 	# 选择动画
 	if is_dead:
 		sprite.play("death")
+	elif is_hurt:
+		sprite.play("hurt")
 	elif is_turning:
 		sprite.play("turn")
 	elif is_sliding:
@@ -231,6 +234,7 @@ func _start_turn(new_dir: float) -> void:
 
 func _enter_death_state() -> void:
 	is_dead = true
+	is_hurt = false
 	is_attacking = false
 	is_sliding = false
 	is_turning = false
@@ -246,11 +250,16 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	floating_number.global_position = global_position + Vector2(randf_range(-40, 40), randf_range(-40, -20))
 	floating_number.display(damage, color, is_heavy_hit)
 
+	if color == Color.RED and not is_dead:
+		is_hurt = true
+
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
 		is_attacking = false
 		set_attack_hitbox_enabled(false)
+	elif sprite.animation == "hurt":
+		is_hurt = false
 	elif sprite.animation == "turn":
 		is_turning = false
 		facing_dir = turn_target_dir

@@ -15,12 +15,12 @@ var attack_end_frame: int = 6              # 攻击判定生效结束帧
 
 # 初始化敌人数据
 func initialize_stats() -> void:
-	max_hp = 100.0
-	move_speed = 80.0
+	max_hp = 125.0
+	move_speed = 88.0
 	jump_height = 0.0
-	crit_rate = 0.0
-	base_damages = [15.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-	damage_reduction = [0.2, 0.0, 0.0, 0.0, 0.0, 0.0]
+	crit_rate = 0.1
+	base_damages = [0.0, 18.0, 0.0, 0.0, 0.0, 0.0]
+	damage_reduction = [0.1, 0.35, 0.0, 0.0, -0.2, 0.15]
 	i_frame_duration = 0.0
 	meta_currency_reward = 5
 	
