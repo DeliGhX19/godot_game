@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var hp_bar: ProgressBar = $Control/ProgressBar
 @onready var hp_label: Label = $Control/Label
+@onready var scene_title_ui = $SceneTitleUI
 
 
 func initialize(player: CharacterBody2D) -> void:

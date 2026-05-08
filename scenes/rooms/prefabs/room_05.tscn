@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="5_dqu1e"]
 [ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="8_i0ooe"]
 [ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/SpikeTrap.tscn" id="9_dqu1e"]
+[ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="10_rwnnp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dqu1e"]
 texture = ExtResource("2_1v5ju")
@@ -335,3 +336,17 @@ position = Vector2(1218, 118)
 
 [node name="SpikeTrap" parent="." unique_id=1069710761 instance=ExtResource("9_dqu1e")]
 position = Vector2(664, 288)
+
+[node name="EnemyPoint6" parent="." unique_id=557235751 instance=ExtResource("4_i0ooe")]
+position = Vector2(1080, 648)
+
+[node name="Bonfire" parent="." unique_id=1729126183 instance=ExtResource("10_rwnnp")]
+position = Vector2(488, 464)
+
+[node name="SpikeTrap2" parent="." unique_id=1069090762 instance=ExtResource("9_dqu1e")]
+position = Vector2(768, 96.00001)
+rotation = -3.1504064
+
+[node name="SpikeTrap" parent="SpikeTrap2" unique_id=951637246 instance=ExtResource("9_dqu1e")]
+position = Vector2(-202.35121, -641.80835)
+rotation = -3.1504064
