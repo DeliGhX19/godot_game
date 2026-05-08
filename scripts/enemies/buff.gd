@@ -1,15 +1,15 @@
 class_name EnemyBuffs
 
-const BURN = 0                # 火焰灼烧（基础：5dmg/s 3s）
-const KNOCK_BACK = 1          # 击退（基础：300）
-const STUN = 2                # 眩晕（基础：0.5s）
-const FREEZE = 3              # 冻结（基础：2s）
-const ICE = 4                 # 减速（基础：-10%速度） 
-const WOOD_TREANT_TAG = 5     # 傀儡标记（0.5s标记 20%生成傀儡）
-const ICE_EXPLOSION = 6       # 冰爆
-const EXECUTE = 7             # 秒杀
+const BURN = 0                  # 火焰灼烧（基础：5dmg/s 3s）
+const KNOCK_BACK = 1            # 击退（基础：300）
+const STUN = 2                  # 眩晕（基础：0.5s）
+const FREEZE = 3                # 冻结（基础：2s）
+const ICE = 4                   # 减速（基础：-10%速度 8s） 
+const WOOD_TREANT_TAG = 5       # 傀儡标记（0.5s标记 20%生成傀儡）
+const ICE_EXPLOSION = 6         # 冰爆
+const EXECUTE = 7               # 秒杀
 const ENVIRONMENT_FIRE = 8      # 灼热荒庭（火属性+50% 冰属性-50% 灼伤额外1%扣血）
-const ENVIRONMENT_WATER = 9    # 沉水渊狱（雷属性+50% 火属性-50%）
+const ENVIRONMENT_WATER = 9     # 沉水渊狱（雷属性+50% 火属性-50%）
 const ENVIRONMENT_WIND = 10     # 风动高台（移动受到风向影响）
 const ENVIRONMENT_GRAVITY = 11  # 重压深室（重力增加 物理攻击+50% 石元素+50%）
 const ENVIRONMENT_DARK = 12     # 幽暗秘阁（暴击率+0.25）
@@ -126,7 +126,7 @@ func apply(stats: EnemyStats, delta:float) -> void:
 				stats.base_damages[GameManager.TYPE_LIGHTNING] *= 1.5
 				stats.base_damages[GameManager.TYPE_FIRE] *= 0.5
 			ENVIRONMENT_WIND:
-				stats.move_speed += cos(GameManager.wind_angle) * 100
+				stats.move_speed *= 1.5
 			ENVIRONMENT_GRAVITY:
 				stats.base_damages[GameManager.TYPE_STONE] *= 1.5
 				stats.base_damages[GameManager.TYPE_PHYSIC] *= 1.5
@@ -155,5 +155,5 @@ func add_burn() -> void:
 # 添加减速（上限5层）
 func add_ice() -> void:
 	if ice_timers.size() >= 5: return
-	ice_timers.append(3.0 + p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_1] + 1.5 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_2] + 2.0 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_3])
+	ice_timers.append(8.0 + 1.5 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_1] + 2 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_2] + 3 * p_buffs[PlayerBuffs.ICE_SLOW_LEVEL_3])
 	buffs[ICE] = ice_timers.size()

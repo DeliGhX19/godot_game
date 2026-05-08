@@ -67,6 +67,8 @@ const ENVIRONMENT_WINTER = 55   # 极寒雪冢（冰属性+50% 火属性-25% 灼
 const ENVIRONMENT_FROG = 56     # 迷雾遗墟（木属性+100% +1%生命上限恢复）
 const ENVIRONMENT_GRACE = 57    # 灵泽福地（减伤率+1 暴击率+1 所有伤害*2 移动速度*1.2 跳跃高度*1.2）
 const ENVIRONMENT_HELL = 58     # 血狱修罗（被攻击就会死亡）
+# 其他
+const FULL_HP = 59           # 满血增益
 # 近战攻击通用构筑
 const MELEE_DMG_LEVEL_1 = 100        # 破甲（*1.1近战伤害）
 const MELEE_DMG_LEVEL_2 = 101        # 碎玉（*1.25近战伤害）
@@ -101,6 +103,7 @@ var winter_damage_tick: float
 func initialize() -> void:
 	buffs.resize(BUFFER_COUNT)
 	buffs.fill(0)
+	buffs[FULL_HP] = 1
 	
 	wood_convert_timer = 0
 
@@ -172,7 +175,7 @@ func apply(stats: PlayerStats, delta: float) -> void:
 				stats.settle_hp(-actual_heal)
 				# 处理增益
 				if stats.hp >= stats.max_hp and buffs[WOOD_CONVERT] > 0:
-					wood_convert_timer = 3.0
+					wood_convert_timer = 8.0
 				buffs[WOOD_HEAL] = 0
 			WOOD_CONVERT:
 				if wood_convert_timer > 0:
@@ -257,6 +260,11 @@ func apply(stats: PlayerStats, delta: float) -> void:
 					if stats.receiving_damages[j] > 0:
 						stats.settle_hp(stats.hp)
 						continue
+			FULL_HP:
+				if stats.hp == stats.max_hp: 
+					buffs[FULL_HP] = 1
+					stats.damage_reduction += 0.25
+				else: buffs[FULL_HP] = 2
 			MELEE_DMG_LEVEL_1:
 				stats.damages[PlayerStats.PHYSIC_ATTACK].value *= pow(1.1, buffs[i])
 			MELEE_DMG_LEVEL_2:
@@ -298,10 +306,10 @@ func apply(stats: PlayerStats, delta: float) -> void:
 func add_hp_buff(level: int, stats: PlayerStats) -> void:
 	if level == 1:
 		buffs[HP_LEVEL_1] += 1
-		stats.settle_hp(-min(0.1 * stats.hp, 1.1 * stats.max_hp - stats.hp))
+		stats.settle_hp(-0.1 * stats.max_hp)
 	elif level == 2:
 		buffs[HP_LEVEL_2] += 1
-		stats.settle_hp(-min(0.3 * stats.hp, 1.3 * stats.max_hp - stats.hp))
+		stats.settle_hp(-0.3 * stats.max_hp)
 	elif level == 3:
 		buffs[HP_LEVEL_3] += 1
-		stats.settle_hp(-min(0.5 * stats.hp, 1.5 * stats.max_hp - stats.hp))
+		stats.settle_hp(-0.5 * stats.max_hp)

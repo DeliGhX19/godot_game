@@ -67,7 +67,7 @@ func die() -> void:
 	
 	if is_eruption:
 		rotation = 0
-		scale *= 1.5 
+		scale *= 3 
 		sprite.play("eruption")
 	else: sprite.play("die")
 
@@ -87,9 +87,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.enemies[PlayerStats.FIRE_MAGIC].append(body)
 	
 	var rand_val = 0.0
-	rand_val = 0.4 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] > 0 else 0.25
-	rand_val = -1. if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WATER] > 0 else 0.25
-	rand_val = 0.1 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] > 0 else 0.25
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] > 0: rand_val = 0.4
+	elif player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WATER] > 0: rand_val = -1.0
+	elif player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] > 0: rand_val = 0.1
+	else: rand_val = 0.25
 	if randf() <= rand_val: body.buffs.add_burn()
 	
 	current_pierce += 1
@@ -100,7 +101,7 @@ func _on_eruption_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.damages[PlayerStats.FIRE_ERUPTION].value = base_damage * 3
 	player.stats.damages[PlayerStats.FIRE_ERUPTION].type = GameManager.TYPE_FIRE
 	player.stats.enemies[PlayerStats.FIRE_ERUPTION].append(body)
-	for i in range(3): body.buffs.add_burn()
+	for i in range(2): body.buffs.add_burn()
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "die" or sprite.animation == "eruption":

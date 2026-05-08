@@ -12,11 +12,11 @@ script = ExtResource("1_u81st")
 [node name="RestRoom" parent="." unique_id=1252718209 instance=ExtResource("2_plbmw")]
 position = Vector2(128, 256)
 
-[node name="Player" parent="." unique_id=750986949 instance=ExtResource("3_a8b4v")]
-position = Vector2(224.00006, 384)
-
 [node name="SkeletonShopkeeper" parent="." unique_id=929459185 instance=ExtResource("5")]
 position = Vector2(-6, 375)
+
+[node name="Player" parent="." unique_id=750986949 instance=ExtResource("3_a8b4v")]
+position = Vector2(224.00006, 384)
 
 [node name="MetaUpgrades" parent="." unique_id=1571989774 instance=ExtResource("4")]
 

@@ -38,6 +38,7 @@ var slide_speed: float = 520.0
 var slide_duration: float = 0.22
 var is_sliding: bool = false
 
+signal display_hp(hp: float, max_hp: float)
 signal die
 
 
@@ -75,9 +76,8 @@ func _physics_process(delta: float) -> void:
 	flying_sword_controller.sync_from_player_stats()
 	
 	# 检测是否死亡
-	if stats.hp <= 0:
-		die.emit()
-		pass
+	if stats.hp <= 0: die.emit()
+	else: display_hp.emit(stats.hp, stats.max_hp)
 	
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
@@ -207,4 +207,3 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 		stats.damages[PlayerStats.PHYSIC_ATTACK].value = attack_damage
 		stats.damages[PlayerStats.PHYSIC_ATTACK].type = GameManager.TYPE_PHYSIC
 		stats.enemies[PlayerStats.PHYSIC_ATTACK].append(body)
-		

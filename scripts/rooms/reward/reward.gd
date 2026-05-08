@@ -4,14 +4,17 @@ var name: String       # 名字
 var desc: String       # 描述
 var effect: Callable   # 效果
 var weight: int        # 权重
+var rarity: int        # 稀有度（0-普通 1-稀有 2-罕见 3-特殊）
 var count: int         # 获取数量(-1表示特殊奖励)
 
 
-func _init(_name: String, _desc: String, _weight: int, _effect: Callable, _count: int = 0):
+
+func _init(_name: String, _desc: String, _weight: int, _effect: Callable, _rarity: int, _count: int = 0):
 	name = _name
 	desc = _desc
 	weight = _weight
 	effect = _effect
+	rarity = _rarity
 	count = _count
 
 

@@ -6,6 +6,7 @@ var chain_lightning_scene = preload("res://scenes/player/chain_lightning.tscn")
 @onready var fly_area_shape: CollisionShape2D = $FlyArea2D/CollisionShape2D
 @onready var die_area_shape: CollisionShape2D = $DieArea2D/CollisionShape2D
 @onready var timer: Timer = $Timer
+@onready var light: PointLight2D = $PointLight2D
 
 var is_disaster: bool = false          # 是否秒杀
 
@@ -21,9 +22,12 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	max_pierce = 3 + player.stats.magic_pierce_extra
 	
 	if player.buffs.buffs[PlayerBuffs.LIGHTNING_DISASTER] > 0:
-		if randf() <= 0.15: is_disaster = true
+		if randf() <= 0.1: is_disaster = true
 	
 	die_area_shape.disabled = true
+	
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_DARK] > 0:
+		light.visible = true
 
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta

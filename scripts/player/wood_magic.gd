@@ -61,7 +61,7 @@ func die() -> void:
 	collision_shape.set_deferred("disabled", true)
 	area_shape.set_deferred("disabled", true)
 	
-	if player.stats.hp == player.stats.max_hp and player.buffs.buffs[PlayerBuffs.WOOD_CONVERT] > 0:
+	if player.buffs.buffs[PlayerBuffs.FULL_HP] == 1 and player.buffs.buffs[PlayerBuffs.WOOD_CONVERT] > 0:
 		sprite.play("die2")
 	else:
 		sprite.play("die1")

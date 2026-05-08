@@ -99,7 +99,7 @@ animations = [{
 size = Vector2(64, 64)
 
 [node name="FireExplosion" type="Area2D" unique_id=597395962]
-scale = Vector2(1.5, 1.5)
+scale = Vector2(4, 4)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_78m4n")
@@ -107,6 +107,8 @@ script = ExtResource("1_78m4n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=214887774]
 sprite_frames = SubResource("SpriteFrames_wlfhy")
 animation = &"explore"
+frame = 11
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=709406535]
 shape = SubResource("RectangleShape2D_hltsc")
