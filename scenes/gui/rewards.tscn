@@ -36,17 +36,24 @@ process_mode = 3
 script = ExtResource("1_ajji1")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=2139450722]
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1, 0.99589604)
 color = Color(0.4911343, 0.48264545, 0.4486478, 0.40784314)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=891310002]
-offset_left = 183.99998
-offset_top = 120.0
-offset_right = 680.0
-offset_bottom = 376.0
+anchors_preset = -1
+anchor_right = 0.66700006
+anchor_bottom = 0.59300005
+offset_left = 192.0
+offset_top = 128.0
+offset_right = -93.12439
+offset_bottom = -14.634216
 scale = Vector2(1.5892078, 1.5892078)
+metadata/_edit_use_anchors_ = true
 
 [node name="Reward1" type="Button" parent="HBoxContainer" unique_id=931607712]
 layout_mode = 2
@@ -57,11 +64,17 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_ocv48")
 theme_override_styles/hover = SubResource("StyleBoxTexture_nnfyn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward1" unique_id=1528405771]
-layout_mode = 0
-offset_left = 30.20374
-offset_top = 15.101862
-offset_right = 140.12051
-offset_bottom = 246.76564
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19100001
+anchor_top = 0.063
+anchor_right = 0.82800007
+anchor_bottom = 0.87700003
+offset_left = 0.025749207
+offset_top = -0.08114052
+offset_right = 0.058807373
+offset_bottom = 0.06907654
+theme_override_constants/separation = 18
 
 [node name="NameLabel" type="Label" parent="HBoxContainer/Reward1/VBoxContainer" unique_id=1968595064]
 layout_mode = 2
@@ -84,11 +97,17 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_okxuj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_edfn3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward2" unique_id=1554569764]
-layout_mode = 0
-offset_left = 30.324245
-offset_top = 15.101864
-offset_right = 141.07124
-offset_bottom = 236.59589
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.21700001
+anchor_top = 0.063
+anchor_right = 0.823
+anchor_bottom = 0.87700003
+offset_left = -3.9617577
+offset_top = -0.0811367
+offset_right = -0.06463623
+offset_bottom = 0.06907654
+theme_override_constants/separation = 18
 
 [node name="NameLabel" type="Label" parent="HBoxContainer/Reward2/VBoxContainer" unique_id=1718412769]
 layout_mode = 2
@@ -110,11 +129,17 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_wof7k")
 theme_override_styles/hover = SubResource("StyleBoxTexture_txqng")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Reward3" unique_id=1631070599]
-layout_mode = 0
-offset_left = 29.444748
-offset_top = 15.101864
-offset_right = 140.19174
-offset_bottom = 236.59589
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.185
+anchor_top = 0.063
+anchor_right = 0.84300005
+anchor_bottom = 0.87700003
+offset_left = 0.02974701
+offset_top = -0.0811367
+offset_right = 0.052886963
+offset_bottom = 0.06907654
+theme_override_constants/separation = 18
 
 [node name="NameLabel" type="Label" parent="HBoxContainer/Reward3/VBoxContainer" unique_id=1825468628]
 layout_mode = 2

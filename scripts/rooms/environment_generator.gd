@@ -4,7 +4,7 @@ extends CanvasLayer
 
 var environment_pool: Array[EnvironmentData] = [
 	EnvironmentData.new(
-		"炽热荒庭",      # 火属性+50% 冰属性-50% 灼烧概率+15%（40%） 灼烧额外1%扣血 不会附加寒冷
+		"炽热荒庭",      # 火属性+50% 冰属性-50% 灼烧概率+15% 灼烧额外1%扣血 不会附加寒冷
 		"res://scripts/rooms/environment/heat.gdshader",
 		25.0,
 		func():
@@ -58,7 +58,7 @@ var environment_pool: Array[EnvironmentData] = [
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_GRAVITY] = 0,
 	),
 	EnvironmentData.new(
-		"幽暗秘阁",    # 场景变黑 暴击率+0.25 暴击伤害变为200% 火、雷可照明
+		"幽暗秘阁",    # 场景变黑 暴击率+0.25 火、雷可照明
 		"",
 		20.0,
 		func():
@@ -73,7 +73,7 @@ var environment_pool: Array[EnvironmentData] = [
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_DARK] = 0,
 	),
 	EnvironmentData.new(
-		"极寒雪冢",    # 冰属性+50% 火属性-25% 灼烧概率-15% 寒冷概率+25% 冰冻时间+1s 玩家远离篝火或生命树8s开始霜冻（1%扣血）
+		"极寒雪冢",    # 冰属性+50% 火属性-25% 灼烧概率-15% 寒冷概率+25% 冰冻时间+1s 玩家远离篝火或生命树8s开始霜冻（2%扣血）
 		"res://scripts/rooms/environment/winter.gdshader",
 		20.0,
 		func():
@@ -127,7 +127,7 @@ var current_env: EnvironmentData = null
 # 生成环境
 func generate() -> void:
 	# 第一层不会生成环境
-	#if GameManager.level == 1: return
+	if GameManager.level == 1: return
 	
 	unload_current()
 	

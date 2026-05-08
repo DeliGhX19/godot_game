@@ -68,9 +68,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	player.stats.damages[PlayerStats.ICE_MAGIC].type = GameManager.TYPE_ICE
 	player.stats.enemies[PlayerStats.ICE_MAGIC].append(body)
 	
-	var rand_val = 0.0
-	rand_val = -1. if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] else 0.5
-	rand_val = 0.75 if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] else 0.5
+	var rand_val: float = 0.0
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_FIRE] > 0: rand_val = -1.0
+	elif player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] > 0: rand_val = 0.75
+	else: rand_val = 0.50
 	if randf() <= rand_val: body.buffs.add_ice()
 	
 	if player.buffs.buffs[PlayerBuffs.ICE_EXPLORE] > 0 and randf() <= 0.25:

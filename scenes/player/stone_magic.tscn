@@ -62,7 +62,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"die",
-"speed": 15.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -91,7 +91,7 @@ script = ExtResource("1_vcam5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=389587510]
 sprite_frames = SubResource("SpriteFrames_q3b3b")
-animation = &"fly"
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=606029447]
 shape = SubResource("RectangleShape2D_5cb2c")

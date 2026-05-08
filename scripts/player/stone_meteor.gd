@@ -4,10 +4,10 @@ extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var player: CharacterBody2D          # 所属玩家
-var effect_range: float = 450.0      # 搜索范围
+var effect_range: float = 600.0      # 搜索范围
 var target_pos: Vector2              # 目标位置
 var direction: Vector2               # 方向
-var speed: float = 1200.0            # 速度
+var speed: float = 1500.0            # 速度
 var base_damage: float = 80.0        # 基础伤害
 
 

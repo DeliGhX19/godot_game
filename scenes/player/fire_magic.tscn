@@ -182,7 +182,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"die",
-"speed": 15.0
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -279,7 +279,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"fly",
-"speed": 15.0
+"speed": 30.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt0on"]
@@ -307,6 +307,8 @@ script = ExtResource("1_7vnc4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1462346033]
 sprite_frames = SubResource("SpriteFrames_d0ei1")
 animation = &"fly"
+frame = 6
+frame_progress = 0.6972529
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532339698]
 light_mask = 0

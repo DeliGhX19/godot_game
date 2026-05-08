@@ -149,7 +149,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"die1",
-"speed": 15.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -199,7 +199,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"die2",
-"speed": 25.0
+"speed": 40.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -237,7 +237,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"fly",
-"speed": 15.0
+"speed": 30.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2wjt"]

@@ -406,7 +406,7 @@ script = ExtResource("1_b67yj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2013650082]
 sprite_frames = SubResource("SpriteFrames_vuijq")
-animation = &"fly"
+animation = &"kill"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=977158277]
 shape = SubResource("RectangleShape2D_smitt")
@@ -430,6 +430,7 @@ debug_color = Color(0.41039103, 0.60674465, 0, 0.41960785)
 [node name="Timer" type="Timer" parent="." unique_id=264297998]
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1340373853 groups=["light"]]
+visible = false
 position = Vector2(3.999998, -3.999998)
 scale = Vector2(3.125, 3.125)
 color = Color(0.75686276, 0.74509805, 0.5372549, 1)

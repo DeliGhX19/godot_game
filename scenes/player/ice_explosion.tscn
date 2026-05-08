@@ -75,9 +75,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlygo"]
-size = Vector2(56, 48)
+size = Vector2(64, 64)
 
 [node name="IceExplosion" type="Area2D" unique_id=1180259482]
+scale = Vector2(4, 4)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_j6yac")
@@ -85,9 +86,10 @@ script = ExtResource("1_j6yac")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=738303609]
 sprite_frames = SubResource("SpriteFrames_5a4lb")
 animation = &"explore"
+frame = 8
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899046370]
-position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_xlygo")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

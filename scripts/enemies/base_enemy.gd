@@ -73,6 +73,20 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		update_animation()
 	
+	# buff视觉效果
+	var final_color = Color.WHITE
+	if buffs.buffs[EnemyBuffs.FREEZE] > 0:
+		final_color = final_color.lerp(Color(0.3, 0.6, 1.0, 1.0), 0.6)
+	if buffs.buffs[EnemyBuffs.ICE] > 0:
+		var ice_factor = clampf(buffs.buffs[EnemyBuffs.ICE] / 5.0, 0.05, 0.8)
+		final_color = final_color.lerp(Color(0.5, 0.8, 1.0, 1.0), ice_factor)
+	if buffs.buffs[EnemyBuffs.BURN] > 0:
+		var burn_factor = clampf(buffs.buffs[EnemyBuffs.BURN] / 3.0, 0.1, 0.85)
+		final_color = final_color.lerp(Color(1.0, 0.3, 0.0, 1.0), burn_factor)
+	if buffs.buffs[EnemyBuffs.STUN] > 0:
+		final_color = final_color.lerp(Color(1.0, 0.9, 0.1, 1.0), 0.5)
+	modulate = final_color
+	
 	stats.reset(get_data_dict())
 
 

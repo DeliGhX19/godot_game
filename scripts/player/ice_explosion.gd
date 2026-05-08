@@ -7,8 +7,10 @@ var player: CharacterBody2D = GameManager.player
 var trigger: CharacterBody2D
 
 
-func initialize(enemy: CharacterBody2D) -> void:
+func _ready() -> void:
 	sprite.play("explore")
+
+func initialize(enemy: CharacterBody2D) -> void:
 	trigger = enemy
 
 

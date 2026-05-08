@@ -10,11 +10,14 @@ func initialize(belonging_player: CharacterBody2D) -> void:
 	player = belonging_player
 	
 	base_damage = 25
-	speed = 1200 +  300 * player.stats.magic_range_extra
+	speed = 900 + 300 * player.stats.magic_range_extra
 	flying_time = 15 
 	gravity = GameManager.gravity
 	bounce_factor = 0.0
 	max_pierce = 1 + player.stats.magic_pierce_extra
+	
+	if player.buffs.buffs[PlayerBuffs.ENVIRONMENT_GRAVITY] > 0:
+		gravity *= 1.5
 
 func _physics_process(delta: float) -> void:
 	# 处理风向

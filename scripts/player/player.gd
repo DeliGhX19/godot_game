@@ -42,6 +42,7 @@ var is_hurt: bool = false
 var is_turning: bool = false
 var turn_target_dir: float = 1.0
 
+signal display_hp(hp: float, max_hp: float)
 signal die
 
 
@@ -87,7 +88,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		update_animation(0.0)
 		return
-	
+	else: display_hp.emit(stats.hp, stats.max_hp)
+
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
 	if melee_cooldown_timer > 0: melee_cooldown_timer -= delta
@@ -119,7 +121,7 @@ func _physics_process(delta: float) -> void:
 		input_dir = 0.0
 	if input_dir != 0 and not is_turning:
 		facing_dir = sign(input_dir)
-	
+
 	if is_sliding:
 		#滑行
 		stats.slide_timer -= delta
@@ -273,4 +275,3 @@ func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 		stats.damages[PlayerStats.PHYSIC_ATTACK].value = attack_damage
 		stats.damages[PlayerStats.PHYSIC_ATTACK].type = GameManager.TYPE_PHYSIC
 		stats.enemies[PlayerStats.PHYSIC_ATTACK].append(body)
-		
