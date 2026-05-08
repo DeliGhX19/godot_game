@@ -1,23 +1,41 @@
 [gd_scene format=3 uid="uid://cyymfgdlhwo8y"]
 
 [ext_resource type="Script" uid="uid://ct45ob0xak3qx" path="res://scripts/rooms/components/bonfire.gd" id="1_lk37l"]
-[ext_resource type="Texture2D" uid="uid://dra8d1vxh28f2" path="res://assets/rooms/bonfire.png" id="1_lt2oq"]
+[ext_resource type="Texture2D" uid="uid://bxj52w3skd8f5" path="res://assets/rooms/bonfire_lit.png" id="2_lk37l"]
+[ext_resource type="Texture2D" uid="uid://skt0ytx6lftp" path="res://assets/rooms/bonfire_unlit.png" id="3_ksisb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lk37l"]
-atlas = ExtResource("1_lt2oq")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksisb"]
+atlas = ExtResource("2_lk37l")
+region = Rect2(0, 0, 165, 172)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxa7j"]
+atlas = ExtResource("2_lk37l")
+region = Rect2(165, 0, 165, 172)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u27mq"]
+atlas = ExtResource("2_lk37l")
+region = Rect2(330, 0, 165, 172)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ksisb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lk37l")
+"texture": SubResource("AtlasTexture_ksisb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxa7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u27mq")
 }],
 "loop": true,
 "name": &"lit",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ksisb")
+}],
 "loop": true,
 "name": &"unlit",
 "speed": 5.0
@@ -40,8 +58,10 @@ radius = 384.0833
 script = ExtResource("1_lk37l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1658264004]
+position = Vector2(0, -8)
+scale = Vector2(0.54848486, 0.54848486)
 sprite_frames = SubResource("SpriteFrames_ksisb")
-animation = &"lit"
+animation = &"unlit"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1394000668 groups=["light"]]
 visible = false

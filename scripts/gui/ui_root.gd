@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var hp_bar: ProgressBar = $Control/ProgressBar
 @onready var hp_label: Label = $Control/Label
+@onready var scene_title_ui = $SceneTitleUI
 
 var player
 
@@ -18,6 +19,8 @@ func initialize(p):
 func _on_hp_changed():
 	update_hp_display()
 
+func show_environment_title(env_name: String):
+	scene_title_ui.show_title(env_name)
 
 func update_hp_display():
 	var hp = player.stats.hp

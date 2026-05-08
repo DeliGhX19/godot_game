@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dhuutbkeyne5t" path="res://scenes/rooms/component/door.tscn" id="3_takob"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="4_qainm"]
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="5_2cgpf"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/SpikeTrap.tscn" id="8_qainm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2cgpf"]
 texture = ExtResource("2_takob")
@@ -172,3 +173,12 @@ position = Vector2(96, 416)
 
 [node name="Wall33" parent="." unique_id=647557430 instance=ExtResource("2_4n2fi")]
 position = Vector2(608, 416)
+
+[node name="SpikeTrap2" parent="." unique_id=1069710761 instance=ExtResource("8_qainm")]
+position = Vector2(480.00003, 416.00003)
+rotation = -0.017627412
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="SpikeTrap" parent="." unique_id=1195475028 instance=ExtResource("8_qainm")]
+position = Vector2(280, 96.00001)
+rotation = -3.1504064

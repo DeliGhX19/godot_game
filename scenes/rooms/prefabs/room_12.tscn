@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="4_p7uvd"]
 [ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="5_rp2kc"]
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="6_x3cle"]
+[ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="7_epp47"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6srpe"]
 texture = ExtResource("2_epp47")
@@ -195,3 +196,6 @@ position = Vector2(736, 320)
 
 [node name="Wall38" parent="." unique_id=11604734 instance=ExtResource("5_rp2kc")]
 position = Vector2(352, 608)
+
+[node name="Bonfire" parent="." unique_id=1729126183 instance=ExtResource("7_epp47")]
+position = Vector2(288, 344)

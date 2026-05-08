@@ -10,6 +10,9 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl0ka"]
 texture = ExtResource("3_4fiw0")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlgwn"]
+texture = ExtResource("4_wl0ka")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyy31"]
 texture = ExtResource("4_wl0ka")
 
@@ -18,6 +21,9 @@ texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwjlo"]
 texture = ExtResource("3_4fiw0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xd4qg"]
+texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5myn"]
 texture = ExtResource("4_wl0ka")
@@ -30,6 +36,9 @@ texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vbh5e"]
 texture = ExtResource("3_4fiw0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8vyd"]
+texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sho1p"]
 texture = ExtResource("4_wl0ka")
@@ -66,6 +75,7 @@ custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35566914, 0.14157787, 0.035616707, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_wl0ka")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hlgwn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_fyy31")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_47rh6")
 text = "Save1"
@@ -75,6 +85,7 @@ custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35686275, 0.14117648, 0.03529412, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_vwjlo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xd4qg")
 theme_override_styles/hover = SubResource("StyleBoxTexture_q5myn")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4pfte")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_gaeow")
@@ -85,6 +96,7 @@ custom_minimum_size = Vector2(447, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35686275, 0.14117648, 0.03529412, 1)
 theme_override_styles/normal = SubResource("StyleBoxTexture_vbh5e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_o8vyd")
 theme_override_styles/hover = SubResource("StyleBoxTexture_sho1p")
 text = "Save3"
 
