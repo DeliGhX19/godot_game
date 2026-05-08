@@ -37,6 +37,10 @@ var facing_dir: float = 1.0
 var slide_speed: float = 520.0
 var slide_duration: float = 0.22
 var is_sliding: bool = false
+var is_dead: bool = false
+var is_hurt: bool = false
+var is_turning: bool = false
+var turn_target_dir: float = 1.0
 
 signal display_hp(hp: float, max_hp: float)
 signal die
@@ -57,6 +61,7 @@ func initialize(selected_profile: PlayerProfile):
 	set_attack_hitbox_enabled(false)
 	ensure_flying_sword_controller()
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire_magic"):
 		current_magic_index = 0
@@ -69,6 +74,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("lightning_magic"):
 		current_magic_index = 4
 
+
 func _physics_process(delta: float) -> void:
 	buffs.apply(stats, delta)
 	stats.settle(delta)
@@ -76,14 +82,19 @@ func _physics_process(delta: float) -> void:
 	flying_sword_controller.sync_from_player_stats()
 	
 	# 检测是否死亡
-	if stats.hp <= 0: die.emit()
+	if stats.hp <= 0:
+		if not is_dead:
+			_enter_death_state()
+		move_and_slide()
+		update_animation(0.0)
+		return
 	else: display_hp.emit(stats.hp, stats.max_hp)
 	
 	# 行动
 	if magic_cooldown_timer > 0: magic_cooldown_timer -= delta
 	if melee_cooldown_timer > 0: melee_cooldown_timer -= delta
 	
-	if not is_sliding and not is_attacking:
+	if not is_sliding and not is_attacking and not is_turning:
 		# 近战攻击
 		if Input.is_action_just_pressed("melee") and melee_cooldown_timer <= 0:
 			is_attacking = true
@@ -94,7 +105,8 @@ func _physics_process(delta: float) -> void:
 			set_attack_hitbox_enabled(true)
 		# 远程攻击
 		if Input.is_action_just_pressed("projectile") and magic_cooldown_timer <= 0:
-			if magic_attack(): magic_cooldown_timer = 1.0 / stats.magic_attack_speed
+			if magic_attack():
+				magic_cooldown_timer = 1.0 / stats.magic_attack_speed
 		# 闪避
 		if Input.is_action_just_pressed("slide"):
 			is_sliding = true
@@ -104,7 +116,12 @@ func _physics_process(delta: float) -> void:
 	
 	# 移动
 	var input_dir := Input.get_axis("move_left", "move_right")
-	if input_dir != 0: facing_dir = sign(input_dir)
+	if not is_turning and _should_start_turn(input_dir):
+		_start_turn(sign(input_dir))
+		input_dir = 0.0
+	if input_dir != 0 and not is_turning:
+		facing_dir = sign(input_dir)
+	
 	if is_sliding:
 		#滑行
 		stats.slide_timer -= delta
@@ -112,17 +129,22 @@ func _physics_process(delta: float) -> void:
 		if stats.slide_timer <= 0.0:
 			is_sliding = false
 			set_slide_collision_enabled(false)
+	elif is_turning:
+		velocity.x = 0
+		if not is_on_floor():
+			velocity.y += GameManager.gravity * delta
 	else:
 		# 走动
 		velocity.x = input_dir * stats.move_speed
-		if not is_on_floor(): velocity.y += GameManager.gravity * delta
+		if not is_on_floor():
+			velocity.y += GameManager.gravity * delta
 	
 	# 风力影响
 	if input_dir != 0 and buffs.buffs[PlayerBuffs.ENVIRONMENT_WIND] > 0:
 		velocity.x += cos(GameManager.wind_angle) * 5000 * delta
 	
 	# 跳跃
-	if Input.is_action_just_pressed("move_up") and is_on_floor():
+	if Input.is_action_just_pressed("move_up") and is_on_floor() and not is_turning:
 		velocity.y = -stats.jump_height
 	
 	# 动画
@@ -158,8 +180,9 @@ func magic_attack() -> bool:
 		if randf() <= 0.15:
 			var stone_meteor = stone_meteor_scene.instantiate()
 			get_parent().add_child(stone_meteor)
-			if stone_meteor.initialize(self): return true
-			else: stone_meteor.queue_free()
+			if stone_meteor.initialize(self):
+				return true
+			stone_meteor.queue_free()
 	
 	var magic = magic_scenes[current_magic_index].instantiate()
 	get_parent().add_child(magic)
@@ -176,18 +199,50 @@ func set_slide_collision_enabled(enabled: bool) -> void:
 # 更新动画
 func update_animation(input_dir: float) -> void:
 	# 选择动画
-	if is_sliding: sprite.play("slide")
-	elif is_attacking: sprite.play("attack")
-	elif not is_on_floor(): 
+	if is_dead:
+		sprite.play("death")
+	elif is_hurt:
+		sprite.play("hurt")
+	elif is_turning:
+		sprite.play("turn")
+	elif is_sliding:
+		sprite.play("slide")
+	elif is_attacking:
+		sprite.play("attack")
+	elif not is_on_floor():
 		sprite.play("jump")
 		sprite.pause()
 		sprite.frame = 0 if velocity.y < 0 else 1
-	elif input_dir != 0: sprite.play("run")
-	else: sprite.play("idle")
+	elif input_dir != 0:
+		sprite.play("run")
+	else:
+		sprite.play("idle")
 	
 	# 朝向修正
-	if input_dir != 0: 
+	if not is_dead and not is_turning and input_dir != 0:
 		sprite.flip_h = input_dir < 0
+
+
+func _should_start_turn(input_dir: float) -> bool:
+	return input_dir != 0 and is_on_floor() and sign(input_dir) != facing_dir
+
+
+func _start_turn(new_dir: float) -> void:
+	is_turning = true
+	turn_target_dir = new_dir
+	velocity.x = 0
+	set_attack_hitbox_enabled(false)
+
+
+func _enter_death_state() -> void:
+	is_dead = true
+	is_hurt = false
+	is_attacking = false
+	is_sliding = false
+	is_turning = false
+	velocity = Vector2.ZERO
+	set_attack_hitbox_enabled(false)
+	set_slide_collision_enabled(false)
 
 
 func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
@@ -197,10 +252,23 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	floating_number.global_position = global_position + Vector2(randf_range(-40, 40), randf_range(-40, -20))
 	floating_number.display(damage, color, is_heavy_hit)
 
+	if color == Color.RED and not is_dead:
+		is_hurt = true
+
+
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
 		is_attacking = false
 		set_attack_hitbox_enabled(false)
+	elif sprite.animation == "hurt":
+		is_hurt = false
+	elif sprite.animation == "turn":
+		is_turning = false
+		facing_dir = turn_target_dir
+		sprite.flip_h = facing_dir < 0
+	elif sprite.animation == "death":
+		die.emit()
+
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if not GameManager.is_target_blocked_by_wall(self, body):

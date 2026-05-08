@@ -1,25 +1,31 @@
 extends Node2D
 
 var enemy_template_dir: String = "res://scenes/enemies/"
-var enemy_count: int = 5
+var enemy_count: int = 10
 var max_enemies: int = 15
 var enemy_templates: Array[PackedScene] = []
+var test_enemy_id: int = -1
 
 
 # 生成关卡敌人
 func generate(points: Array[Marker2D]) -> void:
 	max_enemies += GameManager.level % 5
-	
+
 	clear_previous_enenmy()
 	load_enemy_templates()
-	
+
 	points.shuffle()
 	var spawn_limit = min(max_enemies, points.size())
 	for i in range(spawn_limit):
 		# 随机选择敌人生成点和敌人
 		var point = points[i]
-		var enemy_instance = enemy_templates.pick_random().instantiate()
-		
+		var enemy_scene: PackedScene
+		if test_enemy_id >= 0 and test_enemy_id < enemy_templates.size():
+			enemy_scene = enemy_templates[test_enemy_id]
+		else:
+			enemy_scene = enemy_templates.pick_random()
+
+		var enemy_instance = enemy_scene.instantiate()
 		# 在敌人生成点放置敌人
 		add_child(enemy_instance)
 		enemy_instance.global_position = point.global_position
