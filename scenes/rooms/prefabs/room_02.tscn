@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://l7l31piy17f3" path="res://assets/rooms/back1.png" id="2_enbgo"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="2_pfq0n"]
 [ext_resource type="Texture2D" uid="uid://msjoyctjusm1" path="res://assets/rooms/back2.png" id="3_nj6qi"]
-[ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="6_nj6qi"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/spike_trap.tscn" id="6_nj6qi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6qcw"]
 texture = ExtResource("2_enbgo")
@@ -106,5 +106,9 @@ position = Vector2(352, 192)
 position = Vector2(192, 288)
 rotation = 1.5707964
 
-[node name="EnemyPoint7" parent="." unique_id=1364889017 instance=ExtResource("6_nj6qi")]
-position = Vector2(248, 184)
+[node name="SpikeTrap" parent="." unique_id=1069710761 instance=ExtResource("6_nj6qi")]
+position = Vector2(96, 224)
+
+[node name="SpikeTrap2" parent="." unique_id=566961381 instance=ExtResource("6_nj6qi")]
+position = Vector2(288, 96)
+rotation = 3.1415927

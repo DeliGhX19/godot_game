@@ -9,6 +9,11 @@ func initialize(player: CharacterBody2D) -> void:
 	player.display_hp.connect(_on_display_hp)
 
 
+func show_environment_title(env_name: String):
+	if env_name == "": return
+	scene_title_ui.show_title(env_name)
+
+
 func _on_display_hp(hp: float, max_hp: float):
 	hp_bar.max_value = max_hp
 	hp_bar.value = hp

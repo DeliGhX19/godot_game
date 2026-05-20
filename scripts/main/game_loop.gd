@@ -32,10 +32,8 @@ func initialize_level() -> void:
 	bonus_generator.generate(map_generator.get_all_bonus_points())
 	
 	player.position = Vector2(128, 128)
-	# 显示场景标题
-	ui.show_environment_title(
-		environment_generator.current_env.name
-	)
+	if environment_generator.current_env != null:
+		ui.show_environment_title(environment_generator.current_env.name)
 
 # 游戏结束
 func game_over() -> void:

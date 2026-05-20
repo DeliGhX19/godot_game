@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="6_wggub"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="7_w8ie5"]
 [ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="8_62le3"]
-[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/SpikeTrap.tscn" id="9_6r236"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/spike_trap.tscn" id="9_6r236"]
+[ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="10_acpyr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_acpyr"]
 texture = ExtResource("2_62le3")
@@ -315,7 +316,7 @@ rotation = 3.1415927
 position = Vector2(840, 712)
 
 [node name="EnemyPoint4" parent="." unique_id=969012060 instance=ExtResource("6_wggub")]
-position = Vector2(1160, 120)
+position = Vector2(1184, 128)
 
 [node name="EnemyPoint5" parent="." unique_id=1769912891 instance=ExtResource("6_wggub")]
 position = Vector2(392, 200)
@@ -364,3 +365,21 @@ scale = Vector2(0.99999994, 0.99999994)
 [node name="SpikeTrap" parent="." unique_id=2077364982 instance=ExtResource("9_6r236")]
 position = Vector2(472, 95.99999)
 rotation = -3.1504064
+
+[node name="EnemyPoint" parent="." unique_id=1386793860 instance=ExtResource("6_wggub")]
+position = Vector2(1040, 704)
+
+[node name="EnemyPoint2" parent="." unique_id=2145904993 instance=ExtResource("6_wggub")]
+position = Vector2(512, 200)
+
+[node name="EnemyPoint6" parent="." unique_id=1863955414 instance=ExtResource("6_wggub")]
+position = Vector2(192, 384)
+
+[node name="EnemyPoint7" parent="." unique_id=850109466 instance=ExtResource("6_wggub")]
+position = Vector2(896, 264)
+
+[node name="EnemyPoint8" parent="." unique_id=494828030 instance=ExtResource("6_wggub")]
+position = Vector2(120, 384)
+
+[node name="BonusPoint" parent="." unique_id=2037082318 instance=ExtResource("10_acpyr")]
+position = Vector2(168, 664)

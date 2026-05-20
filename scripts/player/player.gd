@@ -24,7 +24,7 @@ var flying_sword_controller: Node2D = null
 
 # 近战攻击
 var is_attacking: bool = false
-var attack_damage: float = 25.0
+var attack_damage: float = 30.0
 var melee_cooldown_timer: float = 0.0
 
 # 远程攻击
@@ -55,7 +55,6 @@ func initialize(selected_profile: PlayerProfile):
 	
 	buffs = PlayerBuffs.new()
 	buffs.initialize()
-	buffs.buffs[PlayerBuffs.FLYING_SWORD] = 1
 	
 	set_slide_collision_enabled(false)
 	set_attack_hitbox_enabled(false)
@@ -157,6 +156,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		modulate.a = 1.0
 	
+	# buff视觉效果
+	if buffs.buffs[PlayerBuffs.FULL_HP] == 1: modulate = Color(1.0, 0.95, 0.75)
+	
 	stats.reset(profile)
 
 
@@ -255,7 +257,6 @@ func _on_hp_changed(damage: float, color: Color, is_heavy_hit: bool) -> void:
 	if color == Color.RED and not is_dead:
 		is_hurt = true
 
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "attack":
 		is_attacking = false
@@ -268,7 +269,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		sprite.flip_h = facing_dir < 0
 	elif sprite.animation == "death":
 		die.emit()
-
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if not GameManager.is_target_blocked_by_wall(self, body):

@@ -27,7 +27,9 @@ var environment_pool: Array[EnvironmentData] = [
 				bonfire.get_node("AnimatedSprite2D").play("unlit"),
 		func():
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WATER] = 0
-			GameManager.gravity = ProjectSettings.get_setting("physics/2d/default_gravity"),
+			GameManager.gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+			for bonfire in get_tree().get_nodes_in_group("bonfire"):
+				bonfire.get_node("AnimatedSprite2D").play("lit"),
 	),
 	EnvironmentData.new(
 		"风动高台",      # 部分元素弹道受风向影响（火、石、冰） 移动受到风向影响
@@ -75,7 +77,7 @@ var environment_pool: Array[EnvironmentData] = [
 	EnvironmentData.new(
 		"极寒雪冢",    # 冰属性+50% 火属性-25% 灼烧概率-15% 寒冷概率+25% 冰冻时间+1s 玩家远离篝火或生命树8s开始霜冻（2%扣血）
 		"res://scripts/rooms/environment/winter.gdshader",
-		20.0,
+		2000.0,
 		func():
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] = 1
 			GameManager.player.buffs.winter_timer = 8.0
@@ -127,7 +129,7 @@ var current_env: EnvironmentData = null
 # 生成环境
 func generate() -> void:
 	# 第一层不会生成环境
-	if GameManager.level == 1: return
+	# if GameManager.level == 1: return
 	
 	unload_current()
 	

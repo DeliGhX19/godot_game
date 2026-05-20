@@ -69,6 +69,7 @@ const ENVIRONMENT_GRACE = 57    # 灵泽福地（减伤率+1 暴击率+1 所有�
 const ENVIRONMENT_HELL = 58     # 血狱修罗（被攻击就会死亡）
 # 其他
 const FULL_HP = 59           # 满血增益
+const SPIKE_TRAP = 60        # 尖刺陷阱
 # 近战攻击通用构筑
 const MELEE_DMG_LEVEL_1 = 100        # 破甲（*1.1近战伤害）
 const MELEE_DMG_LEVEL_2 = 101        # 碎玉（*1.25近战伤害）
@@ -104,6 +105,7 @@ func initialize() -> void:
 	buffs.resize(BUFFER_COUNT)
 	buffs.fill(0)
 	buffs[FULL_HP] = 1
+	buffs[FLYING_SWORD] = 1
 	
 	wood_convert_timer = 0
 
@@ -265,6 +267,9 @@ func apply(stats: PlayerStats, delta: float) -> void:
 					buffs[FULL_HP] = 1
 					stats.damage_reduction += 0.25
 				else: buffs[FULL_HP] = 2
+			SPIKE_TRAP:
+				stats.settle_hp(buffs[SPIKE_TRAP] * stats.max_hp * 0.05)
+				buffs[SPIKE_TRAP] = 0
 			MELEE_DMG_LEVEL_1:
 				stats.damages[PlayerStats.PHYSIC_ATTACK].value *= pow(1.1, buffs[i])
 			MELEE_DMG_LEVEL_2:

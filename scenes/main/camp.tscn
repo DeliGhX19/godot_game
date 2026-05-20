@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://vgswlcpy7pnv" path="res://scripts/main/camp.gd" id="1_u81st"]
 [ext_resource type="PackedScene" uid="uid://41eqvjpmnntx" path="res://scenes/rooms/prefabs/rest_room.tscn" id="2_plbmw"]
-[ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/Player.tscn" id="3_a8b4v"]
-[ext_resource type="PackedScene" path="res://scenes/gui/meta_upgrades.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dqetu3bq4c1ws" path="res://scenes/player/player.tscn" id="3_a8b4v"]
+[ext_resource type="PackedScene" uid="uid://d2ol8b7l6lqvb" path="res://scenes/gui/meta_upgrades.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://dcsh74udgl8bb" path="res://scenes/camp/skeleton_shopkeeper.tscn" id="5"]
 
 [node name="Camp" type="Node2D" unique_id=270764938]

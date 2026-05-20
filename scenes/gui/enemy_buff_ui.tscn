@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://boqbjdhoeta6g"]
 
-[ext_resource type="Script" uid="uid://cipg25cbackkb" path="res://scenes/gui/enemy_buff_ui.gd" id="1_vtqij"]
+[ext_resource type="Script" uid="uid://cipg25cbackkb" path="res://scripts/gui/enemy_buff_ui.gd" id="1_vtqij"]
 
 [node name="EnemyBuffUi" type="Control" unique_id=1139812355]
 layout_mode = 3
