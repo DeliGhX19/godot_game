@@ -2,10 +2,16 @@ extends CanvasLayer
 
 @onready var hp_bar: ProgressBar = $Control/ProgressBar
 @onready var hp_label: Label = $Control/Label
+@onready var scene_title_ui = $SceneTitleUI
 
 
 func initialize(player: CharacterBody2D) -> void:
 	player.display_hp.connect(_on_display_hp)
+
+
+func show_environment_title(env_name: String):
+	if env_name == "": return
+	scene_title_ui.show_title(env_name)
 
 
 func _on_display_hp(hp: float, max_hp: float):

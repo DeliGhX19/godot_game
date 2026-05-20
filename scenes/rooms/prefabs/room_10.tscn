@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="4_fth25"]
 [ext_resource type="PackedScene" uid="uid://d0chsu0osykay" path="res://scenes/rooms/component/wall.tscn" id="5_ul6u7"]
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="6_tc1m5"]
+[ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="7_qcp2d"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/spike_trap.tscn" id="8_5psxw"]
+[ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="9_fth25"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jx7c0"]
 texture = ExtResource("2_qcp2d")
@@ -140,7 +143,7 @@ position = Vector2(160, 96)
 position = Vector2(608, 32)
 
 [node name="EnemyPoint6" parent="." unique_id=1364889017 instance=ExtResource("6_tc1m5")]
-position = Vector2(320, 448)
+position = Vector2(512, 472)
 
 [node name="Wall54" parent="." unique_id=489574375 instance=ExtResource("5_ul6u7")]
 position = Vector2(160, 608)
@@ -196,3 +199,21 @@ position = Vector2(736, 352)
 
 [node name="Wall33" parent="." unique_id=1919952680 instance=ExtResource("5_ul6u7")]
 position = Vector2(736, 288)
+
+[node name="Bonfire" parent="." unique_id=1729126183 instance=ExtResource("7_qcp2d")]
+position = Vector2(416, 336)
+
+[node name="SpikeTrap2" parent="." unique_id=1069710761 instance=ExtResource("8_5psxw")]
+position = Vector2(288, 544.00006)
+rotation = -0.017627412
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="SpikeTrap" parent="." unique_id=331362939 instance=ExtResource("8_5psxw")]
+position = Vector2(224.00002, 95.99997)
+rotation = -3.1504064
+
+[node name="SpikeTrap3" parent="." unique_id=936330230 instance=ExtResource("8_5psxw")]
+position = Vector2(608, 480)
+
+[node name="BonusPoint" parent="." unique_id=2037082318 instance=ExtResource("9_fth25")]
+position = Vector2(640, 384)

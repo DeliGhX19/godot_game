@@ -1,49 +1,170 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://d2ol8b7l6lqvb"]
 
-[ext_resource type="Script" path="res://scripts/gui/meta_upgrades.gd" id="1"]
+[ext_resource type="Script" uid="uid://ytnwxfbhnt2x" path="res://scripts/gui/meta_upgrades.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bb3d48s30jxup" path="res://assets/ui/panel.png" id="2_otbj5"]
+[ext_resource type="Texture2D" uid="uid://d7v8xsjel1ab" path="res://assets/ui/upgrade.png" id="3_h5stu"]
+[ext_resource type="Texture2D" uid="uid://b7lu5q3lqfodq" path="res://assets/ui/pressed_upgrade.png" id="4_3rhwa"]
 
-[node name="MetaUpgrades" type="CanvasLayer"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h5stu"]
+texture = ExtResource("2_otbj5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3rhwa"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjjnt"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7maj0"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_of6hu"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yhsnm"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1unpq"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ejnaq"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20jc7"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6fkq5"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7qvoa"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nyute"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yqbr6"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ww71x"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ec0ws"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xyta0"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qakdc"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xrwnr"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6mnp"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q0fpy"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nfcje"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_epos3"]
+texture = ExtResource("3_h5stu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jylym"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4n85o"]
+texture = ExtResource("4_3rhwa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j3ove"]
+texture = ExtResource("4_3rhwa")
+
+[node name="MetaUpgrades" type="CanvasLayer" unique_id=956298238]
 script = ExtResource("1")
 
-[node name="Panel" type="Panel" parent="."]
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 520.0
-offset_bottom = 320.0
+[node name="Panel" type="Panel" parent="." unique_id=1104195690]
+offset_right = 678.6199
+offset_bottom = 536.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_h5stu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 472.0
-offset_bottom = 272.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=765805729]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 64.0
+offset_right = 536.0
+offset_bottom = 460.0
 theme_override_constants/separation = 8
 
-[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1420566823]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.47622395, 0.25637165, 0.10726886, 1)
+theme_override_font_sizes/font_size = 24
 text = "Meta Upgrades"
+horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="CurrencyLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="CurrencyLabel" type="Label" parent="Panel/VBoxContainer" unique_id=89210787]
+layout_mode = 2
 text = "Meta Currency: 0"
 
-[node name="SummaryLabel" type="Label" parent="Panel/VBoxContainer"]
+[node name="SummaryLabel" type="Label" parent="Panel/VBoxContainer" unique_id=270816122]
+layout_mode = 2
 text = "HP 100 | Move 400 | Jump 800 | Crit 0.00 | DR 0.000"
 autowrap_mode = 3
 
-[node name="HPButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="HPButton" type="Button" parent="Panel/VBoxContainer" unique_id=1056396263]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_3rhwa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mjjnt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7maj0")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_of6hu")
 text = "HP Lv.0 | HP 100 -> 110 | Cost 5"
 
-[node name="MoveSpeedButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="MoveSpeedButton" type="Button" parent="Panel/VBoxContainer" unique_id=1921212773]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_yhsnm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1unpq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ejnaq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_20jc7")
 text = "Move Speed Lv.0 | Move 400 -> 408 | Cost 5"
 
-[node name="JumpButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="JumpButton" type="Button" parent="Panel/VBoxContainer" unique_id=1034928209]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_6fkq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7qvoa")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nyute")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_yqbr6")
 text = "Jump Lv.0 | Jump 800 -> 820 | Cost 4"
 
-[node name="CritButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="CritButton" type="Button" parent="Panel/VBoxContainer" unique_id=1972934575]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ww71x")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ec0ws")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xyta0")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_qakdc")
 text = "Crit Rate Lv.0 | Crit 0.00 -> 0.01 | Cost 8"
 
-[node name="DRButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="DRButton" type="Button" parent="Panel/VBoxContainer" unique_id=1586577141]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xrwnr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s6mnp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_q0fpy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_nfcje")
 text = "Damage Reduction Lv.0 | DR 0.000 -> 0.005 | Cost 10"
 
-[node name="CloseButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Panel/VBoxContainer" unique_id=1307729796]
+custom_minimum_size = Vector2(448, 42)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_epos3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jylym")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4n85o")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_j3ove")
 text = "Close"
 
 [connection signal="pressed" from="Panel/VBoxContainer/HPButton" to="." method="_on_hp_button_pressed"]

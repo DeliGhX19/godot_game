@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bnj8fx3ehrtfw" path="res://scenes/rooms/component/enemy_point.tscn" id="4_i0ooe"]
 [ext_resource type="PackedScene" uid="uid://cbf5iwo285rcr" path="res://scenes/rooms/component/opening.tscn" id="5_dqu1e"]
 [ext_resource type="PackedScene" uid="uid://ctgkxg60rtvg2" path="res://scenes/rooms/component/bonus_point.tscn" id="8_i0ooe"]
-[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/SpikeTrap.tscn" id="9_dqu1e"]
+[ext_resource type="PackedScene" uid="uid://dm8iipk4rat67" path="res://scenes/rooms/component/spike_trap.tscn" id="9_dqu1e"]
+[ext_resource type="PackedScene" uid="uid://cyymfgdlhwo8y" path="res://scenes/rooms/component/bonfire.tscn" id="10_rwnnp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dqu1e"]
 texture = ExtResource("2_1v5ju")
@@ -331,7 +332,36 @@ position = Vector2(448, 800)
 rotation = 1.5707964
 
 [node name="BonusPoint" parent="." unique_id=2037082318 instance=ExtResource("8_i0ooe")]
-position = Vector2(1218, 118)
+position = Vector2(1216, 128)
 
 [node name="SpikeTrap" parent="." unique_id=1069710761 instance=ExtResource("9_dqu1e")]
 position = Vector2(664, 288)
+
+[node name="EnemyPoint6" parent="." unique_id=557235751 instance=ExtResource("4_i0ooe")]
+position = Vector2(1080, 648)
+
+[node name="Bonfire" parent="." unique_id=1729126183 instance=ExtResource("10_rwnnp")]
+position = Vector2(480, 464)
+
+[node name="SpikeTrap2" parent="." unique_id=1069090762 instance=ExtResource("9_dqu1e")]
+position = Vector2(768, 96.00001)
+rotation = -3.1504064
+
+[node name="SpikeTrap" parent="SpikeTrap2" unique_id=951637246 instance=ExtResource("9_dqu1e")]
+position = Vector2(-202.35121, -641.80835)
+rotation = -3.1504064
+
+[node name="EnemyPoint" parent="." unique_id=1761649934 instance=ExtResource("4_i0ooe")]
+position = Vector2(1152, 112)
+
+[node name="EnemyPoint2" parent="." unique_id=1924262998 instance=ExtResource("4_i0ooe")]
+position = Vector2(320, 384)
+
+[node name="EnemyPoint7" parent="." unique_id=2079991127 instance=ExtResource("4_i0ooe")]
+position = Vector2(896, 640)
+
+[node name="EnemyPoint8" parent="." unique_id=824201282 instance=ExtResource("4_i0ooe")]
+position = Vector2(704, 640)
+
+[node name="BonusPoint2" parent="." unique_id=1150895761 instance=ExtResource("8_i0ooe")]
+position = Vector2(736, 256)

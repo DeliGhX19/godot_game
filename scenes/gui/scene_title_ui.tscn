@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://d2twsxrjia8de"]
+
+[ext_resource type="Script" uid="uid://mmkwd7406cue" path="res://scripts/gui/scene_title_ui.gd" id="1_o3dc5"]
+
+[node name="SceneTitleUi" type="CanvasLayer" unique_id=796972442]
+script = ExtResource("1_o3dc5")
+
+[node name="Control" type="Control" parent="." unique_id=1779990206]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleImage" type="TextureRect" parent="Control" unique_id=158190493]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2

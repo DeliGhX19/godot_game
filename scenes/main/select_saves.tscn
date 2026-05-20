@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mq2ibq7gd3ka"]
 
-[ext_resource type="Script" uid="uid://c2lbvllypluci" path="res://scripts/main/select_saves.gd" id="1_o4mbo"]
+[ext_resource type="Script" uid="uid://budgahe6755rq" path="res://scripts/main/select_saves.gd" id="1_o4mbo"]
 [ext_resource type="PackedScene" uid="uid://cgpc5x1md4j4e" path="res://scenes/gui/saves.tscn" id="1_tyt2j"]
 
 [node name="SelectSaves" type="Node2D" unique_id=1366848116]
