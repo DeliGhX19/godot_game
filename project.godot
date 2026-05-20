@@ -14,6 +14,13 @@ config/name="game"
 run/main_scene="uid://mq2ibq7gd3ka"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [input]
 
 move_left={

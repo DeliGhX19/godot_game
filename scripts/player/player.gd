@@ -21,6 +21,7 @@ var profile: PlayerProfile
 var stats: PlayerStats
 var buffs: PlayerBuffs
 var flying_sword_controller: Node2D = null
+@export var debug_extra_flying_sword_stacks: int = 0
 
 # 近战攻击
 var is_attacking: bool = false
@@ -55,7 +56,9 @@ func initialize(selected_profile: PlayerProfile):
 	
 	buffs = PlayerBuffs.new()
 	buffs.initialize()
-	
+	if debug_extra_flying_sword_stacks > 0:
+		buffs.buffs[PlayerBuffs.FLYING_SWORD] += debug_extra_flying_sword_stacks
+
 	set_slide_collision_enabled(false)
 	set_attack_hitbox_enabled(false)
 	ensure_flying_sword_controller()
