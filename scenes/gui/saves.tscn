@@ -5,6 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://bm0wthscirevx" path="res://assets/title/botton3.png" id="3_4fiw0"]
 [ext_resource type="Texture2D" uid="uid://dnk3ght0bxpr1" path="res://assets/title/background.png" id="4_4fiw0"]
 [ext_resource type="Texture2D" uid="uid://ee2ywkmiu34m" path="res://assets/title/pressed_botton3.png" id="4_wl0ka"]
+[ext_resource type="Texture2D" uid="uid://ddmb570yr0tjm" path="res://assets/ui/info.png" id="6_wl0ka"]
+[ext_resource type="Texture2D" uid="uid://r7l0o0ye1ujd" path="res://assets/ui/info_pressed.png" id="7_vbh5e"]
+[ext_resource type="Texture2D" uid="uid://bb3d48s30jxup" path="res://assets/ui/panel.png" id="7_vwjlo"]
+[ext_resource type="Texture2D" uid="uid://cn3120ql7njl4" path="res://assets/ui/close.png" id="8_q5myn"]
+[ext_resource type="Texture2D" uid="uid://do2nsm3074iol" path="res://assets/ui/close_pressed.png" id="10_sho1p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl0ka"]
 texture = ExtResource("3_4fiw0")
@@ -41,6 +46,29 @@ texture = ExtResource("4_wl0ka")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sho1p"]
 texture = ExtResource("4_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3vxfi"]
+texture = ExtResource("6_wl0ka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_en4dv"]
+texture = ExtResource("7_vbh5e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_njpb0"]
+texture = ExtResource("7_vbh5e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v3m41"]
+texture = ExtResource("7_vwjlo")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b3kxg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uphve"]
+texture = ExtResource("8_q5myn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nas54"]
+texture = ExtResource("10_sho1p")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmd3i"]
+texture = ExtResource("10_sho1p")
 
 [node name="Saves" type="Control" unique_id=843789184]
 layout_mode = 3
@@ -140,6 +168,58 @@ text = "Save3"
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
+[node name="HelpButton" type="Button" parent="." unique_id=76057250]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 1084.0
+offset_top = 575.0
+offset_right = 1724.0
+offset_bottom = 1215.0
+scale = Vector2(0.09381859, 0.094900884)
+theme_override_styles/normal = SubResource("StyleBoxTexture_3vxfi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_en4dv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_njpb0")
+
+[node name="HelpPanel" type="Panel" parent="." unique_id=1855295497]
+visible = false
+layout_mode = 0
+offset_left = 270.0
+offset_top = 123.0
+offset_right = 310.0
+offset_bottom = 163.0
+scale = Vector2(18.156073, 11.355552)
+theme_override_styles/panel = SubResource("StyleBoxTexture_v3m41")
+
+[node name="Label" type="Label" parent="HelpPanel" unique_id=517251994]
+layout_mode = 0
+offset_left = 8.371855
+offset_top = 5.1076336
+offset_right = 277.37186
+offset_bottom = 288.10764
+scale = Vector2(0.083048046, 0.13823463)
+theme_override_styles/normal = SubResource("StyleBoxTexture_b3kxg")
+text = "【基础操作】A / D 左右移动W 跳跃
+鼠标左键 近战攻击 鼠标右键 释放法术
+Shift 闪避
+数字键1~5 切换元素
+【玩法】击败敌人获得奖励
+每层随机生成环境效果
+每5层进入特殊场景
+生命值归零游戏结束"
+
+[node name="CloseButton" type="Button" parent="HelpPanel" unique_id=1803954457]
+layout_mode = 0
+offset_left = 36.241318
+offset_top = 0.88062644
+offset_right = 44.241318
+offset_bottom = 8.880627
+scale = Vector2(0.3736265, 0.6294115)
+theme_override_styles/normal = SubResource("StyleBoxTexture_uphve")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nas54")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pmd3i")
+
 [connection signal="pressed" from="SafeArea/VBoxLayout/CenterArea/VBoxContainer/Save1" to="." method="_on_save_1_pressed"]
 [connection signal="pressed" from="SafeArea/VBoxLayout/CenterArea/VBoxContainer/Save2" to="." method="_on_save_2_pressed"]
 [connection signal="pressed" from="SafeArea/VBoxLayout/CenterArea/VBoxContainer/Save3" to="." method="_on_save_3_pressed"]
+[connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="HelpPanel/CloseButton" to="." method="_on_close_button_pressed"]

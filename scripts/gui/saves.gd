@@ -34,3 +34,11 @@ func _on_save_2_pressed() -> void:
 
 func _on_save_3_pressed() -> void:
 	select_slot(3)
+
+
+func _on_help_button_pressed():
+	$HelpPanel.visible = true
+
+
+func _on_close_button_pressed() -> void:
+	$HelpPanel.visible = false
