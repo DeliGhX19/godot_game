@@ -102,7 +102,7 @@ position = Vector2(-224, 32)
 position = Vector2(-160, -32)
 
 [node name="Wall15" parent="." unique_id=709697577 instance=ExtResource("1_nh0oq")]
-position = Vector2(-104, -96)
+position = Vector2(-96, -96)
 
 [node name="Wall22" parent="." unique_id=462253912 instance=ExtResource("1_nh0oq")]
 position = Vector2(352, 32)
@@ -123,7 +123,7 @@ position = Vector2(96, -160)
 position = Vector2(32, -160)
 
 [node name="Wall16" parent="." unique_id=1494586823 instance=ExtResource("1_nh0oq")]
-position = Vector2(-40, -96)
+position = Vector2(-31, -96)
 
 [node name="Wall23" parent="." unique_id=73662850 instance=ExtResource("1_nh0oq")]
 position = Vector2(416, 160)

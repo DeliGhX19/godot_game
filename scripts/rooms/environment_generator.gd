@@ -77,7 +77,7 @@ var environment_pool: Array[EnvironmentData] = [
 	EnvironmentData.new(
 		"极寒雪冢",    # 冰属性+50% 火属性-25% 灼烧概率-15% 寒冷概率+25% 冰冻时间+1s 玩家远离篝火或生命树8s开始霜冻（2%扣血）
 		"res://scripts/rooms/environment/winter.gdshader",
-		2000.0,
+		20.0,
 		func():
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_WINTER] = 1
 			GameManager.player.buffs.winter_timer = 8.0
@@ -116,9 +116,10 @@ var environment_pool: Array[EnvironmentData] = [
 		"res://scripts/rooms/environment/hell.gdshader",
 		5.0,
 		func():
-			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_HELL] = 1
-			for enemy in GameManager.enemies:
-				enemy.buffs.buffs[EnemyBuffs.ENVIRONMENT_HELL] = 1,
+			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_HELL] = 1,
+			# 引入飞剑系统后敌人很容易被秒，不符合场景特性
+			#for enemy in GameManager.enemies:
+				#enemy.buffs.buffs[EnemyBuffs.ENVIRONMENT_HELL] = 1,
 		func():
 			GameManager.player.buffs.buffs[PlayerBuffs.ENVIRONMENT_HELL] = 0,
 	),
@@ -128,8 +129,7 @@ var current_env: EnvironmentData = null
 
 # 生成环境
 func generate() -> void:
-	# 第一层不会生成环境
-	# if GameManager.level == 1: return
+	if GameManager.level == 1: return
 	
 	unload_current()
 	

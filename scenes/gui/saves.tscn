@@ -200,8 +200,8 @@ scale = Vector2(0.083048046, 0.13823463)
 theme_override_styles/normal = SubResource("StyleBoxTexture_b3kxg")
 text = "【基础操作】A / D 左右移动W 跳跃
 鼠标左键 近战攻击 鼠标右键 释放法术
-Shift 闪避
-数字键1~5 切换元素
+左Alt 闪避 数字键1~5 切换元素
+ESC 退出并保存
 【玩法】击败敌人获得奖励
 每层随机生成环境效果
 每5层进入特殊场景

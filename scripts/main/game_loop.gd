@@ -41,6 +41,7 @@ func game_over() -> void:
 	var camp_instance = camp_scene.instantiate()
 	profile.rebuild_stats_from_meta()
 	camp_instance.profile = profile
+	profile.save()
 
 	get_tree().root.add_child(camp_instance)
 	queue_free()
@@ -56,5 +57,6 @@ func _on_player_die() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		# 调试用作弊指令
 		if event.keycode == KEY_J:
 			get_tree().get_first_node_in_group("rewards_gui").open_reward_gui("ultimate")

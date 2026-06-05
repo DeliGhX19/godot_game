@@ -32,3 +32,14 @@ func start_game() -> void:
 
 func _on_rest_room_start_game() -> void:
 	call_deferred("start_game")
+
+# 退出并保存
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_ESCAPE:
+			profile.save()
+		
+			var saves_scene = load("res://scenes/main/select_saves.tscn")
+			var saves_scene_instance = saves_scene.instantiate()
+			get_tree().root.add_child(saves_scene_instance)
+			queue_free()
